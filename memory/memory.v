@@ -4,7 +4,7 @@
 // Pruebaa3
 module memory #(    
    parameter MEM_WIDTH = 10,       
-   parameter MEM_LENGHT = 8)(
+   parameter MEM_LENGHT = 3)(
    input wire [MEM_WIDTH-1:0] Fifo_Data_in,
    input wire [3:0] read_addr, write_addr,       // two addresses (read_ptr y write_ptr)
    input wire write_enable, read_enable, clk,                  

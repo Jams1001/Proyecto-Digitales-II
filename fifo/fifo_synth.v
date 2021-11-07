@@ -4,13 +4,13 @@
 (* top =  1  *)
 (* src = "fifo_synth.v:2" *)
 module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, almost_full, almost_empty, error, data_out_synth);
-  (* src = "fifo_synth.v:40" *)
+  (* src = "fifo_synth.v:42" *)
   wire [3:0] _0000_;
-  (* src = "fifo_synth.v:40" *)
+  (* src = "fifo_synth.v:42" *)
   wire [9:0] _0001_;
-  (* src = "fifo_synth.v:40" *)
+  (* src = "fifo_synth.v:42" *)
   wire [2:0] _0002_;
-  (* src = "fifo_synth.v:40" *)
+  (* src = "fifo_synth.v:42" *)
   wire [2:0] _0003_;
   wire _0004_;
   wire _0005_;
@@ -630,7 +630,7 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
   output almost_full;
   (* src = "fifo_synth.v:5" *)
   input clk;
-  (* src = "fifo_synth.v:16" *)
+  (* src = "fifo_synth.v:17" *)
   wire [3:0] contador;
   (* src = "fifo_synth.v:6" *)
   input [9:0] data_in;
@@ -650,13 +650,13 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
   wire [9:0] \mem[5] ;
   wire [9:0] \mem[6] ;
   wire [9:0] \mem[7] ;
-  (* src = "fifo_synth.v:15" *)
+  (* src = "fifo_synth.v:16" *)
   wire [2:0] rd_ptr;
   (* src = "fifo_synth.v:5" *)
   input read_enable;
   (* src = "fifo_synth.v:5" *)
   input reset;
-  (* src = "fifo_synth.v:14" *)
+  (* src = "fifo_synth.v:15" *)
   wire [2:0] wr_ptr;
   (* src = "fifo_synth.v:5" *)
   input write_enable;
@@ -685,71 +685,71 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0089_)
   );
   NOT _0622_ (
-    .A(rd_ptr[2]),
+    .A(rd_ptr[1]),
     .Y(_0090_)
   );
   NOT _0623_ (
-    .A(data_in[0]),
+    .A(rd_ptr[2]),
     .Y(_0091_)
   );
   NOT _0624_ (
-    .A(data_in[1]),
+    .A(data_in[0]),
     .Y(_0092_)
   );
   NOT _0625_ (
-    .A(data_in[2]),
+    .A(data_in[1]),
     .Y(_0093_)
   );
   NOT _0626_ (
-    .A(data_in[3]),
+    .A(data_in[2]),
     .Y(_0094_)
   );
   NOT _0627_ (
-    .A(data_in[4]),
+    .A(data_in[3]),
     .Y(_0095_)
   );
   NOT _0628_ (
-    .A(data_in[5]),
+    .A(data_in[4]),
     .Y(_0096_)
   );
   NOT _0629_ (
-    .A(data_in[6]),
+    .A(data_in[5]),
     .Y(_0097_)
   );
   NOT _0630_ (
-    .A(data_in[7]),
+    .A(data_in[6]),
     .Y(_0098_)
   );
   NOT _0631_ (
-    .A(data_in[8]),
+    .A(data_in[7]),
     .Y(_0099_)
   );
   NOT _0632_ (
-    .A(data_in[9]),
+    .A(data_in[8]),
     .Y(_0100_)
   );
   NOT _0633_ (
-    .A(reset),
+    .A(data_in[9]),
     .Y(_0101_)
   );
   NOT _0634_ (
-    .A(wr_ptr[0]),
+    .A(reset),
     .Y(_0102_)
   );
   NOT _0635_ (
-    .A(wr_ptr[1]),
+    .A(wr_ptr[0]),
     .Y(_0103_)
   );
   NOT _0636_ (
-    .A(wr_ptr[2]),
+    .A(wr_ptr[1]),
     .Y(_0104_)
   );
   NOT _0637_ (
-    .A(rd_ptr[0]),
+    .A(wr_ptr[2]),
     .Y(_0105_)
   );
   NOT _0638_ (
-    .A(rd_ptr[1]),
+    .A(rd_ptr[0]),
     .Y(_0106_)
   );
   NOR _0639_ (
@@ -877,7 +877,7 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0126_)
   );
   NOR _0664_ (
-    .A(_0101_),
+    .A(_0102_),
     .B(_0126_),
     .Y(_0000_[1])
   );
@@ -970,13 +970,13 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0142_)
   );
   NOR _0683_ (
-    .A(_0101_),
+    .A(_0102_),
     .B(_0142_),
     .Y(_0000_[3])
   );
   NOR _0684_ (
     .A(_0087_),
-    .B(_0105_),
+    .B(_0106_),
     .Y(_0143_)
   );
   NAND _0685_ (
@@ -1013,7 +1013,7 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0149_)
   );
   NAND _0692_ (
-    .A(_0106_),
+    .A(_0090_),
     .B(_0144_),
     .Y(_0150_)
   );
@@ -1028,12 +1028,12 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0002_[1])
   );
   NOR _0695_ (
-    .A(_0090_),
+    .A(_0091_),
     .B(_0148_),
     .Y(_0152_)
   );
   NAND _0696_ (
-    .A(_0090_),
+    .A(_0091_),
     .B(_0148_),
     .Y(_0153_)
   );
@@ -1076,12 +1076,12 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0003_[0])
   );
   NOR _0705_ (
-    .A(_0103_),
+    .A(_0104_),
     .B(_0155_),
     .Y(_0160_)
   );
   NAND _0706_ (
-    .A(_0103_),
+    .A(_0104_),
     .B(_0155_),
     .Y(_0161_)
   );
@@ -1116,13 +1116,13 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0003_[2])
   );
   NOR _0713_ (
-    .A(_0105_),
+    .A(_0091_),
     .B(\mem[7] [0]),
     .Y(_0166_)
   );
   NOR _0714_ (
-    .A(rd_ptr[0]),
-    .B(\mem[6] [0]),
+    .A(rd_ptr[2]),
+    .B(\mem[3] [0]),
     .Y(_0167_)
   );
   NOR _0715_ (
@@ -1131,18 +1131,18 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0168_)
   );
   NOR _0716_ (
-    .A(_0106_),
+    .A(_0090_),
     .B(_0168_),
     .Y(_0169_)
   );
   NOR _0717_ (
-    .A(_0105_),
-    .B(\mem[5] [0]),
+    .A(rd_ptr[2]),
+    .B(\mem[1] [0]),
     .Y(_0170_)
   );
   NOR _0718_ (
-    .A(rd_ptr[0]),
-    .B(\mem[4] [0]),
+    .A(_0091_),
+    .B(\mem[5] [0]),
     .Y(_0171_)
   );
   NOR _0719_ (
@@ -1161,17 +1161,17 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0174_)
   );
   NOR _0722_ (
-    .A(_0090_),
+    .A(_0106_),
     .B(_0174_),
     .Y(_0175_)
   );
   NOR _0723_ (
-    .A(_0105_),
-    .B(\mem[3] [0]),
+    .A(_0091_),
+    .B(\mem[6] [0]),
     .Y(_0176_)
   );
   NOR _0724_ (
-    .A(rd_ptr[0]),
+    .A(rd_ptr[2]),
     .B(\mem[2] [0]),
     .Y(_0177_)
   );
@@ -1181,18 +1181,18 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0178_)
   );
   NOR _0726_ (
-    .A(_0106_),
+    .A(_0090_),
     .B(_0178_),
     .Y(_0179_)
   );
   NOR _0727_ (
-    .A(_0105_),
-    .B(\mem[1] [0]),
+    .A(rd_ptr[2]),
+    .B(\mem[0] [0]),
     .Y(_0180_)
   );
   NOR _0728_ (
-    .A(rd_ptr[0]),
-    .B(\mem[0] [0]),
+    .A(_0091_),
+    .B(\mem[4] [0]),
     .Y(_0181_)
   );
   NOR _0729_ (
@@ -1211,7 +1211,7 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0184_)
   );
   NOR _0732_ (
-    .A(rd_ptr[2]),
+    .A(rd_ptr[0]),
     .B(_0184_),
     .Y(_0185_)
   );
@@ -1245,13 +1245,13 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0001_[0])
   );
   NOR _0739_ (
-    .A(_0105_),
-    .B(\mem[7] [1]),
+    .A(rd_ptr[2]),
+    .B(\mem[3] [1]),
     .Y(_0191_)
   );
   NOR _0740_ (
-    .A(rd_ptr[0]),
-    .B(\mem[6] [1]),
+    .A(_0091_),
+    .B(\mem[7] [1]),
     .Y(_0192_)
   );
   NOR _0741_ (
@@ -1260,18 +1260,18 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0193_)
   );
   NOR _0742_ (
-    .A(_0106_),
+    .A(_0090_),
     .B(_0193_),
     .Y(_0194_)
   );
   NOR _0743_ (
-    .A(_0105_),
+    .A(_0091_),
     .B(\mem[5] [1]),
     .Y(_0195_)
   );
   NOR _0744_ (
-    .A(rd_ptr[0]),
-    .B(\mem[4] [1]),
+    .A(rd_ptr[2]),
+    .B(\mem[1] [1]),
     .Y(_0196_)
   );
   NOR _0745_ (
@@ -1290,18 +1290,18 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0199_)
   );
   NOR _0748_ (
-    .A(_0090_),
+    .A(_0106_),
     .B(_0199_),
     .Y(_0200_)
   );
   NOR _0749_ (
-    .A(_0105_),
-    .B(\mem[3] [1]),
+    .A(rd_ptr[2]),
+    .B(\mem[2] [1]),
     .Y(_0201_)
   );
   NOR _0750_ (
-    .A(rd_ptr[0]),
-    .B(\mem[2] [1]),
+    .A(_0091_),
+    .B(\mem[6] [1]),
     .Y(_0202_)
   );
   NOR _0751_ (
@@ -1310,17 +1310,17 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0203_)
   );
   NOR _0752_ (
-    .A(_0106_),
+    .A(_0090_),
     .B(_0203_),
     .Y(_0204_)
   );
   NOR _0753_ (
-    .A(_0105_),
-    .B(\mem[1] [1]),
+    .A(_0091_),
+    .B(\mem[4] [1]),
     .Y(_0205_)
   );
   NOR _0754_ (
-    .A(rd_ptr[0]),
+    .A(rd_ptr[2]),
     .B(\mem[0] [1]),
     .Y(_0206_)
   );
@@ -1340,7 +1340,7 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0209_)
   );
   NOR _0758_ (
-    .A(rd_ptr[2]),
+    .A(rd_ptr[0]),
     .B(_0209_),
     .Y(_0210_)
   );
@@ -1374,13 +1374,13 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0001_[1])
   );
   NOR _0765_ (
-    .A(_0105_),
-    .B(\mem[7] [2]),
+    .A(rd_ptr[2]),
+    .B(\mem[3] [2]),
     .Y(_0216_)
   );
   NOR _0766_ (
-    .A(rd_ptr[0]),
-    .B(\mem[6] [2]),
+    .A(_0091_),
+    .B(\mem[7] [2]),
     .Y(_0217_)
   );
   NOR _0767_ (
@@ -1389,18 +1389,18 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0218_)
   );
   NOR _0768_ (
-    .A(_0106_),
+    .A(_0090_),
     .B(_0218_),
     .Y(_0219_)
   );
   NOR _0769_ (
-    .A(_0105_),
+    .A(_0091_),
     .B(\mem[5] [2]),
     .Y(_0220_)
   );
   NOR _0770_ (
-    .A(rd_ptr[0]),
-    .B(\mem[4] [2]),
+    .A(rd_ptr[2]),
+    .B(\mem[1] [2]),
     .Y(_0221_)
   );
   NOR _0771_ (
@@ -1419,18 +1419,18 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0224_)
   );
   NOR _0774_ (
-    .A(_0090_),
+    .A(_0106_),
     .B(_0224_),
     .Y(_0225_)
   );
   NOR _0775_ (
-    .A(_0105_),
-    .B(\mem[3] [2]),
+    .A(rd_ptr[2]),
+    .B(\mem[2] [2]),
     .Y(_0226_)
   );
   NOR _0776_ (
-    .A(rd_ptr[0]),
-    .B(\mem[2] [2]),
+    .A(_0091_),
+    .B(\mem[6] [2]),
     .Y(_0227_)
   );
   NOR _0777_ (
@@ -1439,17 +1439,17 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0228_)
   );
   NOR _0778_ (
-    .A(_0106_),
+    .A(_0090_),
     .B(_0228_),
     .Y(_0229_)
   );
   NOR _0779_ (
-    .A(_0105_),
-    .B(\mem[1] [2]),
+    .A(_0091_),
+    .B(\mem[4] [2]),
     .Y(_0230_)
   );
   NOR _0780_ (
-    .A(rd_ptr[0]),
+    .A(rd_ptr[2]),
     .B(\mem[0] [2]),
     .Y(_0231_)
   );
@@ -1469,7 +1469,7 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0234_)
   );
   NOR _0784_ (
-    .A(rd_ptr[2]),
+    .A(rd_ptr[0]),
     .B(_0234_),
     .Y(_0235_)
   );
@@ -1503,13 +1503,13 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0001_[2])
   );
   NOR _0791_ (
-    .A(_0105_),
-    .B(\mem[7] [3]),
+    .A(rd_ptr[2]),
+    .B(\mem[3] [3]),
     .Y(_0241_)
   );
   NOR _0792_ (
-    .A(rd_ptr[0]),
-    .B(\mem[6] [3]),
+    .A(_0091_),
+    .B(\mem[7] [3]),
     .Y(_0242_)
   );
   NOR _0793_ (
@@ -1518,18 +1518,18 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0243_)
   );
   NOR _0794_ (
-    .A(_0106_),
+    .A(_0090_),
     .B(_0243_),
     .Y(_0244_)
   );
   NOR _0795_ (
-    .A(_0105_),
+    .A(_0091_),
     .B(\mem[5] [3]),
     .Y(_0245_)
   );
   NOR _0796_ (
-    .A(rd_ptr[0]),
-    .B(\mem[4] [3]),
+    .A(rd_ptr[2]),
+    .B(\mem[1] [3]),
     .Y(_0246_)
   );
   NOR _0797_ (
@@ -1548,18 +1548,18 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0249_)
   );
   NOR _0800_ (
-    .A(_0090_),
+    .A(_0106_),
     .B(_0249_),
     .Y(_0250_)
   );
   NOR _0801_ (
-    .A(_0105_),
-    .B(\mem[3] [3]),
+    .A(rd_ptr[2]),
+    .B(\mem[2] [3]),
     .Y(_0251_)
   );
   NOR _0802_ (
-    .A(rd_ptr[0]),
-    .B(\mem[2] [3]),
+    .A(_0091_),
+    .B(\mem[6] [3]),
     .Y(_0252_)
   );
   NOR _0803_ (
@@ -1568,17 +1568,17 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0253_)
   );
   NOR _0804_ (
-    .A(_0106_),
+    .A(_0090_),
     .B(_0253_),
     .Y(_0254_)
   );
   NOR _0805_ (
-    .A(_0105_),
-    .B(\mem[1] [3]),
+    .A(_0091_),
+    .B(\mem[4] [3]),
     .Y(_0255_)
   );
   NOR _0806_ (
-    .A(rd_ptr[0]),
+    .A(rd_ptr[2]),
     .B(\mem[0] [3]),
     .Y(_0256_)
   );
@@ -1598,7 +1598,7 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0259_)
   );
   NOR _0810_ (
-    .A(rd_ptr[2]),
+    .A(rd_ptr[0]),
     .B(_0259_),
     .Y(_0260_)
   );
@@ -1632,13 +1632,13 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0001_[3])
   );
   NOR _0817_ (
-    .A(_0105_),
-    .B(\mem[7] [4]),
+    .A(rd_ptr[2]),
+    .B(\mem[3] [4]),
     .Y(_0266_)
   );
   NOR _0818_ (
-    .A(rd_ptr[0]),
-    .B(\mem[6] [4]),
+    .A(_0091_),
+    .B(\mem[7] [4]),
     .Y(_0267_)
   );
   NOR _0819_ (
@@ -1647,18 +1647,18 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0268_)
   );
   NOR _0820_ (
-    .A(_0106_),
+    .A(_0090_),
     .B(_0268_),
     .Y(_0269_)
   );
   NOR _0821_ (
-    .A(_0105_),
+    .A(_0091_),
     .B(\mem[5] [4]),
     .Y(_0270_)
   );
   NOR _0822_ (
-    .A(rd_ptr[0]),
-    .B(\mem[4] [4]),
+    .A(rd_ptr[2]),
+    .B(\mem[1] [4]),
     .Y(_0271_)
   );
   NOR _0823_ (
@@ -1677,18 +1677,18 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0274_)
   );
   NOR _0826_ (
-    .A(_0090_),
+    .A(_0106_),
     .B(_0274_),
     .Y(_0275_)
   );
   NOR _0827_ (
-    .A(_0105_),
-    .B(\mem[3] [4]),
+    .A(rd_ptr[2]),
+    .B(\mem[2] [4]),
     .Y(_0276_)
   );
   NOR _0828_ (
-    .A(rd_ptr[0]),
-    .B(\mem[2] [4]),
+    .A(_0091_),
+    .B(\mem[6] [4]),
     .Y(_0277_)
   );
   NOR _0829_ (
@@ -1697,17 +1697,17 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0278_)
   );
   NOR _0830_ (
-    .A(_0106_),
+    .A(_0090_),
     .B(_0278_),
     .Y(_0279_)
   );
   NOR _0831_ (
-    .A(_0105_),
-    .B(\mem[1] [4]),
+    .A(_0091_),
+    .B(\mem[4] [4]),
     .Y(_0280_)
   );
   NOR _0832_ (
-    .A(rd_ptr[0]),
+    .A(rd_ptr[2]),
     .B(\mem[0] [4]),
     .Y(_0281_)
   );
@@ -1727,7 +1727,7 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0284_)
   );
   NOR _0836_ (
-    .A(rd_ptr[2]),
+    .A(rd_ptr[0]),
     .B(_0284_),
     .Y(_0285_)
   );
@@ -1761,13 +1761,13 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0001_[4])
   );
   NOR _0843_ (
-    .A(_0105_),
-    .B(\mem[7] [5]),
+    .A(rd_ptr[2]),
+    .B(\mem[3] [5]),
     .Y(_0291_)
   );
   NOR _0844_ (
-    .A(rd_ptr[0]),
-    .B(\mem[6] [5]),
+    .A(_0091_),
+    .B(\mem[7] [5]),
     .Y(_0292_)
   );
   NOR _0845_ (
@@ -1776,18 +1776,18 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0293_)
   );
   NOR _0846_ (
-    .A(_0106_),
+    .A(_0090_),
     .B(_0293_),
     .Y(_0294_)
   );
   NOR _0847_ (
-    .A(_0105_),
+    .A(_0091_),
     .B(\mem[5] [5]),
     .Y(_0295_)
   );
   NOR _0848_ (
-    .A(rd_ptr[0]),
-    .B(\mem[4] [5]),
+    .A(rd_ptr[2]),
+    .B(\mem[1] [5]),
     .Y(_0296_)
   );
   NOR _0849_ (
@@ -1806,18 +1806,18 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0299_)
   );
   NOR _0852_ (
-    .A(_0090_),
+    .A(_0106_),
     .B(_0299_),
     .Y(_0300_)
   );
   NOR _0853_ (
-    .A(_0105_),
-    .B(\mem[3] [5]),
+    .A(rd_ptr[2]),
+    .B(\mem[2] [5]),
     .Y(_0301_)
   );
   NOR _0854_ (
-    .A(rd_ptr[0]),
-    .B(\mem[2] [5]),
+    .A(_0091_),
+    .B(\mem[6] [5]),
     .Y(_0302_)
   );
   NOR _0855_ (
@@ -1826,17 +1826,17 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0303_)
   );
   NOR _0856_ (
-    .A(_0106_),
+    .A(_0090_),
     .B(_0303_),
     .Y(_0304_)
   );
   NOR _0857_ (
-    .A(_0105_),
-    .B(\mem[1] [5]),
+    .A(_0091_),
+    .B(\mem[4] [5]),
     .Y(_0305_)
   );
   NOR _0858_ (
-    .A(rd_ptr[0]),
+    .A(rd_ptr[2]),
     .B(\mem[0] [5]),
     .Y(_0306_)
   );
@@ -1856,7 +1856,7 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0309_)
   );
   NOR _0862_ (
-    .A(rd_ptr[2]),
+    .A(rd_ptr[0]),
     .B(_0309_),
     .Y(_0310_)
   );
@@ -1890,13 +1890,13 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0001_[5])
   );
   NOR _0869_ (
-    .A(_0105_),
+    .A(_0091_),
     .B(\mem[7] [6]),
     .Y(_0316_)
   );
   NOR _0870_ (
-    .A(rd_ptr[0]),
-    .B(\mem[6] [6]),
+    .A(rd_ptr[2]),
+    .B(\mem[3] [6]),
     .Y(_0317_)
   );
   NOR _0871_ (
@@ -1905,18 +1905,18 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0318_)
   );
   NOR _0872_ (
-    .A(_0106_),
+    .A(_0090_),
     .B(_0318_),
     .Y(_0319_)
   );
   NOR _0873_ (
-    .A(_0105_),
-    .B(\mem[5] [6]),
+    .A(rd_ptr[2]),
+    .B(\mem[1] [6]),
     .Y(_0320_)
   );
   NOR _0874_ (
-    .A(rd_ptr[0]),
-    .B(\mem[4] [6]),
+    .A(_0091_),
+    .B(\mem[5] [6]),
     .Y(_0321_)
   );
   NOR _0875_ (
@@ -1935,17 +1935,17 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0324_)
   );
   NOR _0878_ (
-    .A(_0090_),
+    .A(_0106_),
     .B(_0324_),
     .Y(_0325_)
   );
   NOR _0879_ (
-    .A(_0105_),
-    .B(\mem[3] [6]),
+    .A(_0091_),
+    .B(\mem[6] [6]),
     .Y(_0326_)
   );
   NOR _0880_ (
-    .A(rd_ptr[0]),
+    .A(rd_ptr[2]),
     .B(\mem[2] [6]),
     .Y(_0327_)
   );
@@ -1955,18 +1955,18 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0328_)
   );
   NOR _0882_ (
-    .A(_0106_),
+    .A(_0090_),
     .B(_0328_),
     .Y(_0329_)
   );
   NOR _0883_ (
-    .A(_0105_),
-    .B(\mem[1] [6]),
+    .A(rd_ptr[2]),
+    .B(\mem[0] [6]),
     .Y(_0330_)
   );
   NOR _0884_ (
-    .A(rd_ptr[0]),
-    .B(\mem[0] [6]),
+    .A(_0091_),
+    .B(\mem[4] [6]),
     .Y(_0331_)
   );
   NOR _0885_ (
@@ -1985,7 +1985,7 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0334_)
   );
   NOR _0888_ (
-    .A(rd_ptr[2]),
+    .A(rd_ptr[0]),
     .B(_0334_),
     .Y(_0335_)
   );
@@ -2019,13 +2019,13 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0001_[6])
   );
   NOR _0895_ (
-    .A(_0105_),
-    .B(\mem[7] [7]),
+    .A(rd_ptr[2]),
+    .B(\mem[3] [7]),
     .Y(_0341_)
   );
   NOR _0896_ (
-    .A(rd_ptr[0]),
-    .B(\mem[6] [7]),
+    .A(_0091_),
+    .B(\mem[7] [7]),
     .Y(_0342_)
   );
   NOR _0897_ (
@@ -2034,18 +2034,18 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0343_)
   );
   NOR _0898_ (
-    .A(_0106_),
+    .A(_0090_),
     .B(_0343_),
     .Y(_0344_)
   );
   NOR _0899_ (
-    .A(_0105_),
+    .A(_0091_),
     .B(\mem[5] [7]),
     .Y(_0345_)
   );
   NOR _0900_ (
-    .A(rd_ptr[0]),
-    .B(\mem[4] [7]),
+    .A(rd_ptr[2]),
+    .B(\mem[1] [7]),
     .Y(_0346_)
   );
   NOR _0901_ (
@@ -2064,18 +2064,18 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0349_)
   );
   NOR _0904_ (
-    .A(_0090_),
+    .A(_0106_),
     .B(_0349_),
     .Y(_0350_)
   );
   NOR _0905_ (
-    .A(_0105_),
-    .B(\mem[3] [7]),
+    .A(rd_ptr[2]),
+    .B(\mem[2] [7]),
     .Y(_0351_)
   );
   NOR _0906_ (
-    .A(rd_ptr[0]),
-    .B(\mem[2] [7]),
+    .A(_0091_),
+    .B(\mem[6] [7]),
     .Y(_0352_)
   );
   NOR _0907_ (
@@ -2084,17 +2084,17 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0353_)
   );
   NOR _0908_ (
-    .A(_0106_),
+    .A(_0090_),
     .B(_0353_),
     .Y(_0354_)
   );
   NOR _0909_ (
-    .A(_0105_),
-    .B(\mem[1] [7]),
+    .A(_0091_),
+    .B(\mem[4] [7]),
     .Y(_0355_)
   );
   NOR _0910_ (
-    .A(rd_ptr[0]),
+    .A(rd_ptr[2]),
     .B(\mem[0] [7]),
     .Y(_0356_)
   );
@@ -2114,7 +2114,7 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0359_)
   );
   NOR _0914_ (
-    .A(rd_ptr[2]),
+    .A(rd_ptr[0]),
     .B(_0359_),
     .Y(_0360_)
   );
@@ -2148,13 +2148,13 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0001_[7])
   );
   NOR _0921_ (
-    .A(_0105_),
-    .B(\mem[7] [8]),
+    .A(rd_ptr[2]),
+    .B(\mem[3] [8]),
     .Y(_0366_)
   );
   NOR _0922_ (
-    .A(rd_ptr[0]),
-    .B(\mem[6] [8]),
+    .A(_0091_),
+    .B(\mem[7] [8]),
     .Y(_0367_)
   );
   NOR _0923_ (
@@ -2163,18 +2163,18 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0368_)
   );
   NOR _0924_ (
-    .A(_0106_),
+    .A(_0090_),
     .B(_0368_),
     .Y(_0369_)
   );
   NOR _0925_ (
-    .A(_0105_),
+    .A(_0091_),
     .B(\mem[5] [8]),
     .Y(_0370_)
   );
   NOR _0926_ (
-    .A(rd_ptr[0]),
-    .B(\mem[4] [8]),
+    .A(rd_ptr[2]),
+    .B(\mem[1] [8]),
     .Y(_0371_)
   );
   NOR _0927_ (
@@ -2193,18 +2193,18 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0374_)
   );
   NOR _0930_ (
-    .A(_0090_),
+    .A(_0106_),
     .B(_0374_),
     .Y(_0375_)
   );
   NOR _0931_ (
-    .A(_0105_),
-    .B(\mem[3] [8]),
+    .A(rd_ptr[2]),
+    .B(\mem[2] [8]),
     .Y(_0376_)
   );
   NOR _0932_ (
-    .A(rd_ptr[0]),
-    .B(\mem[2] [8]),
+    .A(_0091_),
+    .B(\mem[6] [8]),
     .Y(_0377_)
   );
   NOR _0933_ (
@@ -2213,17 +2213,17 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0378_)
   );
   NOR _0934_ (
-    .A(_0106_),
+    .A(_0090_),
     .B(_0378_),
     .Y(_0379_)
   );
   NOR _0935_ (
-    .A(_0105_),
-    .B(\mem[1] [8]),
+    .A(_0091_),
+    .B(\mem[4] [8]),
     .Y(_0380_)
   );
   NOR _0936_ (
-    .A(rd_ptr[0]),
+    .A(rd_ptr[2]),
     .B(\mem[0] [8]),
     .Y(_0381_)
   );
@@ -2243,7 +2243,7 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0384_)
   );
   NOR _0940_ (
-    .A(rd_ptr[2]),
+    .A(rd_ptr[0]),
     .B(_0384_),
     .Y(_0385_)
   );
@@ -2277,13 +2277,13 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0001_[8])
   );
   NOR _0947_ (
-    .A(_0105_),
-    .B(\mem[7] [9]),
+    .A(rd_ptr[2]),
+    .B(\mem[3] [9]),
     .Y(_0391_)
   );
   NOR _0948_ (
-    .A(rd_ptr[0]),
-    .B(\mem[6] [9]),
+    .A(_0091_),
+    .B(\mem[7] [9]),
     .Y(_0392_)
   );
   NOR _0949_ (
@@ -2292,18 +2292,18 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0393_)
   );
   NOR _0950_ (
-    .A(_0106_),
+    .A(_0090_),
     .B(_0393_),
     .Y(_0394_)
   );
   NOR _0951_ (
-    .A(_0105_),
+    .A(_0091_),
     .B(\mem[5] [9]),
     .Y(_0395_)
   );
   NOR _0952_ (
-    .A(rd_ptr[0]),
-    .B(\mem[4] [9]),
+    .A(rd_ptr[2]),
+    .B(\mem[1] [9]),
     .Y(_0396_)
   );
   NOR _0953_ (
@@ -2322,18 +2322,18 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0399_)
   );
   NOR _0956_ (
-    .A(_0090_),
+    .A(_0106_),
     .B(_0399_),
     .Y(_0400_)
   );
   NOR _0957_ (
-    .A(_0105_),
-    .B(\mem[3] [9]),
+    .A(rd_ptr[2]),
+    .B(\mem[2] [9]),
     .Y(_0401_)
   );
   NOR _0958_ (
-    .A(rd_ptr[0]),
-    .B(\mem[2] [9]),
+    .A(_0091_),
+    .B(\mem[6] [9]),
     .Y(_0402_)
   );
   NOR _0959_ (
@@ -2342,17 +2342,17 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0403_)
   );
   NOR _0960_ (
-    .A(_0106_),
+    .A(_0090_),
     .B(_0403_),
     .Y(_0404_)
   );
   NOR _0961_ (
-    .A(_0105_),
-    .B(\mem[1] [9]),
+    .A(_0091_),
+    .B(\mem[4] [9]),
     .Y(_0405_)
   );
   NOR _0962_ (
-    .A(rd_ptr[0]),
+    .A(rd_ptr[2]),
     .B(\mem[0] [9]),
     .Y(_0406_)
   );
@@ -2372,7 +2372,7 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0409_)
   );
   NOR _0966_ (
-    .A(rd_ptr[2]),
+    .A(rd_ptr[0]),
     .B(_0409_),
     .Y(_0410_)
   );
@@ -2407,7 +2407,7 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
   );
   NOR _0973_ (
     .A(_0088_),
-    .B(_0101_),
+    .B(_0102_),
     .Y(_0416_)
   );
   NAND _0974_ (
@@ -2425,7 +2425,7 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0419_)
   );
   NOR _0977_ (
-    .A(_0104_),
+    .A(_0105_),
     .B(_0417_),
     .Y(_0420_)
   );
@@ -2440,7 +2440,7 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0422_)
   );
   NAND _0980_ (
-    .A(_0103_),
+    .A(_0104_),
     .B(_0418_),
     .Y(_0423_)
   );
@@ -2450,7 +2450,7 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0424_)
   );
   NAND _0982_ (
-    .A(_0102_),
+    .A(_0103_),
     .B(_0422_),
     .Y(_0425_)
   );
@@ -2605,7 +2605,7 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0013_)
   );
   NOR _1013_ (
-    .A(_0102_),
+    .A(_0103_),
     .B(_0423_),
     .Y(_0446_)
   );
@@ -2765,7 +2765,7 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0023_)
   );
   NOR _1045_ (
-    .A(_0103_),
+    .A(_0104_),
     .B(_0419_),
     .Y(_0468_)
   );
@@ -2780,7 +2780,7 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0470_)
   );
   NAND _1048_ (
-    .A(_0102_),
+    .A(_0103_),
     .B(_0468_),
     .Y(_0471_)
   );
@@ -2795,7 +2795,7 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0473_)
   );
   NOR _1051_ (
-    .A(_0091_),
+    .A(_0092_),
     .B(_0417_),
     .Y(_0474_)
   );
@@ -2815,7 +2815,7 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0476_)
   );
   NOR _1055_ (
-    .A(_0092_),
+    .A(_0093_),
     .B(_0417_),
     .Y(_0477_)
   );
@@ -2835,7 +2835,7 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0479_)
   );
   NOR _1059_ (
-    .A(_0093_),
+    .A(_0094_),
     .B(_0417_),
     .Y(_0480_)
   );
@@ -2855,7 +2855,7 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0482_)
   );
   NOR _1063_ (
-    .A(_0094_),
+    .A(_0095_),
     .B(_0417_),
     .Y(_0483_)
   );
@@ -2875,7 +2875,7 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0485_)
   );
   NOR _1067_ (
-    .A(_0095_),
+    .A(_0096_),
     .B(_0417_),
     .Y(_0486_)
   );
@@ -2895,7 +2895,7 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0488_)
   );
   NOR _1071_ (
-    .A(_0096_),
+    .A(_0097_),
     .B(_0417_),
     .Y(_0489_)
   );
@@ -2915,7 +2915,7 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0491_)
   );
   NOR _1075_ (
-    .A(_0097_),
+    .A(_0098_),
     .B(_0417_),
     .Y(_0492_)
   );
@@ -2935,7 +2935,7 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0494_)
   );
   NOR _1079_ (
-    .A(_0098_),
+    .A(_0099_),
     .B(_0417_),
     .Y(_0495_)
   );
@@ -2955,7 +2955,7 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0497_)
   );
   NOR _1083_ (
-    .A(_0099_),
+    .A(_0100_),
     .B(_0417_),
     .Y(_0498_)
   );
@@ -2975,7 +2975,7 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0500_)
   );
   NOR _1087_ (
-    .A(_0100_),
+    .A(_0101_),
     .B(_0417_),
     .Y(_0501_)
   );
@@ -2985,7 +2985,7 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0033_)
   );
   NOR _1089_ (
-    .A(_0102_),
+    .A(_0103_),
     .B(_0469_),
     .Y(_0502_)
   );
@@ -3150,7 +3150,7 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0524_)
   );
   NAND _1122_ (
-    .A(_0103_),
+    .A(_0104_),
     .B(_0420_),
     .Y(_0525_)
   );
@@ -3160,7 +3160,7 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0526_)
   );
   NAND _1124_ (
-    .A(_0102_),
+    .A(_0103_),
     .B(_0524_),
     .Y(_0527_)
   );
@@ -3300,13 +3300,13 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0052_)
   );
   NAND _1152_ (
-    .A(\mem[4] [9]),
-    .B(_0527_),
+    .A(_0501_),
+    .B(_0526_),
     .Y(_0546_)
   );
   NAND _1153_ (
-    .A(_0501_),
-    .B(_0526_),
+    .A(\mem[4] [9]),
+    .B(_0527_),
     .Y(_0547_)
   );
   NAND _1154_ (
@@ -3315,7 +3315,7 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0053_)
   );
   NOR _1155_ (
-    .A(_0102_),
+    .A(_0103_),
     .B(_0525_),
     .Y(_0548_)
   );
@@ -3475,7 +3475,7 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0063_)
   );
   NOR _1187_ (
-    .A(_0103_),
+    .A(_0104_),
     .B(_0421_),
     .Y(_0570_)
   );
@@ -3490,7 +3490,7 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0572_)
   );
   NAND _1190_ (
-    .A(_0102_),
+    .A(_0103_),
     .B(_0570_),
     .Y(_0573_)
   );
@@ -3645,7 +3645,7 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .Y(_0073_)
   );
   NOR _1221_ (
-    .A(_0102_),
+    .A(_0103_),
     .B(_0571_),
     .Y(_0594_)
   );
@@ -4169,19 +4169,19 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .D(_0033_),
     .Q(\mem[2] [9])
   );
-  (* src = "fifo_synth.v:40" *)
+  (* src = "fifo_synth.v:42" *)
   DFF _1326_ (
     .C(clk),
     .D(_0003_[0]),
     .Q(wr_ptr[0])
   );
-  (* src = "fifo_synth.v:40" *)
+  (* src = "fifo_synth.v:42" *)
   DFF _1327_ (
     .C(clk),
     .D(_0003_[1]),
     .Q(wr_ptr[1])
   );
-  (* src = "fifo_synth.v:40" *)
+  (* src = "fifo_synth.v:42" *)
   DFF _1328_ (
     .C(clk),
     .D(_0003_[2]),
@@ -4237,85 +4237,85 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .D(_0023_),
     .Q(\mem[1] [9])
   );
-  (* src = "fifo_synth.v:40" *)
+  (* src = "fifo_synth.v:42" *)
   DFF _1339_ (
     .C(clk),
     .D(_0001_[0]),
     .Q(data_out_synth[0])
   );
-  (* src = "fifo_synth.v:40" *)
+  (* src = "fifo_synth.v:42" *)
   DFF _1340_ (
     .C(clk),
     .D(_0001_[1]),
     .Q(data_out_synth[1])
   );
-  (* src = "fifo_synth.v:40" *)
+  (* src = "fifo_synth.v:42" *)
   DFF _1341_ (
     .C(clk),
     .D(_0001_[2]),
     .Q(data_out_synth[2])
   );
-  (* src = "fifo_synth.v:40" *)
+  (* src = "fifo_synth.v:42" *)
   DFF _1342_ (
     .C(clk),
     .D(_0001_[3]),
     .Q(data_out_synth[3])
   );
-  (* src = "fifo_synth.v:40" *)
+  (* src = "fifo_synth.v:42" *)
   DFF _1343_ (
     .C(clk),
     .D(_0001_[4]),
     .Q(data_out_synth[4])
   );
-  (* src = "fifo_synth.v:40" *)
+  (* src = "fifo_synth.v:42" *)
   DFF _1344_ (
     .C(clk),
     .D(_0001_[5]),
     .Q(data_out_synth[5])
   );
-  (* src = "fifo_synth.v:40" *)
+  (* src = "fifo_synth.v:42" *)
   DFF _1345_ (
     .C(clk),
     .D(_0001_[6]),
     .Q(data_out_synth[6])
   );
-  (* src = "fifo_synth.v:40" *)
+  (* src = "fifo_synth.v:42" *)
   DFF _1346_ (
     .C(clk),
     .D(_0001_[7]),
     .Q(data_out_synth[7])
   );
-  (* src = "fifo_synth.v:40" *)
+  (* src = "fifo_synth.v:42" *)
   DFF _1347_ (
     .C(clk),
     .D(_0001_[8]),
     .Q(data_out_synth[8])
   );
-  (* src = "fifo_synth.v:40" *)
+  (* src = "fifo_synth.v:42" *)
   DFF _1348_ (
     .C(clk),
     .D(_0001_[9]),
     .Q(data_out_synth[9])
   );
-  (* src = "fifo_synth.v:40" *)
+  (* src = "fifo_synth.v:42" *)
   DFF _1349_ (
     .C(clk),
     .D(_0000_[0]),
     .Q(contador[0])
   );
-  (* src = "fifo_synth.v:40" *)
+  (* src = "fifo_synth.v:42" *)
   DFF _1350_ (
     .C(clk),
     .D(_0000_[1]),
     .Q(contador[1])
   );
-  (* src = "fifo_synth.v:40" *)
+  (* src = "fifo_synth.v:42" *)
   DFF _1351_ (
     .C(clk),
     .D(_0000_[2]),
     .Q(contador[2])
   );
-  (* src = "fifo_synth.v:40" *)
+  (* src = "fifo_synth.v:42" *)
   DFF _1352_ (
     .C(clk),
     .D(_0000_[3]),

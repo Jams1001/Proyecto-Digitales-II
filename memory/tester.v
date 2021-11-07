@@ -60,11 +60,10 @@ module tester#(
 
 	@(posedge clk);
 	Fifo_Data_in <= 10'b0111100101;
-    read_addr <= read_addr + 1;
+  
 	@(posedge clk);
 	Fifo_Data_in <= 10'b1001100110;
-
-
+    
 	#7 $finish;
     
 	end
