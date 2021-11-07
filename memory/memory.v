@@ -1,7 +1,7 @@
 // https://yamin.cis.k.hosei.ac.jp/fpga/verilog-memory.html ej. 10
 
 
-// Pruebaa
+// Pruebaa2
 module memory #(    
    parameter MEM_WIDTH = 10,       
    parameter MEM_LENGHT = 8)(
