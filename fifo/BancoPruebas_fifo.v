@@ -4,14 +4,14 @@
 
 module BancoPruebas_fifo();
 
-	parameter tamano_direcion = 3;
+	parameter tamano_direcion = 8;
 	parameter tamano_datos = 10;
 	wire [tamano_datos-1:0] data_in;
 	wire [tamano_datos-1:0] data_out, data_out_synth;
-	wire [tamano_direcion-1:0] wr_ptr, rd_ptr;
+	wire [2:0] wr_ptr, rd_ptr;
     wire full, empty, almost_full,  almost_empty, error;
 
-    fifo #(.tamano_datos(10),.tamano_direcion(3))
+    fifo #(.tamano_datos(10),.tamano_direcion(8))
         fifo_bp (/*AUTOINST*/
 	       // Outputs
 		   .almost_empty	(almost_empty),
@@ -46,7 +46,7 @@ module BancoPruebas_fifo();
 	       .read_enable		(read_enable),
 	       .data_in			(data_in[tamano_datos-1:0]));
 
-    probador#(.tamano_datos(10),.tamano_direcion(3))
+    probador#(.tamano_datos(10),.tamano_direcion(8))
         probadorbp (/*AUTOINST*/
 			// Outputs
 			.clk			(clk),

@@ -1,12 +1,12 @@
 module probador
-#(parameter tamano_datos = 10,parameter tamano_direcion = 3)
+#(parameter tamano_datos = 10,parameter tamano_direcion = 8)
 (
 	output reg clk, write_enable, read_enable, reset,
 	output reg [tamano_datos-1:0] data_in,
 	input full, empty, error, almost_empty, almost_full,
 	input [tamano_datos-1:0] data_out,
 	input [tamano_datos-1:0] data_out_synth,
-	input [tamano_direcion-1:0] wr_ptr, rd_ptr
+	input [2:0] wr_ptr, rd_ptr
 );
 	initial begin
 	$dumpfile("fifo.vcd");
@@ -46,31 +46,17 @@ module probador
 	data_in <= 10'b1001100110;
 
 	@(posedge clk);
-    write_enable <= ~write_enable;
+    //write_enable <= ~write_enable;
+    //read_enable <= ~read_enable;
+
+	@(posedge clk);
+	
+
+	@(posedge clk);
+	write_enable <= ~write_enable;
     read_enable <= ~read_enable;
 
-	@(posedge clk);
-	
-
-	@(posedge clk);
-	//write_enable <= ~write_enable;
-    //read_enable <= ~read_enable;
-	@(posedge clk);
-
-	@(posedge clk);
-
-	@(posedge clk);
-
-	@(posedge clk);
-
-	@(posedge clk);
-
-	@(posedge clk);
-
-	@(posedge clk);
-
-	@(posedge clk);
-	
+	repeat(9) @(posedge clk);
 
 	$finish;
 	end

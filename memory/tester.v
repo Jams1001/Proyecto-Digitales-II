@@ -2,7 +2,7 @@ module tester#(
    parameter MEM_WIDTH = 10,       
    parameter MEM_LENGHT = 8)(
    output reg [9:0] Fifo_Data_in,
-   output reg [3:0] read_addr, write_addr,       // two addresses (read_ptr y write_ptr)
+   output reg [2:0] read_addr, write_addr,       // two addresses (read_ptr y write_ptr)
    output reg write_enable, read_enable, clk,                  
    input wire [9:0] Fifo_Data_out, Fifo_Data_outS);
 
@@ -35,7 +35,6 @@ module tester#(
     @(posedge clk);	
     @(posedge clk);
     write_enable <= 1;
-    write_addr <= write_addr + 1;
 	Fifo_Data_in <= 10'b0010010001;
 	
 	@(posedge clk);
@@ -52,7 +51,6 @@ module tester#(
 
 	@(posedge clk);
     read_enable <= 1;
-    read_addr <= read_addr + 1;
 	Fifo_Data_in <= 10'b0010110101;
 
 	@(posedge clk);
@@ -61,12 +59,15 @@ module tester#(
 	Fifo_Data_in <= 10'b0101100100;
 
 	@(posedge clk);
+    read_addr <= read_addr + 1;
 	Fifo_Data_in <= 10'b0111100101;
   
 	@(posedge clk);
+    read_addr <= read_addr + 1;
 	Fifo_Data_in <= 10'b1001100110;
     
-	#7 $finish;
+	#1 read_enable <= 0; 
+    #4 $finish;
     
 	end
 

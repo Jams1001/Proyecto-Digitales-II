@@ -11,15 +11,15 @@ module testbench();
 	parameter MEM_LENGHT = 8;
 	wire [9:0] Fifo_Data_out, Fifo_Data_outS, Fifo_Data_in;
 	wire write_enable, read_enable, clk;
-	wire [3:0] read_addr, write_addr;  
+	wire [2:0] read_addr, write_addr;  
 
 memory memoryINST(/*AUTOINST*/
 		  // Outputs
 		  .Fifo_Data_out	(Fifo_Data_out[MEM_WIDTH-1:0]),
 		  // Inputs
 		  .Fifo_Data_in		(Fifo_Data_in[MEM_WIDTH-1:0]),
-		  .read_addr		(read_addr[3:0]),
-		  .write_addr		(write_addr[3:0]),
+		  .read_addr		(read_addr[2:0]),
+		  .write_addr		(write_addr[2:0]),
 		  .write_enable		(write_enable),
 		  .read_enable		(read_enable),
 		  .clk			(clk));
@@ -30,17 +30,17 @@ memoryS memorySINST(/*AUTOINST*/
 		    // Inputs
 		    .clk		(clk),
 		    .Fifo_Data_in	(Fifo_Data_in[9:0]),
-		    .read_addr		(read_addr[3:0]),
+		    .read_addr		(read_addr[2:0]),
 		    .read_enable	(read_enable),
-		    .write_addr		(write_addr[3:0]),
+		    .write_addr		(write_addr[2:0]),
 		    .write_enable	(write_enable));
 
 
 tester testerINST(/*AUTOINST*/
 		  // Outputs
 		  .Fifo_Data_in		(Fifo_Data_in[9:0]),
-		  .read_addr		(read_addr[3:0]),
-		  .write_addr		(write_addr[3:0]),
+		  .read_addr		(read_addr[2:0]),
+		  .write_addr		(write_addr[2:0]),
 		  .write_enable		(write_enable),
 		  .read_enable		(read_enable),
 		  .clk			(clk),
