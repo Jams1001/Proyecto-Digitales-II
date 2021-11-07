@@ -2,15 +2,15 @@
 
 (* dynports =  1  *)
 (* top =  1  *)
-(* src = "fifo_synth.v:1" *)
+(* src = "fifo_synth.v:2" *)
 module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, almost_full, almost_empty, error, data_out_synth);
-  (* src = "fifo_synth.v:23" *)
+  (* src = "fifo_synth.v:40" *)
   wire [3:0] _0000_;
-  (* src = "fifo_synth.v:23" *)
+  (* src = "fifo_synth.v:40" *)
   wire [9:0] _0001_;
-  (* src = "fifo_synth.v:23" *)
+  (* src = "fifo_synth.v:40" *)
   wire [2:0] _0002_;
-  (* src = "fifo_synth.v:23" *)
+  (* src = "fifo_synth.v:40" *)
   wire [2:0] _0003_;
   wire _0004_;
   wire _0005_;
@@ -624,23 +624,23 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
   wire _0613_;
   wire _0614_;
   wire _0615_;
-  (* src = "fifo_synth.v:6" *)
-  output almost_empty;
-  (* src = "fifo_synth.v:6" *)
-  output almost_full;
-  (* src = "fifo_synth.v:4" *)
-  input clk;
-  (* src = "fifo_synth.v:13" *)
-  wire [3:0] contador;
-  (* src = "fifo_synth.v:5" *)
-  input [9:0] data_in;
   (* src = "fifo_synth.v:7" *)
+  output almost_empty;
+  (* src = "fifo_synth.v:7" *)
+  output almost_full;
+  (* src = "fifo_synth.v:5" *)
+  input clk;
+  (* src = "fifo_synth.v:16" *)
+  wire [3:0] contador;
+  (* src = "fifo_synth.v:6" *)
+  input [9:0] data_in;
+  (* src = "fifo_synth.v:8" *)
   output [9:0] data_out_synth;
-  (* src = "fifo_synth.v:6" *)
+  (* src = "fifo_synth.v:7" *)
   output empty;
-  (* src = "fifo_synth.v:6" *)
+  (* src = "fifo_synth.v:7" *)
   output error;
-  (* src = "fifo_synth.v:6" *)
+  (* src = "fifo_synth.v:7" *)
   output full;
   wire [9:0] \mem[0] ;
   wire [9:0] \mem[1] ;
@@ -650,15 +650,15 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
   wire [9:0] \mem[5] ;
   wire [9:0] \mem[6] ;
   wire [9:0] \mem[7] ;
-  (* src = "fifo_synth.v:12" *)
+  (* src = "fifo_synth.v:15" *)
   wire [2:0] rd_ptr;
-  (* src = "fifo_synth.v:4" *)
+  (* src = "fifo_synth.v:5" *)
   input read_enable;
-  (* src = "fifo_synth.v:4" *)
+  (* src = "fifo_synth.v:5" *)
   input reset;
-  (* src = "fifo_synth.v:11" *)
+  (* src = "fifo_synth.v:14" *)
   wire [2:0] wr_ptr;
-  (* src = "fifo_synth.v:4" *)
+  (* src = "fifo_synth.v:5" *)
   input write_enable;
   NOT _0616_ (
     .A(contador[1]),
@@ -4169,19 +4169,19 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .D(_0033_),
     .Q(\mem[2] [9])
   );
-  (* src = "fifo_synth.v:23" *)
+  (* src = "fifo_synth.v:40" *)
   DFF _1326_ (
     .C(clk),
     .D(_0003_[0]),
     .Q(wr_ptr[0])
   );
-  (* src = "fifo_synth.v:23" *)
+  (* src = "fifo_synth.v:40" *)
   DFF _1327_ (
     .C(clk),
     .D(_0003_[1]),
     .Q(wr_ptr[1])
   );
-  (* src = "fifo_synth.v:23" *)
+  (* src = "fifo_synth.v:40" *)
   DFF _1328_ (
     .C(clk),
     .D(_0003_[2]),
@@ -4237,85 +4237,85 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .D(_0023_),
     .Q(\mem[1] [9])
   );
-  (* src = "fifo_synth.v:23" *)
+  (* src = "fifo_synth.v:40" *)
   DFF _1339_ (
     .C(clk),
     .D(_0001_[0]),
     .Q(data_out_synth[0])
   );
-  (* src = "fifo_synth.v:23" *)
+  (* src = "fifo_synth.v:40" *)
   DFF _1340_ (
     .C(clk),
     .D(_0001_[1]),
     .Q(data_out_synth[1])
   );
-  (* src = "fifo_synth.v:23" *)
+  (* src = "fifo_synth.v:40" *)
   DFF _1341_ (
     .C(clk),
     .D(_0001_[2]),
     .Q(data_out_synth[2])
   );
-  (* src = "fifo_synth.v:23" *)
+  (* src = "fifo_synth.v:40" *)
   DFF _1342_ (
     .C(clk),
     .D(_0001_[3]),
     .Q(data_out_synth[3])
   );
-  (* src = "fifo_synth.v:23" *)
+  (* src = "fifo_synth.v:40" *)
   DFF _1343_ (
     .C(clk),
     .D(_0001_[4]),
     .Q(data_out_synth[4])
   );
-  (* src = "fifo_synth.v:23" *)
+  (* src = "fifo_synth.v:40" *)
   DFF _1344_ (
     .C(clk),
     .D(_0001_[5]),
     .Q(data_out_synth[5])
   );
-  (* src = "fifo_synth.v:23" *)
+  (* src = "fifo_synth.v:40" *)
   DFF _1345_ (
     .C(clk),
     .D(_0001_[6]),
     .Q(data_out_synth[6])
   );
-  (* src = "fifo_synth.v:23" *)
+  (* src = "fifo_synth.v:40" *)
   DFF _1346_ (
     .C(clk),
     .D(_0001_[7]),
     .Q(data_out_synth[7])
   );
-  (* src = "fifo_synth.v:23" *)
+  (* src = "fifo_synth.v:40" *)
   DFF _1347_ (
     .C(clk),
     .D(_0001_[8]),
     .Q(data_out_synth[8])
   );
-  (* src = "fifo_synth.v:23" *)
+  (* src = "fifo_synth.v:40" *)
   DFF _1348_ (
     .C(clk),
     .D(_0001_[9]),
     .Q(data_out_synth[9])
   );
-  (* src = "fifo_synth.v:23" *)
+  (* src = "fifo_synth.v:40" *)
   DFF _1349_ (
     .C(clk),
     .D(_0000_[0]),
     .Q(contador[0])
   );
-  (* src = "fifo_synth.v:23" *)
+  (* src = "fifo_synth.v:40" *)
   DFF _1350_ (
     .C(clk),
     .D(_0000_[1]),
     .Q(contador[1])
   );
-  (* src = "fifo_synth.v:23" *)
+  (* src = "fifo_synth.v:40" *)
   DFF _1351_ (
     .C(clk),
     .D(_0000_[2]),
     .Q(contador[2])
   );
-  (* src = "fifo_synth.v:23" *)
+  (* src = "fifo_synth.v:40" *)
   DFF _1352_ (
     .C(clk),
     .D(_0000_[3]),
