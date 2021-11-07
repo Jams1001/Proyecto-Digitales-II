@@ -6,6 +6,7 @@ t2:
 	sed -i "s/fifo/fifo_synth/g" fifo_synth.v
 t3:
 	sed -i "s/data_out/data_out_synth/g" fifo_synth.v
+	sed -i "s/Fifo_Data_out/Fifo_Data_out_synth/g" fifo_synth.v
 t4:
 	iverilog -o Bin BancoPruebas_fifo.v cmos_cells.v
 t5:

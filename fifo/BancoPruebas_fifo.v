@@ -8,6 +8,7 @@ module BancoPruebas_fifo();
 	parameter tamano_datos = 10;
 	wire [tamano_datos-1:0] data_in;
 	wire [tamano_datos-1:0] data_out, data_out_synth;
+	wire [tamano_direcion-1:0] wr_ptr, rd_ptr;
     wire full, empty, almost_full,  almost_empty, error;
 
     fifo #(.tamano_datos(10),.tamano_direcion(3))
@@ -19,6 +20,8 @@ module BancoPruebas_fifo();
 	       .empty		(empty),
 	       .error			(error),
 	       .data_out		(data_out[tamano_datos-1:0]),
+		   .wr_ptr			(wr_ptr),
+		   .rd_ptr			(rd_ptr),
 	       // Inputs
 	       .clk			(clk),
 	       .reset			(reset),
@@ -34,6 +37,8 @@ module BancoPruebas_fifo();
 	       .empty		        (empty_synth),
 	       .error				(error),
 	       .data_out_synth		(data_out_synth[tamano_datos-1:0]),
+		   .wr_ptr				(wr_ptr),
+		   .rd_ptr				(rd_ptr),
 	       // Inputs
 	       .clk			(clk),
 	       .reset			(reset),
@@ -54,5 +59,8 @@ module BancoPruebas_fifo();
 			.empty			(empty),
 			.error			(error),
 			.data_out		(data_out[tamano_datos-1:0]),
-			.data_out_synth	(data_out_synth[tamano_datos-1:0]));
+			.data_out_synth	(data_out_synth[tamano_datos-1:0]),
+			.wr_ptr			(wr_ptr),
+			.rd_ptr			(rd_ptr)
+			);
 endmodule

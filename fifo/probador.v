@@ -5,7 +5,8 @@ module probador
 	output reg [tamano_datos-1:0] data_in,
 	input full, empty, error, almost_empty, almost_full,
 	input [tamano_datos-1:0] data_out,
-	input [tamano_datos-1:0] data_out_synth
+	input [tamano_datos-1:0] data_out_synth,
+	input [tamano_direcion-1:0] wr_ptr, rd_ptr
 );
 	initial begin
 	$dumpfile("fifo.vcd");
@@ -52,7 +53,8 @@ module probador
 	
 
 	@(posedge clk);
-
+	//write_enable <= ~write_enable;
+    //read_enable <= ~read_enable;
 	@(posedge clk);
 
 	@(posedge clk);
