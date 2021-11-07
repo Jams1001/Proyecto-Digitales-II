@@ -3,7 +3,7 @@
 (* dynports =  1  *)
 (* cells_not_processed =  1  *)
 (* src = "memory.v:3" *)
-module memoryS(fifo_Data_in, read_addr, write_addr, write_enable, read_enable, clk, fifo_Data_out);
+module memoryS(Fifo_Data_in, read_addr, write_addr, write_enable, read_enable, clk, Fifo_Data_out);
   wire _0000_;
   wire _0001_;
   wire _0002_;
@@ -555,12 +555,12 @@ module memoryS(fifo_Data_in, read_addr, write_addr, write_enable, read_enable, c
   wire _0548_;
   wire _0549_;
   wire _0550_;
+  (* src = "memory.v:6" *)
+  input [9:0] Fifo_Data_in;
+  (* src = "memory.v:9" *)
+  output [9:0] Fifo_Data_out;
   (* src = "memory.v:8" *)
   input clk;
-  (* src = "memory.v:6" *)
-  input [9:0] fifo_Data_in;
-  (* src = "memory.v:9" *)
-  output [9:0] fifo_Data_out;
   wire [9:0] \mem[0] ;
   wire [9:0] \mem[1] ;
   wire [9:0] \mem[2] ;
@@ -665,43 +665,43 @@ module memoryS(fifo_Data_in, read_addr, write_addr, write_enable, read_enable, c
     .Y(_0092_)
   );
   NOT _0569_ (
-    .A(fifo_Data_in[0]),
+    .A(Fifo_Data_in[0]),
     .Y(_0093_)
   );
   NOT _0570_ (
-    .A(fifo_Data_in[1]),
+    .A(Fifo_Data_in[1]),
     .Y(_0094_)
   );
   NOT _0571_ (
-    .A(fifo_Data_in[2]),
+    .A(Fifo_Data_in[2]),
     .Y(_0095_)
   );
   NOT _0572_ (
-    .A(fifo_Data_in[3]),
+    .A(Fifo_Data_in[3]),
     .Y(_0096_)
   );
   NOT _0573_ (
-    .A(fifo_Data_in[4]),
+    .A(Fifo_Data_in[4]),
     .Y(_0097_)
   );
   NOT _0574_ (
-    .A(fifo_Data_in[5]),
+    .A(Fifo_Data_in[5]),
     .Y(_0098_)
   );
   NOT _0575_ (
-    .A(fifo_Data_in[6]),
+    .A(Fifo_Data_in[6]),
     .Y(_0099_)
   );
   NOT _0576_ (
-    .A(fifo_Data_in[7]),
+    .A(Fifo_Data_in[7]),
     .Y(_0100_)
   );
   NOT _0577_ (
-    .A(fifo_Data_in[8]),
+    .A(Fifo_Data_in[8]),
     .Y(_0101_)
   );
   NOT _0578_ (
-    .A(fifo_Data_in[9]),
+    .A(Fifo_Data_in[9]),
     .Y(_0102_)
   );
   NOT _0579_ (
@@ -891,7 +891,7 @@ module memoryS(fifo_Data_in, read_addr, write_addr, write_enable, read_enable, c
     .Y(_0143_)
   );
   NOR _0620_ (
-    .A(fifo_Data_out[0]),
+    .A(Fifo_Data_out[0]),
     .B(read_enable),
     .Y(_0144_)
   );
@@ -1012,7 +1012,7 @@ module memoryS(fifo_Data_in, read_addr, write_addr, write_enable, read_enable, c
   );
   NOR _0644_ (
     .A(read_enable),
-    .B(fifo_Data_out[1]),
+    .B(Fifo_Data_out[1]),
     .Y(_0167_)
   );
   NOR _0645_ (
@@ -1132,7 +1132,7 @@ module memoryS(fifo_Data_in, read_addr, write_addr, write_enable, read_enable, c
   );
   NOR _0668_ (
     .A(read_enable),
-    .B(fifo_Data_out[2]),
+    .B(Fifo_Data_out[2]),
     .Y(_0190_)
   );
   NOR _0669_ (
@@ -1252,7 +1252,7 @@ module memoryS(fifo_Data_in, read_addr, write_addr, write_enable, read_enable, c
   );
   NOR _0692_ (
     .A(read_enable),
-    .B(fifo_Data_out[3]),
+    .B(Fifo_Data_out[3]),
     .Y(_0213_)
   );
   NOR _0693_ (
@@ -1372,7 +1372,7 @@ module memoryS(fifo_Data_in, read_addr, write_addr, write_enable, read_enable, c
   );
   NOR _0716_ (
     .A(read_enable),
-    .B(fifo_Data_out[4]),
+    .B(Fifo_Data_out[4]),
     .Y(_0236_)
   );
   NOR _0717_ (
@@ -1492,7 +1492,7 @@ module memoryS(fifo_Data_in, read_addr, write_addr, write_enable, read_enable, c
   );
   NOR _0740_ (
     .A(read_enable),
-    .B(fifo_Data_out[5]),
+    .B(Fifo_Data_out[5]),
     .Y(_0259_)
   );
   NOR _0741_ (
@@ -1612,7 +1612,7 @@ module memoryS(fifo_Data_in, read_addr, write_addr, write_enable, read_enable, c
   );
   NOR _0764_ (
     .A(read_enable),
-    .B(fifo_Data_out[6]),
+    .B(Fifo_Data_out[6]),
     .Y(_0282_)
   );
   NOR _0765_ (
@@ -1732,7 +1732,7 @@ module memoryS(fifo_Data_in, read_addr, write_addr, write_enable, read_enable, c
   );
   NOR _0788_ (
     .A(read_enable),
-    .B(fifo_Data_out[7]),
+    .B(Fifo_Data_out[7]),
     .Y(_0305_)
   );
   NOR _0789_ (
@@ -1852,7 +1852,7 @@ module memoryS(fifo_Data_in, read_addr, write_addr, write_enable, read_enable, c
   );
   NOR _0812_ (
     .A(read_enable),
-    .B(fifo_Data_out[8]),
+    .B(Fifo_Data_out[8]),
     .Y(_0328_)
   );
   NOR _0813_ (
@@ -1972,7 +1972,7 @@ module memoryS(fifo_Data_in, read_addr, write_addr, write_enable, read_enable, c
   );
   NOR _0836_ (
     .A(read_enable),
-    .B(fifo_Data_out[9]),
+    .B(Fifo_Data_out[9]),
     .Y(_0351_)
   );
   NOR _0837_ (
@@ -2020,7 +2020,7 @@ module memoryS(fifo_Data_in, read_addr, write_addr, write_enable, read_enable, c
     .Y(_0359_)
   );
   NAND _0846_ (
-    .A(fifo_Data_in[0]),
+    .A(Fifo_Data_in[0]),
     .B(_0358_),
     .Y(_0360_)
   );
@@ -2035,7 +2035,7 @@ module memoryS(fifo_Data_in, read_addr, write_addr, write_enable, read_enable, c
     .Y(_0010_)
   );
   NAND _0849_ (
-    .A(fifo_Data_in[1]),
+    .A(Fifo_Data_in[1]),
     .B(_0358_),
     .Y(_0362_)
   );
@@ -2050,7 +2050,7 @@ module memoryS(fifo_Data_in, read_addr, write_addr, write_enable, read_enable, c
     .Y(_0011_)
   );
   NAND _0852_ (
-    .A(fifo_Data_in[2]),
+    .A(Fifo_Data_in[2]),
     .B(_0358_),
     .Y(_0364_)
   );
@@ -2065,7 +2065,7 @@ module memoryS(fifo_Data_in, read_addr, write_addr, write_enable, read_enable, c
     .Y(_0012_)
   );
   NAND _0855_ (
-    .A(fifo_Data_in[3]),
+    .A(Fifo_Data_in[3]),
     .B(_0358_),
     .Y(_0366_)
   );
@@ -2080,7 +2080,7 @@ module memoryS(fifo_Data_in, read_addr, write_addr, write_enable, read_enable, c
     .Y(_0013_)
   );
   NAND _0858_ (
-    .A(fifo_Data_in[4]),
+    .A(Fifo_Data_in[4]),
     .B(_0358_),
     .Y(_0368_)
   );
@@ -2095,7 +2095,7 @@ module memoryS(fifo_Data_in, read_addr, write_addr, write_enable, read_enable, c
     .Y(_0014_)
   );
   NAND _0861_ (
-    .A(fifo_Data_in[5]),
+    .A(Fifo_Data_in[5]),
     .B(_0358_),
     .Y(_0370_)
   );
@@ -2110,7 +2110,7 @@ module memoryS(fifo_Data_in, read_addr, write_addr, write_enable, read_enable, c
     .Y(_0015_)
   );
   NAND _0864_ (
-    .A(fifo_Data_in[6]),
+    .A(Fifo_Data_in[6]),
     .B(_0358_),
     .Y(_0372_)
   );
@@ -2125,7 +2125,7 @@ module memoryS(fifo_Data_in, read_addr, write_addr, write_enable, read_enable, c
     .Y(_0016_)
   );
   NAND _0867_ (
-    .A(fifo_Data_in[7]),
+    .A(Fifo_Data_in[7]),
     .B(_0358_),
     .Y(_0374_)
   );
@@ -2140,7 +2140,7 @@ module memoryS(fifo_Data_in, read_addr, write_addr, write_enable, read_enable, c
     .Y(_0017_)
   );
   NAND _0870_ (
-    .A(fifo_Data_in[8]),
+    .A(Fifo_Data_in[8]),
     .B(_0358_),
     .Y(_0376_)
   );
@@ -2155,7 +2155,7 @@ module memoryS(fifo_Data_in, read_addr, write_addr, write_enable, read_enable, c
     .Y(_0018_)
   );
   NAND _0873_ (
-    .A(fifo_Data_in[9]),
+    .A(Fifo_Data_in[9]),
     .B(_0358_),
     .Y(_0378_)
   );
@@ -2180,7 +2180,7 @@ module memoryS(fifo_Data_in, read_addr, write_addr, write_enable, read_enable, c
     .Y(_0381_)
   );
   NAND _0878_ (
-    .A(fifo_Data_in[0]),
+    .A(Fifo_Data_in[0]),
     .B(_0380_),
     .Y(_0382_)
   );
@@ -2195,7 +2195,7 @@ module memoryS(fifo_Data_in, read_addr, write_addr, write_enable, read_enable, c
     .Y(_0020_)
   );
   NAND _0881_ (
-    .A(fifo_Data_in[1]),
+    .A(Fifo_Data_in[1]),
     .B(_0380_),
     .Y(_0384_)
   );
@@ -2210,7 +2210,7 @@ module memoryS(fifo_Data_in, read_addr, write_addr, write_enable, read_enable, c
     .Y(_0021_)
   );
   NAND _0884_ (
-    .A(fifo_Data_in[2]),
+    .A(Fifo_Data_in[2]),
     .B(_0380_),
     .Y(_0386_)
   );
@@ -2225,7 +2225,7 @@ module memoryS(fifo_Data_in, read_addr, write_addr, write_enable, read_enable, c
     .Y(_0022_)
   );
   NAND _0887_ (
-    .A(fifo_Data_in[3]),
+    .A(Fifo_Data_in[3]),
     .B(_0380_),
     .Y(_0388_)
   );
@@ -2240,7 +2240,7 @@ module memoryS(fifo_Data_in, read_addr, write_addr, write_enable, read_enable, c
     .Y(_0023_)
   );
   NAND _0890_ (
-    .A(fifo_Data_in[4]),
+    .A(Fifo_Data_in[4]),
     .B(_0380_),
     .Y(_0390_)
   );
@@ -2255,7 +2255,7 @@ module memoryS(fifo_Data_in, read_addr, write_addr, write_enable, read_enable, c
     .Y(_0024_)
   );
   NAND _0893_ (
-    .A(fifo_Data_in[5]),
+    .A(Fifo_Data_in[5]),
     .B(_0380_),
     .Y(_0392_)
   );
@@ -2270,7 +2270,7 @@ module memoryS(fifo_Data_in, read_addr, write_addr, write_enable, read_enable, c
     .Y(_0025_)
   );
   NAND _0896_ (
-    .A(fifo_Data_in[6]),
+    .A(Fifo_Data_in[6]),
     .B(_0380_),
     .Y(_0394_)
   );
@@ -2285,7 +2285,7 @@ module memoryS(fifo_Data_in, read_addr, write_addr, write_enable, read_enable, c
     .Y(_0026_)
   );
   NAND _0899_ (
-    .A(fifo_Data_in[7]),
+    .A(Fifo_Data_in[7]),
     .B(_0380_),
     .Y(_0396_)
   );
@@ -2300,7 +2300,7 @@ module memoryS(fifo_Data_in, read_addr, write_addr, write_enable, read_enable, c
     .Y(_0027_)
   );
   NAND _0902_ (
-    .A(fifo_Data_in[8]),
+    .A(Fifo_Data_in[8]),
     .B(_0380_),
     .Y(_0398_)
   );
@@ -2315,7 +2315,7 @@ module memoryS(fifo_Data_in, read_addr, write_addr, write_enable, read_enable, c
     .Y(_0028_)
   );
   NAND _0905_ (
-    .A(fifo_Data_in[9]),
+    .A(Fifo_Data_in[9]),
     .B(_0380_),
     .Y(_0400_)
   );
@@ -2355,7 +2355,7 @@ module memoryS(fifo_Data_in, read_addr, write_addr, write_enable, read_enable, c
     .Y(_0406_)
   );
   NAND _0913_ (
-    .A(fifo_Data_in[0]),
+    .A(Fifo_Data_in[0]),
     .B(_0405_),
     .Y(_0407_)
   );
@@ -2375,7 +2375,7 @@ module memoryS(fifo_Data_in, read_addr, write_addr, write_enable, read_enable, c
     .Y(_0030_)
   );
   NAND _0917_ (
-    .A(fifo_Data_in[1]),
+    .A(Fifo_Data_in[1]),
     .B(_0405_),
     .Y(_0410_)
   );
@@ -2395,7 +2395,7 @@ module memoryS(fifo_Data_in, read_addr, write_addr, write_enable, read_enable, c
     .Y(_0031_)
   );
   NAND _0921_ (
-    .A(fifo_Data_in[2]),
+    .A(Fifo_Data_in[2]),
     .B(_0405_),
     .Y(_0413_)
   );
@@ -2415,7 +2415,7 @@ module memoryS(fifo_Data_in, read_addr, write_addr, write_enable, read_enable, c
     .Y(_0032_)
   );
   NAND _0925_ (
-    .A(fifo_Data_in[3]),
+    .A(Fifo_Data_in[3]),
     .B(_0405_),
     .Y(_0416_)
   );
@@ -2435,7 +2435,7 @@ module memoryS(fifo_Data_in, read_addr, write_addr, write_enable, read_enable, c
     .Y(_0033_)
   );
   NAND _0929_ (
-    .A(fifo_Data_in[4]),
+    .A(Fifo_Data_in[4]),
     .B(_0405_),
     .Y(_0419_)
   );
@@ -2455,7 +2455,7 @@ module memoryS(fifo_Data_in, read_addr, write_addr, write_enable, read_enable, c
     .Y(_0034_)
   );
   NAND _0933_ (
-    .A(fifo_Data_in[5]),
+    .A(Fifo_Data_in[5]),
     .B(_0405_),
     .Y(_0422_)
   );
@@ -2475,7 +2475,7 @@ module memoryS(fifo_Data_in, read_addr, write_addr, write_enable, read_enable, c
     .Y(_0035_)
   );
   NAND _0937_ (
-    .A(fifo_Data_in[6]),
+    .A(Fifo_Data_in[6]),
     .B(_0405_),
     .Y(_0425_)
   );
@@ -2495,7 +2495,7 @@ module memoryS(fifo_Data_in, read_addr, write_addr, write_enable, read_enable, c
     .Y(_0036_)
   );
   NAND _0941_ (
-    .A(fifo_Data_in[7]),
+    .A(Fifo_Data_in[7]),
     .B(_0405_),
     .Y(_0428_)
   );
@@ -2515,7 +2515,7 @@ module memoryS(fifo_Data_in, read_addr, write_addr, write_enable, read_enable, c
     .Y(_0037_)
   );
   NAND _0945_ (
-    .A(fifo_Data_in[8]),
+    .A(Fifo_Data_in[8]),
     .B(_0405_),
     .Y(_0431_)
   );
@@ -2535,7 +2535,7 @@ module memoryS(fifo_Data_in, read_addr, write_addr, write_enable, read_enable, c
     .Y(_0038_)
   );
   NAND _0949_ (
-    .A(fifo_Data_in[9]),
+    .A(Fifo_Data_in[9]),
     .B(_0405_),
     .Y(_0434_)
   );
@@ -2565,7 +2565,7 @@ module memoryS(fifo_Data_in, read_addr, write_addr, write_enable, read_enable, c
     .Y(_0438_)
   );
   NAND _0955_ (
-    .A(fifo_Data_in[0]),
+    .A(Fifo_Data_in[0]),
     .B(_0437_),
     .Y(_0439_)
   );
@@ -2580,7 +2580,7 @@ module memoryS(fifo_Data_in, read_addr, write_addr, write_enable, read_enable, c
     .Y(_0040_)
   );
   NAND _0958_ (
-    .A(fifo_Data_in[1]),
+    .A(Fifo_Data_in[1]),
     .B(_0437_),
     .Y(_0441_)
   );
@@ -2595,7 +2595,7 @@ module memoryS(fifo_Data_in, read_addr, write_addr, write_enable, read_enable, c
     .Y(_0041_)
   );
   NAND _0961_ (
-    .A(fifo_Data_in[2]),
+    .A(Fifo_Data_in[2]),
     .B(_0437_),
     .Y(_0443_)
   );
@@ -2610,7 +2610,7 @@ module memoryS(fifo_Data_in, read_addr, write_addr, write_enable, read_enable, c
     .Y(_0042_)
   );
   NAND _0964_ (
-    .A(fifo_Data_in[3]),
+    .A(Fifo_Data_in[3]),
     .B(_0437_),
     .Y(_0445_)
   );
@@ -2625,7 +2625,7 @@ module memoryS(fifo_Data_in, read_addr, write_addr, write_enable, read_enable, c
     .Y(_0043_)
   );
   NAND _0967_ (
-    .A(fifo_Data_in[4]),
+    .A(Fifo_Data_in[4]),
     .B(_0437_),
     .Y(_0447_)
   );
@@ -2640,7 +2640,7 @@ module memoryS(fifo_Data_in, read_addr, write_addr, write_enable, read_enable, c
     .Y(_0044_)
   );
   NAND _0970_ (
-    .A(fifo_Data_in[5]),
+    .A(Fifo_Data_in[5]),
     .B(_0437_),
     .Y(_0449_)
   );
@@ -2655,7 +2655,7 @@ module memoryS(fifo_Data_in, read_addr, write_addr, write_enable, read_enable, c
     .Y(_0045_)
   );
   NAND _0973_ (
-    .A(fifo_Data_in[6]),
+    .A(Fifo_Data_in[6]),
     .B(_0437_),
     .Y(_0451_)
   );
@@ -2670,7 +2670,7 @@ module memoryS(fifo_Data_in, read_addr, write_addr, write_enable, read_enable, c
     .Y(_0046_)
   );
   NAND _0976_ (
-    .A(fifo_Data_in[7]),
+    .A(Fifo_Data_in[7]),
     .B(_0437_),
     .Y(_0453_)
   );
@@ -2685,7 +2685,7 @@ module memoryS(fifo_Data_in, read_addr, write_addr, write_enable, read_enable, c
     .Y(_0047_)
   );
   NAND _0979_ (
-    .A(fifo_Data_in[8]),
+    .A(Fifo_Data_in[8]),
     .B(_0437_),
     .Y(_0455_)
   );
@@ -2700,7 +2700,7 @@ module memoryS(fifo_Data_in, read_addr, write_addr, write_enable, read_enable, c
     .Y(_0048_)
   );
   NAND _0982_ (
-    .A(fifo_Data_in[9]),
+    .A(Fifo_Data_in[9]),
     .B(_0437_),
     .Y(_0457_)
   );
@@ -3702,51 +3702,51 @@ module memoryS(fifo_Data_in, read_addr, write_addr, write_enable, read_enable, c
   DFF _1182_ (
     .C(clk),
     .D(_0000_),
-    .Q(fifo_Data_out[0])
+    .Q(Fifo_Data_out[0])
   );
   DFF _1183_ (
     .C(clk),
     .D(_0001_),
-    .Q(fifo_Data_out[1])
+    .Q(Fifo_Data_out[1])
   );
   DFF _1184_ (
     .C(clk),
     .D(_0002_),
-    .Q(fifo_Data_out[2])
+    .Q(Fifo_Data_out[2])
   );
   DFF _1185_ (
     .C(clk),
     .D(_0003_),
-    .Q(fifo_Data_out[3])
+    .Q(Fifo_Data_out[3])
   );
   DFF _1186_ (
     .C(clk),
     .D(_0004_),
-    .Q(fifo_Data_out[4])
+    .Q(Fifo_Data_out[4])
   );
   DFF _1187_ (
     .C(clk),
     .D(_0005_),
-    .Q(fifo_Data_out[5])
+    .Q(Fifo_Data_out[5])
   );
   DFF _1188_ (
     .C(clk),
     .D(_0006_),
-    .Q(fifo_Data_out[6])
+    .Q(Fifo_Data_out[6])
   );
   DFF _1189_ (
     .C(clk),
     .D(_0007_),
-    .Q(fifo_Data_out[7])
+    .Q(Fifo_Data_out[7])
   );
   DFF _1190_ (
     .C(clk),
     .D(_0008_),
-    .Q(fifo_Data_out[8])
+    .Q(Fifo_Data_out[8])
   );
   DFF _1191_ (
     .C(clk),
     .D(_0009_),
-    .Q(fifo_Data_out[9])
+    .Q(Fifo_Data_out[9])
   );
 endmodule
