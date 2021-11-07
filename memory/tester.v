@@ -24,9 +24,11 @@ module tester#(
 	$dumpvars;
 
 	/* Plan de pruebas
-    Por cada posedge, se llena una fila de memoria (push) hasta tres filas de memoria ([0, 1, 2])
-    con wr_adrr en [3]. 
-    Luego se hace pop al primer elemento en agregarse ([0]). read_adrr en [1].         
+    Cuando write_enable está habilitado, los datos de entrada entran a la memoria (push) y 
+    cuando read_enable está habilitado, los datos de la memoria pasan a la salida (pop).
+    Prueba: Por cada posedge, se llena una fila de memoria (push) hasta tres filas de memoria ([0, 1, 2])
+    y wr_ptr (write_adrr) queda en [3]. 
+    Luego se hace pop al primer elemento en agregarse ([0]). rd_ptr (read_addr) queda en [1].         
     */
 
     @(posedge clk);
