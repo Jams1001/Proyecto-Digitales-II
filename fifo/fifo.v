@@ -1,40 +1,39 @@
 `include "memory.v"
-module fifo
-#(parameter tamano_datos = 10,parameter tamano_direcion = 8)
+module fifo  
+#(parameter TAMANO_DATOS = 10,parameter TAMANO_DIRECCION = 8)
 (
     input clk, reset, write_enable, read_enable,
-    input [tamano_datos-1:0] data_in,
+    input [TAMANO_DATOS-1:0] data_in,
     output full, empty, almost_full, almost_empty, error,
     output reg [2:0] wr_ptr, rd_ptr,
-    output [tamano_datos-1:0] data_out
+    output [TAMANO_DATOS-1:0] data_out
 );
 parameter MEM_WIDTH = 10;
 parameter MEM_LENGHT = 8;
 
-reg [tamano_datos-1:0] mem [0:tamano_direcion-1];
-//reg [tamano_direcion-1:0] wr_ptr;
-//reg [tamano_direcion-1:0] rd_ptr;
-reg [tamano_direcion:0] contador; 
+reg [TAMANO_DATOS-1:0] mem [0:TAMANO_DIRECCION-1];
+//reg [TAMANO_DIRECCION-1:0] wr_ptr;
+//reg [TAMANO_DIRECCION-1:0] rd_ptr;
+reg [TAMANO_DIRECCION:0] contador; 
 
-assign full = (contador == tamano_direcion);
+assign full = (contador == TAMANO_DIRECCION);
 assign empty = (contador == 0);  
-assign error = (contador > tamano_direcion);
+assign error = (contador > TAMANO_DIRECCION);
 assign almost_empty = (contador == 1);
-assign almost_full = (contador == tamano_direcion-1);
+assign almost_full = (contador == TAMANO_DIRECCION-1);
 
 
 memory #(.MEM_WIDTH(10),.MEM_LENGHT(8))
         memory_fifo (/*AUTOINST*/
 	        //Outputs
-            .Fifo_Data_out	(data_out[tamano_datos-1:0]),
+            .Fifo_Data_out	(data_out[TAMANO_DATOS-1:0]),
 	        //Inputs
 	        .clk			(clk),
            .read_addr       (rd_ptr),
            .write_addr      (wr_ptr),
            .write_enable    (write_enable),   
 	       .read_enable		(read_enable),  
-	       .Fifo_Data_in	(data_in[tamano_datos-1:0]));
-
+	       .Fifo_Data_in	(data_in[TAMANO_DATOS-1:0]));
 
 //reset para sincronizar
 

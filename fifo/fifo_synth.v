@@ -3783,11 +3783,11 @@ endmodule
 (* top =  1  *)
 (* src = "fifo_synth.v:2" *)
 module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, almost_full, almost_empty, error, wr_ptr, rd_ptr, data_out_synth);
-  (* src = "fifo_synth.v:41" *)
+  (* src = "fifo_synth.v:40" *)
   wire [8:0] _000_;
-  (* src = "fifo_synth.v:41" *)
+  (* src = "fifo_synth.v:40" *)
   wire [2:0] _001_;
-  (* src = "fifo_synth.v:41" *)
+  (* src = "fifo_synth.v:40" *)
   wire [2:0] _002_;
   wire _003_;
   wire _004_;
@@ -4659,91 +4659,91 @@ module fifo_synth(clk, reset, write_enable, read_enable, data_in, full, empty, a
     .B(_011_),
     .Y(error)
   );
-  (* src = "fifo_synth.v:41" *)
+  (* src = "fifo_synth.v:40" *)
   DFF _279_ (
     .C(clk),
     .D(_002_[0]),
     .Q(wr_ptr[0])
   );
-  (* src = "fifo_synth.v:41" *)
+  (* src = "fifo_synth.v:40" *)
   DFF _280_ (
     .C(clk),
     .D(_002_[1]),
     .Q(wr_ptr[1])
   );
-  (* src = "fifo_synth.v:41" *)
+  (* src = "fifo_synth.v:40" *)
   DFF _281_ (
     .C(clk),
     .D(_002_[2]),
     .Q(wr_ptr[2])
   );
-  (* src = "fifo_synth.v:41" *)
+  (* src = "fifo_synth.v:40" *)
   DFF _282_ (
     .C(clk),
     .D(_001_[0]),
     .Q(rd_ptr[0])
   );
-  (* src = "fifo_synth.v:41" *)
+  (* src = "fifo_synth.v:40" *)
   DFF _283_ (
     .C(clk),
     .D(_001_[1]),
     .Q(rd_ptr[1])
   );
-  (* src = "fifo_synth.v:41" *)
+  (* src = "fifo_synth.v:40" *)
   DFF _284_ (
     .C(clk),
     .D(_001_[2]),
     .Q(rd_ptr[2])
   );
-  (* src = "fifo_synth.v:41" *)
+  (* src = "fifo_synth.v:40" *)
   DFF _285_ (
     .C(clk),
     .D(_000_[0]),
     .Q(contador[0])
   );
-  (* src = "fifo_synth.v:41" *)
+  (* src = "fifo_synth.v:40" *)
   DFF _286_ (
     .C(clk),
     .D(_000_[1]),
     .Q(contador[1])
   );
-  (* src = "fifo_synth.v:41" *)
+  (* src = "fifo_synth.v:40" *)
   DFF _287_ (
     .C(clk),
     .D(_000_[2]),
     .Q(contador[2])
   );
-  (* src = "fifo_synth.v:41" *)
+  (* src = "fifo_synth.v:40" *)
   DFF _288_ (
     .C(clk),
     .D(_000_[3]),
     .Q(contador[3])
   );
-  (* src = "fifo_synth.v:41" *)
+  (* src = "fifo_synth.v:40" *)
   DFF _289_ (
     .C(clk),
     .D(_000_[4]),
     .Q(contador[4])
   );
-  (* src = "fifo_synth.v:41" *)
+  (* src = "fifo_synth.v:40" *)
   DFF _290_ (
     .C(clk),
     .D(_000_[5]),
     .Q(contador[5])
   );
-  (* src = "fifo_synth.v:41" *)
+  (* src = "fifo_synth.v:40" *)
   DFF _291_ (
     .C(clk),
     .D(_000_[6]),
     .Q(contador[6])
   );
-  (* src = "fifo_synth.v:41" *)
+  (* src = "fifo_synth.v:40" *)
   DFF _292_ (
     .C(clk),
     .D(_000_[7]),
     .Q(contador[7])
   );
-  (* src = "fifo_synth.v:41" *)
+  (* src = "fifo_synth.v:40" *)
   DFF _293_ (
     .C(clk),
     .D(_000_[8]),

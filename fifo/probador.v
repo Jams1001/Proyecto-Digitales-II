@@ -46,17 +46,29 @@ module probador
 	data_in <= 10'b1001100110;
 
 	@(posedge clk);
-    //write_enable <= ~write_enable;
-    //read_enable <= ~read_enable;
+    write_enable <= ~write_enable;
+    read_enable <= ~read_enable;
 
 	@(posedge clk);
 	
 
 	@(posedge clk);
-	write_enable <= ~write_enable;
-    read_enable <= ~read_enable;
 
-	repeat(9) @(posedge clk);
+	@(posedge clk);
+
+	@(posedge clk);
+
+	@(posedge clk);
+
+	@(posedge clk);
+
+	@(posedge clk);
+
+	@(posedge clk);
+
+	@(posedge clk);
+
+	@(posedge clk);
 
 	$finish;
 	end
