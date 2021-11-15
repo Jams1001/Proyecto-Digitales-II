@@ -1,0 +1,140 @@
+$date
+	Mon Nov 15 00:21:12 2021
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ns
+$end
+$scope module testebench $end
+$var wire 1 ! reset $end
+$var wire 4 " push [3:0] $end
+$var wire 1 # pop $end
+$var wire 12 $ fifo_out [11:0] $end
+$var wire 1 % empty $end
+$var wire 1 & clk $end
+$var wire 4 ' almost_full [3:0] $end
+$scope module arbiter2 $end
+$var wire 2 ( class [1:0] $end
+$var wire 1 ! reset $end
+$var wire 1 % empty $end
+$var wire 1 & clk $end
+$var wire 4 ) almost_full [3:0] $end
+$var reg 1 # pop $end
+$var reg 4 * push [3:0] $end
+$upscope $end
+$scope module probador $end
+$var wire 1 # pop $end
+$var wire 4 + push [3:0] $end
+$var reg 4 , almost_full [3:0] $end
+$var reg 1 & clk $end
+$var reg 1 % empty $end
+$var reg 12 - fifo_out [11:0] $end
+$var reg 1 ! reset $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+b0 -
+b0 ,
+bx +
+bx *
+b0 )
+b0 (
+b0 '
+0&
+0%
+b0 $
+x#
+bx "
+1!
+$end
+#1
+b0 "
+b0 *
+b0 +
+0#
+1&
+#2
+0&
+#3
+b1010010110 $
+b1010010110 -
+0!
+1&
+#4
+0&
+#5
+b1 "
+b1 *
+b1 +
+1#
+b110010110 $
+b110010110 -
+1&
+#6
+0&
+#7
+b1 (
+b10000100101 $
+b10000100101 -
+1&
+#8
+0&
+#9
+b10 (
+b10 "
+b10 *
+b10 +
+b100000100100 $
+b100000100100 -
+1&
+#10
+0&
+#11
+b11 (
+b111010100101 $
+b111010100101 -
+b100 "
+b100 *
+b100 +
+1&
+#12
+0&
+#13
+b10 (
+b1000 "
+b1000 *
+b1000 +
+b101010100101 $
+b101010100101 -
+b100 '
+b100 )
+b100 ,
+1&
+#14
+0&
+#15
+b0 "
+b0 *
+b0 +
+0#
+1&
+#16
+0&
+#17
+1&
+#18
+0&
+#19
+1&
+#20
+0&
+#21
+1&
+#22
+0&
+#23
+1&
