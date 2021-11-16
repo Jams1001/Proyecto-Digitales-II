@@ -2,8 +2,8 @@ module tester2 (
     output reg clk, empty , reset,
     output reg [3:0] almost_full,
     output reg [11:0] fifo_out,
-    input pop,
-    input [3:0] push
+    input pop, pop_estr,
+    input [3:0] push, push_estr
 );
 
 always #1 clk <= ~clk;
