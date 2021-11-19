@@ -18,7 +18,7 @@ end
 
 
 initial begin
-    $dumpfile("resultados.vcd");
+    $dumpfile("arbitro2.vcd");
     $dumpvars;
     repeat(2) @(posedge clk);
     reset = 0;

@@ -1,0 +1,264 @@
+$date
+	Thu Nov 18 21:15:57 2021
+$end
+$version
+	Icarus Verilog
+$end
+$timescale
+	1ns
+$end
+$scope module BUF $end
+$var wire 1 ! A $end
+$var wire 1 " Y $end
+$upscope $end
+$scope module DFF $end
+$var wire 1 # C $end
+$var wire 1 $ D $end
+$var reg 1 % Q $end
+$upscope $end
+$scope module DFFSR $end
+$var wire 1 & C $end
+$var wire 1 ' D $end
+$var wire 1 ( R $end
+$var wire 1 ) S $end
+$var reg 1 * Q $end
+$upscope $end
+$scope module NAND $end
+$var wire 1 + A $end
+$var wire 1 , B $end
+$var wire 1 - Y $end
+$upscope $end
+$scope module NOR $end
+$var wire 1 . A $end
+$var wire 1 / B $end
+$var wire 1 0 Y $end
+$upscope $end
+$scope module NOT $end
+$var wire 1 1 A $end
+$var wire 1 2 Y $end
+$upscope $end
+$scope module testbench1 $end
+$var wire 1 3 reset $end
+$var wire 4 4 push [3:0] $end
+$var wire 4 5 pop [3:0] $end
+$var wire 12 6 fifo_out [11:0] $end
+$var wire 4 7 empty [3:0] $end
+$var wire 1 8 clk $end
+$var wire 4 9 almost_full [3:0] $end
+$scope module arbiter1 $end
+$var wire 2 : dest [1:0] $end
+$var wire 1 3 reset $end
+$var wire 4 ; empty [3:0] $end
+$var wire 1 8 clk $end
+$var wire 4 < almost_full [3:0] $end
+$var reg 3 = peso [2:0] $end
+$var reg 4 > pop [3:0] $end
+$var reg 4 ? push [3:0] $end
+$var integer 32 @ i [31:0] $end
+$upscope $end
+$scope module probador $end
+$var wire 4 A pop [3:0] $end
+$var wire 4 B push [3:0] $end
+$var reg 4 C almost_full [3:0] $end
+$var reg 1 8 clk $end
+$var reg 4 D empty [3:0] $end
+$var reg 12 E fifo_out [11:0] $end
+$var reg 1 3 reset $end
+$upscope $end
+$upscope $end
+$enddefinitions $end
+#0
+$dumpvars
+b0 E
+b100 D
+b0 C
+bx B
+bx A
+b0 @
+bx ?
+bx >
+bx =
+b0 <
+b100 ;
+b0 :
+b0 9
+08
+b100 7
+b0 6
+bx 5
+bx 4
+13
+z2
+z1
+x0
+z/
+z.
+x-
+z,
+z+
+x*
+z)
+z(
+z'
+z&
+x%
+z$
+z#
+z"
+z!
+$end
+#1
+b100 =
+b0 4
+b0 ?
+b0 B
+b0 5
+b0 >
+b0 A
+18
+#2
+08
+#3
+b10 :
+b1010010110 6
+b1010010110 E
+03
+18
+#4
+08
+#5
+b100 4
+b100 ?
+b100 B
+b11 =
+b1 5
+b1 >
+b1 A
+18
+#6
+08
+#7
+b10 =
+18
+#8
+08
+#9
+b1 =
+18
+#10
+08
+#11
+b101011110000 6
+b101011110000 E
+b11 =
+b1 @
+18
+#12
+08
+#13
+b10 =
+b10 5
+b10 >
+b10 A
+18
+#14
+08
+#15
+b1 =
+18
+#16
+08
+#17
+b11 @
+18
+#18
+08
+#19
+b11 :
+b11101010000 6
+b11101010000 E
+b0 7
+b0 ;
+b0 D
+b100 =
+b0 @
+b1000 5
+b1000 >
+b1000 A
+18
+#20
+08
+#21
+b0 :
+b1000 4
+b1000 ?
+b1000 B
+b11 =
+b1 5
+b1 >
+b1 A
+b110000011110 6
+b110000011110 E
+18
+#22
+08
+#23
+b11 :
+b111100101001 6
+b111100101001 E
+b1 4
+b1 ?
+b1 B
+b10 =
+18
+#24
+08
+#25
+b1000 4
+b1000 ?
+b1000 B
+b1 =
+18
+#26
+08
+#27
+b11 =
+b1 @
+18
+#28
+08
+#29
+b10 =
+b10 5
+b10 >
+b10 A
+b100 9
+b100 <
+b100 C
+18
+#30
+08
+#31
+b0 4
+b0 ?
+b0 B
+b0 5
+b0 >
+b0 A
+18
+#32
+08
+#33
+18
+#34
+08
+#35
+18
+#36
+08
+#37
+18
+#38
+08
+#39
+18

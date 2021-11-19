@@ -1,0 +1,44 @@
+
+parameter WEIGHT = 4
+reg [2:0] weights [0:3]
+weights[0] = WEIGHT
+weights[1] = WEIGHT-1
+weights[2] = WEIGHT-2
+weights[3] = WEIGHT-3
+
+nota: no hace pop(,/push) if (&empty || |almostfull) // si todos los transmisores empty o un receptor almost_full
+else (case para la prioridad de los pops)
+     (case para ver a cual se pushea) 
+
+
+
+i=0
+always posedge 
+case (i): // case para prioridad de pops
+0: begin
+	if weight[i] >= 0 && !empty[i]
+	pop = 0001
+	weight[i]--
+	else begin: 
+    i++, weight[i] = WEIGHT
+.
+.
+3: begin
+	if weight[i] >= 0 && !empty[i]
+	pop = 0001
+	weight[i]--
+	else: i++, weight[i] = WEIGHT
+
+case(dest): // para ver a cual pushea
+
+para conectar salida de fifo amarillo a fifo celeste:
+ej:
+if pop == 0001:
+    assign wire_celeste = fifo_out_0
+if pop == 0010:
+    assign wire_celeste = fifo_out_1
+
+fifo celeste(
+    .datain(wire_celeste)
+    //fifo celeste siempre tendría read_en prendido para actualizar salida
+)
