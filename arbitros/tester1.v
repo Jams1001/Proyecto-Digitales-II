@@ -2,7 +2,7 @@ module tester1 (
     output reg clk, reset,
     output reg [11:0] fifo_out,
     output reg [3:0] almost_full, empty,
-    input wire [3:0] push, pop
+    input wire [3:0] push, pop, push_estr, pop_estr
 );
 
 always #1 clk <= ~clk;
