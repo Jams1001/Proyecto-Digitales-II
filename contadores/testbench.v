@@ -7,7 +7,7 @@
 
 module testbench; 
 
-	wire CLK, pop4, pop0, pop1, pop2, pop3, req, reset, valid, validS; 
+	wire CLK, pop4, pop0, pop1, pop2, pop3, req, IDLE, reset, valid, validS; 
 	wire [2:0] idx;
 	wire [4:0] data, dataS;
 
@@ -23,6 +23,7 @@ contadores contadoresINST(/*AUTOINST*/
 			  .pop2			(pop2),
 			  .pop3			(pop3),
 			  .req			(req),
+			  .IDLE			(IDLE),
 			  .idx			(idx[2:0]),
 			  .reset		(reset));
 contadoresS contadoresSINST(/*AUTOINST*/
@@ -31,6 +32,7 @@ contadoresS contadoresSINST(/*AUTOINST*/
 			    .valid		(validS),
 			    // Inputs
 			    .CLK		(CLK),
+			    .IDLE		(IDLE),
 			    .idx		(idx[2:0]),
 			    .pop0		(pop0),
 			    .pop1		(pop1),
@@ -49,6 +51,7 @@ tester testerINST(/*AUTOINST*/
 		  .pop2			(pop2),
 		  .pop3			(pop3),
 		  .req			(req),
+		  .IDLE			(IDLE),
 		  .reset		(reset),
 		  .idx			(idx[2:0]),
 		  // Inputs
