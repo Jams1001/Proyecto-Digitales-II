@@ -1,0 +1,60 @@
+[*]
+[*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
+[*] Fri Nov 19 04:53:22 2021
+[*]
+[dumpfile] "/home/jams/IIS_2021/IE0523_CIRCUITOS_DIGITALES_II/Proyectos/Proyecto_2/contador/contadores.vcd"
+[dumpfile_mtime] "Fri Nov 19 04:37:29 2021"
+[dumpfile_size] 43927
+[savefile] "/home/jams/IIS_2021/IE0523_CIRCUITOS_DIGITALES_II/Proyectos/Proyecto_2/contador/contadores.gtkw"
+[timestart] 0
+[size] 1002 617
+[pos] -10 -93
+*-4.120294 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] testbench.
+[sst_width] 233
+[signals_width] 118
+[sst_expanded] 1
+[sst_vpaned_height] 150
+@28
+testbench.CLK
+testbench.IDLE
+testbench.req
+testbench.reset
+@200
+-
+@22
+testbench.contadoresINST.cntFF4[4:0]
+@28
+testbench.pop4
+@800022
+testbench.contadoresINST.cntFF0[4:0]
+@1001200
+-group_end
+@28
+testbench.pop0
+@22
+testbench.contadoresINST.cntFF1[4:0]
+@28
+testbench.pop1
+@22
+testbench.contadoresINST.cntFF2[4:0]
+@28
+testbench.pop2
+@22
+testbench.contadoresINST.cntFF3[4:0]
+@28
+testbench.pop3
+@200
+-
+@28
+testbench.idx[2:0]
+@200
+-
+@22
+testbench.dataS[4:0]
+testbench.data[4:0]
+@28
+testbench.valid
+testbench.validS
+[pattern_trace] 1
+[pattern_trace] 0
