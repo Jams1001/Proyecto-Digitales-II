@@ -2,7 +2,7 @@
 `include "fifo.v"
 `include "arbitro1.v"
 `include "arbitro2.v"
-module PCIE; 
+module PICHA; 
 
     parameter TAMANO_DIRECCION = 8;
 	parameter TAMANO_DATOS = 12;
