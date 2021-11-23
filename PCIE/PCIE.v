@@ -2,14 +2,22 @@
 `include "fifo.v"
 `include "arbitro1.v"
 `include "arbitro2.v"
-module PICHA; 
+
+module PCIE(
+	input push_probador,
+	input [3:0] pop_probador,
+	input [11:0] data_in,
+	output data_out0,
+	output data_out1,
+	output data_out2,
+	output data_out3); 
 
     parameter TAMANO_DIRECCION = 8;
 	parameter TAMANO_DATOS = 12;
 
     wire clk, reset;
 
-    // Fifo in
+    // Cables de Fifo in (Primer fifo amarillo)
 	wire empty_in;
     wire full_in; 
     wire almost_full_in; 
@@ -17,54 +25,106 @@ module PICHA;
     wire error_in; 
     wire [2:0] wr_ptr_in; 
     wire [2:0] rd_ptr_in; 
-    wire [TAMANO_DATOS-1:0] data_in;
-    wire [TAMANO_DATOS-1:0] data_out_in;
-    wire write_enable_in;
-    wire read_enable_in;
-    
-    //  Almost_full fifos y Árbitro 2
-    wire [3:0] almost_full_arbitro2;
-    wire [3:0] write_enable_arbitro2;
 
+    wire [TAMANO_DATOS-1:0] data_out_in;
+    //wire write_enable_in;	// PUSH QUE VIENE DEL PROBADOR
+    wire read_enable_in;   
+
+	// Cables de Fifo in2  (Fifo 'celeste')
+	wire empty_in2;
+    wire full_in2; 
+    wire almost_full_in2; 
+    wire almost_empty_in2; 
+    wire error_in2; 
+    wire [2:0] wr_ptr_in2; 
+    wire [2:0] rd_ptr_in2; 
+    wire [TAMANO_DATOS-1:0] data_in2;
+    wire [TAMANO_DATOS-1:0] data_out_in2;
+    wire write_enable_in2;
+    wire read_enable_in2;
+    
+    //  Árbitro 1 y Árbitro 2
+    wire [3:0] almost_full_arbitro2;
+    wire [3:0] push_arbitro2;
+	wire [3:0] pop_arbitro1;
+	wire [3:0] push_arbitro1; 
+	wire [3:0] almost_empty_arbitro1;  // Conectado a almost_empty de los fifos
+	wire [3:0] almost_full_arbitro1;
+	
     // Fifo 0
-    wire empty_0;
     wire full_0; 
-    wire almost_empty_0; 
+    wire empty_0; 
     wire error_0; 
     wire [2:0] wr_ptr_0; 
     wire [2:0] rd_ptr_0; 
     wire [TAMANO_DATOS-1:0] data_out_0;
-    wire read_enable_0;
-
+	
     // Fifo 1
-    wire empty_1;
     wire full_1; 
-    wire almost_empty_1; 
+    wire empty_1; 
     wire error_1; 
     wire [2:0] wr_ptr_1; 
     wire [2:0] rd_ptr_1; 
     wire [TAMANO_DATOS-1:0] data_out_1;
-    wire read_enable_1;
 
     // Fifo 2
-    wire empty_2;
     wire full_2; 
-    wire almost_empty_2; 
+    wire empty_2; 
     wire error_2; 
     wire [2:0] wr_ptr_2; 
     wire [2:0] rd_ptr_2; 
     wire [TAMANO_DATOS-1:0] data_out_2;
-    wire read_enable_2;
     
     // Fifo 3
-    wire empty_3;
     wire full_3; 
-    wire almost_empty_3; 
+    wire empty_3; 
     wire error_3; 
     wire [2:0] wr_ptr_3; 
     wire [2:0] rd_ptr_3; 
     wire [TAMANO_DATOS-1:0] data_out_3;
-    wire read_enable_3;
+
+
+	// Fifo 4
+    wire full_4; 
+    wire empty_4;
+	wire almost_empty_4; 
+    wire error_4; 
+    wire [2:0] wr_ptr_4; 
+    wire [2:0] rd_ptr_4; 
+
+	// Fifo 5
+    wire full_5; 
+    wire empty_5;
+	wire almost_empty_5; 
+    wire error_5; 
+    wire [2:0] wr_ptr_5; 
+    wire [2:0] rd_ptr_5; 
+
+	// Fifo 6
+    wire full_6; 
+    wire empty_6;
+	wire almost_empty_6; 
+    wire error_6; 
+    wire [2:0] wr_ptr_6; 
+    wire [2:0] rd_ptr_6; 
+	
+	// Fifo 7
+    wire full_7; 
+    wire empty_7;
+	wire almost_empty_7; 
+    wire error_7; 
+    wire [2:0] wr_ptr_7; 
+    wire [2:0] rd_ptr_7; 
+
+	// Contador
+	wire [4:0] data;
+	wire valid;
+
+	//FSM
+	wire req;
+	wire IDLE;
+	wire [2:0] idx;
+
         
 fifo fifoin(/*AUTOINST*/
 	    // Outputs
@@ -79,16 +139,17 @@ fifo fifoin(/*AUTOINST*/
 	    // Inputs
 	    .clk			(clk),
 	    .reset			(reset),
-	    .write_enable		(write_enable_in),
+	    .write_enable		(push_probador),
 	    .read_enable		(read_enable_in),
-	    .data_in			(data_in[11:0]);
+	    .data_in			(data_in[11:0]));
 
+	
 fifo fifo0(/*AUTOINST*/
 	   // Outputs
 	   .full			(full_0),
 	   .empty			(empty_0),
 	   .almost_full			(almost_full_arbitro2[0]),
-	   .almost_empty		(almost_empty_0),
+	   .almost_empty		(almost_empty_arbitro1[0]),
 	   .error			(error_0),
 	   .wr_ptr			(wr_ptr_0[2:0]),
 	   .rd_ptr			(rd_ptr_0[2:0]),
@@ -96,16 +157,16 @@ fifo fifo0(/*AUTOINST*/
 	   // Inputs
 	   .clk				(clk),
 	   .reset			(reset),
-	   .write_enable		(write_enable_arbitro2[0]),
-	   .read_enable			(read_enable_0),
-	   .data_in			(data_out_in);
+	   .write_enable		(push_arbitro2[0]),
+	   .read_enable			(pop_arbitro1[0]),
+	   .data_in			(data_out_in));
        
 fifo fifo1(/*AUTOINST*/
 	   // Outputs
 	   .full			(full_1),
 	   .empty			(empty_1),
 	   .almost_full			(almost_full_arbitro2[1]),
-	   .almost_empty		(almost_empty_1),
+	   .almost_empty		(almost_empty_arbitro1[1]),
 	   .error			(error_1),
 	   .wr_ptr			(wr_ptr_1[2:0]),
 	   .rd_ptr			(rd_ptr_1[2:0]),
@@ -113,16 +174,16 @@ fifo fifo1(/*AUTOINST*/
 	   // Inputs
 	   .clk				(clk),
 	   .reset			(reset),
-	   .write_enable		(write_enable_arbitro2[1]),
-	   .read_enable			(read_enable_1),
-	   .data_in			(data_out_in);
+	   .write_enable		(push_arbitro2[1]),
+	   .read_enable			(pop_arbitro1[1]),
+	   .data_in			(data_out_in));
 
 fifo fifo2(/*AUTOINST*/
 	   // Outputs
 	   .full			(full_2),
-	   .empty			(empty)_2,
+	   .empty			(empty_2),
 	   .almost_full			(almost_full_arbitro2[2]),
-	   .almost_empty		(almost_empty_2),
+	   .almost_empty		(almost_empty_arbitro1[2]),
 	   .error			(error_2),
 	   .wr_ptr			(wr_ptr_2[2:0]),
 	   .rd_ptr			(rd_ptr_2[2:0]),
@@ -130,25 +191,25 @@ fifo fifo2(/*AUTOINST*/
 	   // Inputs
 	   .clk				(clk),
 	   .reset			(reset),
-	   .write_enable		(write_enable_arbitro2[2]),
-	   .read_enable			(read_enable_2),
-	   .data_in			(data_out_in);
+	   .write_enable		(push_arbitro2[2]),
+	   .read_enable			(pop_arbitro1[2]),
+	   .data_in			(data_out_in));
 
 fifo fifo3(/*AUTOINST*/
 	   // Outputs
 	   .full			(full_1),
-	   .empty			(empty_1),
+	   .empty			(empty_3),
 	   .almost_full			(almost_full_arbitro2[3]),
-	   .almost_empty		(almost_empty_1),
+	   .almost_empty		(almost_empty_arbitro1[3]),
 	   .error			(error_1),
 	   .wr_ptr			(wr_ptr_1[2:0]),
 	   .rd_ptr			(rd_ptr_1[2:0]),
-	   .data_out			(data_out_1[TAMANO_DATOS-1:0]),
+	   .data_out			(data_out_3[TAMANO_DATOS-1:0]),
 	   // Inputs
 	   .clk				(clk),
 	   .reset			(reset),
-	   .write_enable		(write_enable_arbitro2[3]),
-	   .read_enable			(read_enable_1),
+	   .write_enable		(push_arbitro2[3]),
+	   .read_enable			(pop_arbitro1[3]),
 	   .data_in			(data_out_in);
 
 
@@ -161,123 +222,154 @@ arbitro2 arbitro_2(/*AUTOINST*/
            .almost_full (almost_full_arbitro2[0]),
            // Outputs
            .pop         (read_enable_in),
-           .push        (write_enable_arbitro2));
+           .push        (push_arbitro2));
 
 
-fifo fifoin2(/*AUTOINST*/
-	     // Outputs
-	     .full			(full),
-	     .empty			(empty),
-	     .almost_full		(almost_full),
-	     .almost_empty		(almost_empty),
-	     .error			(error),
-	     .wr_ptr			(wr_ptr[2:0]),
-	     .rd_ptr			(rd_ptr[2:0]),
-	     .data_out			(data_out[TAMANO_DATOS-1:0]),
+fifo fifoin2(/*AUTOINST*/					
+				// Outputs
+				.full			(full_in2),
+				.empty			(empty_in2),
+				.almost_full		(almost_full_in2),
+				.almost_empty		(almost_empty_in2),
+				.error			(error_in2),
+				.wr_ptr			(wr_ptr_in2[2:0]),
+				.rd_ptr			(rd_ptr_in2[2:0]),
+				.data_out			(data_out_in2),
 	     // Inputs
 	     .clk			(clk),
 	     .reset			(reset),
-	     .write_enable		(write_enable),
-	     .read_enable		(read_enable),
-	     .data_in			(data_in[TAMANO_DATOS-1:0]));
+	     .write_enable		(write_enable_in2),
+	     .read_enable		(read_enable_in2),
+	     .data_in			(data_in2);
 
 
+always @(*) begin			// Para seleccionar cual salida va a Fifo_in2
+	case (pop_arbitro1)
+		4'b0001: begin
+			assign data_in2 = data_out_0;
+		end
+		4'b0010: begin
+			assign data_in2 = data_out_1;
+		end
+		4'b0100: begin
+			assign data_in2 = data_out_2;
+		end
+		4'b1000: begin
+			assign data_in2 = data_out_3;
+		end
+		default: 
+	endcase
+end
 
-fifo fifo4(/*AUTOINST*/
-	   // Outputs
-	   .full			(full),
-	   .empty			(empty),
-	   .almost_full			(almost_full),
-	   .almost_empty		(almost_empty),
-	   .error			(error),
-	   .wr_ptr			(wr_ptr[2:0]),
-	   .rd_ptr			(rd_ptr[2:0]),
-	   .data_out			(data_out[TAMANO_DATOS-1:0]),
-	   // Inputs
-	   .clk				(clk),
-	   .reset			(reset),
-	   .write_enable		(write_enable),
-	   .read_enable			(read_enable),
-	   .data_in			(data_in[TAMANO_DATOS-1:0]));
-fifo fifo5(/*AUTOINST*/
-	   // Outputs
-	   .full			(full),
-	   .empty			(empty),
-	   .almost_full			(almost_full),
-	   .almost_empty		(almost_empty),
-	   .error			(error),
-	   .wr_ptr			(wr_ptr[2:0]),
-	   .rd_ptr			(rd_ptr[2:0]),
-	   .data_out			(data_out[TAMANO_DATOS-1:0]),
-	   // Inputs
-	   .clk				(clk),
-	   .reset			(reset),
-	   .write_enable		(write_enable),
-	   .read_enable			(read_enable),
-	   .data_in			(data_in[TAMANO_DATOS-1:0]));
-fifo fifo6(/*AUTOINST*/
-	   // Outputs
-	   .full			(full),
-	   .empty			(empty),
-	   .almost_full			(almost_full),
-	   .almost_empty		(almost_empty),
-	   .error			(error),
-	   .wr_ptr			(wr_ptr[2:0]),
-	   .rd_ptr			(rd_ptr[2:0]),
-	   .data_out			(data_out[TAMANO_DATOS-1:0]),
-	   // Inputs
-	   .clk				(clk),
-	   .reset			(reset),
-	   .write_enable		(write_enable),
-	   .read_enable			(read_enable),
-	   .data_in			(data_in[TAMANO_DATOS-1:0]));
-fifo fifo7(/*AUTOINST*/
-	   // Outputs
-	   .full			(full),
-	   .empty			(empty),
-	   .almost_full			(almost_full),
-	   .almost_empty		(almost_empty),
-	   .error			(error),
-	   .wr_ptr			(wr_ptr[2:0]),
-	   .rd_ptr			(rd_ptr[2:0]),
-	   .data_out			(data_out[TAMANO_DATOS-1:0]),
-	   // Inputs
-	   .clk				(clk),
-	   .reset			(reset),
-	   .write_enable		(write_enable),
-	   .read_enable			(read_enable),
-	   .data_in			(data_in[TAMANO_DATOS-1:0]));
 
 
 arbitro1 arbitro_1(/*AUTOINST*/
 		   // Outputs
-		   .push		(push[3:0]),
-		   .pop			(pop[3:0]),
+		   .push		(push_arbitro1),
+		   .pop			(pop_arbitro1),
 		   // Inputs
 		   .clk			(clk),
 		   .reset		(reset),
-		   .dest		(dest[1:0]),
-		   .almost_full		(almost_full[3:0]),
-		   .empty		(empty[3:0]));
+		   .dest		(data_out_in2[9:8]),
+		   .almost_full		(almost_full_arbitro1),
+		   .empty		(almost_empty_arbitro1));		 
 
 
 
-contadores contador1(/*AUTOINST*/
+//Push -> write enable
+//Pop -> read enable
+
+fifo fifo4(/*AUTOINST*/
+	   // Outputs
+	   .full			(full_4),
+	   .empty			(empty_4),
+	   .almost_full			(almost_full_arbitro1[0]),
+	   .almost_empty		(almost_empty_4),
+	   .error			(error_4),
+	   .wr_ptr			(wr_ptr_4[2:0]),
+	   .rd_ptr			(rd_ptr_4[2:0]),
+	   .data_out			(data_out0),
+	   // Inputs
+	   .clk				(clk),
+	   .reset			(reset),
+	   .write_enable		(push_arbitro1[0]),
+	   .read_enable			(pop_probador[0]), 				
+	   .data_in			(data_out_in2));
+	   
+fifo fifo5(/*AUTOINST*/
+	   // Outputs
+	   .full			(full_5),
+	   .empty			(empty_5),
+	   .almost_full			(almost_full_arbitro1[1]),
+	   .almost_empty		(almost_empty_5),
+	   .error			(error_5),
+	   .wr_ptr			(wr_ptr_5[2:0]),
+	   .rd_ptr			(rd_ptr_5[2:0]),
+	   .data_out			(data_out1),
+	   // Inputs
+	   .clk				(clk),
+	   .reset			(reset),
+	   .write_enable		(push_arbitro1[1]),
+	   .read_enable			(pop_probador[1]), // POP QUE VIENE DEL PROBADOR
+	   .data_in			(data_out_in2));
+	   
+fifo fifo6(/*AUTOINST*/
+	   // Outputs
+	   .full			(full_6),
+	   .empty			(empty_6),
+	   .almost_full			(almost_full_arbitro1[2]),
+	   .almost_empty		(almost_empty_6),
+	   .error			(error_6),
+	   .wr_ptr			(wr_ptr_6[2:0]),
+	   .rd_ptr			(rd_ptr_6[2:0]),
+	   .data_out			(data_out2),
+	   // Inputs
+	   .clk				(clk),
+	   .reset			(reset),
+	   .write_enable		(push_arbitro1[2]),
+	   .read_enable			(pop_probador[2]), // POP QUE VIENE DEL PROBADOR
+	   .data_in			(data_out_in2));
+
+fifo fifo7(/*AUTOINST*/
+	   // Outputs
+	   .full			(full_7),
+	   .empty			(empty_7),
+	   .almost_full			(almost_full_arbitro1[3]),
+	   .almost_empty		(almost_empty_7),
+	   .error			(error_7),
+	   .wr_ptr			(wr_ptr_7[2:0]),
+	   .rd_ptr			(rd_ptr_7[2:0]),
+	   .data_out			(data_out3),
+	   // Inputs
+	   .clk				(clk),
+	   .reset			(reset),
+	   .write_enable		(push_arbitro1[3]),
+	   .read_enable			(pop_probador[3]), // POP QUE VIENE DEL PROBADOR
+	   .data_in			(data_out_in2));
+
+contadores contadores1(/*AUTOINST*/
 		     // Outputs
 		     .data		(data[4:0]),
 		     .valid		(valid),
 		     // Inputs
-		     .CLK		(CLK),
-		     .pop4		(pop4),
-		     .pop0		(pop0),
-		     .pop1		(pop1),
-		     .pop2		(pop2),
-		     .pop3		(pop3),
+		     .CLK		(clk),
+		     .pop4		(read_enable_in), 	//ESTE POP 4 ES ELPOP AMARILLO HORIZONTAL
+		     .pop0		(pop_probador[0]),
+		     .pop1		(pop_probador[1]),
+		     .pop2		(pop_probador[2]),
+		     .pop3		(pop_probador[3]),
 		     .req		(req),
 		     .IDLE		(IDLE),
 		     .idx		(idx[2:0]),
 		     .reset		(reset));
+			 
+/*			 
+always @(pop_probador1 || pop_probador2 || pop_probador2 || pop_probador3 ) begin     
+	pop4=1;
+end
+pop_probador = solo un bit alto a la vez (e.g. XX1X)
+*/
 
 
-
+  
 endmodule
