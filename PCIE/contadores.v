@@ -7,6 +7,7 @@ module contadores(
     */
     input pop4, pop0, pop1, pop2, pop3,                      
     input req,
+    input IDLE,
     input [2:0] idx,
     input reset,
     /* 
@@ -26,7 +27,7 @@ module contadores(
     reg [4:0] cntFF3; 
 
     always @(*) begin
-        if (!req) begin
+        if (!req && !IDLE) begin
             valid = 0;
             data = 5'b0;  
         end

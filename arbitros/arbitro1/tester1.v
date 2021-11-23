@@ -9,7 +9,7 @@ always #1 clk <= ~clk;
 
 
 initial begin 
-    empty = 4'b0100;
+    empty = 4'b0000;
     reset = 1;
     almost_full = 0;
     fifo_out = 0;
@@ -22,17 +22,27 @@ initial begin
     repeat(2) @(posedge clk);
     reset = 0;
     fifo_out <= 12'b000010010110;
+<<<<<<< HEAD:arbitros/tester1.v
     repeat(4) @(posedge clk);       // 4 palabras a Fifo P0
     fifo_out <= 12'b100011110000;
     repeat (4) @(posedge clk);      // 2 palabras a Fifo P1
     empty <= 4'b0000;               // Fifo P1 se pone empty y se pasa a siguiente 
     fifo_out <= 12'b11011010000;
+=======
+    repeat(4) @(posedge clk);       
+    fifo_out <= 12'b100011110000;
+    repeat(2) @(posedge clk);
+    empty <= 4'b0100;
+    @(posedge clk);                  
+    fifo_out <= 12'b110110100000;
+>>>>>>> 4ce52e51333d9f9c4ad752c85d5036c2462ae6bf:arbitros/arbitro1/tester1.v
     @(posedge clk);
-    fifo_out <= 12'b110000011110;
+    fifo_out <= 12'b110100011110;
     @(posedge clk);
-    fifo_out <= 12'b111100101001;
+    empty <= 0;
+    fifo_out <= 12'b111000101001;
     @(posedge clk);
-    fifo_out <= 12'b111100101001;
+    fifo_out <= 12'b111000101001;
     @(posedge clk);
     fifo_out <= 12'b111100101001;
     @(posedge clk);

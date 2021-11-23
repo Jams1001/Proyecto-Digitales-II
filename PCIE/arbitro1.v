@@ -1,7 +1,7 @@
 module arbitro1 (
     input clk, reset,
     input [1:0] dest,
-    input [3:0] almost_full, empty,
+    input [3:0] almost_full, empty,  // probablemente se deba usar almost_empty por retardos
     output reg [3:0] push, pop
 );
 
@@ -18,10 +18,6 @@ always @(posedge clk)begin
     if (reset) begin
         pop <= 0; push <= 0;
         i <= 0; peso <= WEIGHT_P0;
-        /*weights[0] = WEIGHT;         // P0: Weight = 4
-        weights[1] = WEIGHT-1;       // P0: Weight = 3
-        weights[2] = WEIGHT-2;       // P0: Weight = 2
-        weights[3] = WEIGHT-3;  */     // P0: Weight = 
     end
     
     else begin

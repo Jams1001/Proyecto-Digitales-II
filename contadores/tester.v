@@ -2,6 +2,7 @@ module tester(
     output reg CLK, 
     output reg pop4, pop0, pop1, pop2, pop3,                      
     output reg req,
+    output reg IDLE,
     output reg reset,
     output reg [2:0] idx,
     input wire [4:0] data,
@@ -12,6 +13,7 @@ module tester(
         pop4 <= 0; pop0 <= 0; pop1 <= 0; pop2 <= 0; pop3 <= 0;
         req <= 0;
         reset <= 0;
+        IDLE <= 0;
     end
     
     always #1 CLK <= ~CLK;
@@ -33,6 +35,7 @@ module tester(
     pop3 <= 1;	
     @(posedge CLK);
     req <= 1;
+    IDLE <= 1;
     @(posedge CLK);	
     @(posedge CLK);
     idx <= 3'b000;
