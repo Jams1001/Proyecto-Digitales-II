@@ -3,10 +3,10 @@
 (* dynports =  1  *)
 (* top =  1  *)
 (* src = "fsm_synth.v:1" *)
-module fsm_synth(clk, reset, init, umbral_LH, empty_fifo_0, empty_fifo_1, empty_fifo_2, empty_fifo_3, empty_fifo_4, empty_fifo_5, empty_fifo_6, empty_fifo_7, state, nxt_state, umbral_LH_out, next_umbral_LH_out);
-  (* src = "fsm_synth.v:28" *)
+module fsm_synth(clk, reset, init, umbral_LH, empty_fifo_0, empty_fifo_1, empty_fifo_2, empty_fifo_3, empty_fifo_4, empty_fifo_5, empty_fifo_6, empty_fifo_7, state, nxt_state, umbral_LH_out, next_umbral_LH_out, idle_out);
+  (* src = "fsm_synth.v:30" *)
   wire [2:0] _000_;
-  (* src = "fsm_synth.v:28" *)
+  (* src = "fsm_synth.v:30" *)
   wire [7:0] _001_;
   wire _002_;
   wire _003_;
@@ -76,7 +76,7 @@ module fsm_synth(clk, reset, init, umbral_LH, empty_fifo_0, empty_fifo_1, empty_
   wire _067_;
   wire _068_;
   wire _069_;
-  (* src = "fsm_synth.v:21" *)
+  (* src = "fsm_synth.v:23" *)
   wire [7:0] FIFO_empties;
   (* src = "fsm_synth.v:4" *)
   input clk;
@@ -96,6 +96,8 @@ module fsm_synth(clk, reset, init, umbral_LH, empty_fifo_0, empty_fifo_1, empty_
   input empty_fifo_6;
   (* src = "fsm_synth.v:15" *)
   input empty_fifo_7;
+  (* src = "fsm_synth.v:21" *)
+  output idle_out;
   (* src = "fsm_synth.v:6" *)
   input init;
   (* src = "fsm_synth.v:19" *)
@@ -383,142 +385,142 @@ module fsm_synth(clk, reset, init, umbral_LH, empty_fifo_0, empty_fifo_1, empty_
     .Y(next_umbral_LH_out[7])
   );
   NOR _130_ (
-    .A(_029_),
-    .B(_057_),
-    .Y(_001_[0])
-  );
-  NOR _131_ (
-    .A(_029_),
-    .B(_060_),
-    .Y(_001_[1])
-  );
-  NOR _132_ (
-    .A(_029_),
-    .B(_063_),
-    .Y(_001_[2])
-  );
-  NOR _133_ (
-    .A(_029_),
-    .B(_066_),
-    .Y(_001_[3])
-  );
-  NOR _134_ (
-    .A(_029_),
-    .B(_069_),
-    .Y(_001_[4])
-  );
-  NOR _135_ (
-    .A(_029_),
-    .B(_004_),
-    .Y(_001_[5])
-  );
-  NOR _136_ (
-    .A(_029_),
-    .B(_007_),
-    .Y(_001_[6])
-  );
-  NOR _137_ (
-    .A(_029_),
-    .B(_010_),
-    .Y(_001_[7])
-  );
-  NOR _138_ (
     .A(state[0]),
     .B(state[2]),
     .Y(_011_)
   );
-  NOR _139_ (
+  NOR _131_ (
     .A(state[1]),
     .B(_029_),
     .Y(_012_)
   );
-  NAND _140_ (
+  NAND _132_ (
     .A(_011_),
     .B(_012_),
     .Y(_013_)
   );
-  NAND _141_ (
+  NAND _133_ (
     .A(_054_),
     .B(_013_),
     .Y(nxt_state[0])
   );
-  NAND _142_ (
+  NAND _134_ (
     .A(state[1]),
     .B(_011_),
     .Y(_014_)
   );
-  NAND _143_ (
+  NAND _135_ (
     .A(empty_fifo_4),
     .B(empty_fifo_5),
     .Y(_015_)
   );
-  NAND _144_ (
+  NAND _136_ (
     .A(empty_fifo_6),
     .B(empty_fifo_7),
     .Y(_016_)
   );
-  NOR _145_ (
+  NOR _137_ (
     .A(_015_),
     .B(_016_),
     .Y(_017_)
   );
-  NAND _146_ (
+  NAND _138_ (
     .A(empty_fifo_0),
     .B(empty_fifo_1),
     .Y(_018_)
   );
-  NAND _147_ (
+  NAND _139_ (
     .A(empty_fifo_2),
     .B(empty_fifo_3),
     .Y(_019_)
   );
-  NOR _148_ (
+  NOR _140_ (
     .A(_018_),
     .B(_019_),
     .Y(_020_)
   );
-  NAND _149_ (
+  NAND _141_ (
     .A(_017_),
     .B(_020_),
     .Y(_021_)
   );
-  NOR _150_ (
+  NOR _142_ (
     .A(_014_),
     .B(_021_),
     .Y(_022_)
   );
-  NAND _151_ (
+  NAND _143_ (
     .A(init),
     .B(_049_),
     .Y(_023_)
   );
-  NOT _152_ (
+  NOT _144_ (
     .A(_023_),
     .Y(_024_)
   );
-  NOR _153_ (
+  NOR _145_ (
     .A(_022_),
     .B(_024_),
     .Y(_025_)
   );
-  NOT _154_ (
+  NOT _146_ (
     .A(_025_),
     .Y(nxt_state[1])
   );
-  NOR _155_ (
+  NOR _147_ (
     .A(_029_),
     .B(_025_),
     .Y(_000_[1])
   );
-  NAND _156_ (
+  NAND _148_ (
     .A(reset),
     .B(_021_),
     .Y(_026_)
   );
-  NOR _157_ (
+  NOR _149_ (
     .A(_014_),
     .B(_026_),
     .Y(nxt_state[2])
+  );
+  NOR _150_ (
+    .A(_029_),
+    .B(_057_),
+    .Y(_001_[0])
+  );
+  NOR _151_ (
+    .A(_029_),
+    .B(_060_),
+    .Y(_001_[1])
+  );
+  NOR _152_ (
+    .A(_029_),
+    .B(_063_),
+    .Y(_001_[2])
+  );
+  NOR _153_ (
+    .A(_029_),
+    .B(_066_),
+    .Y(_001_[3])
+  );
+  NOR _154_ (
+    .A(_029_),
+    .B(_069_),
+    .Y(_001_[4])
+  );
+  NOR _155_ (
+    .A(_029_),
+    .B(_004_),
+    .Y(_001_[5])
+  );
+  NOR _156_ (
+    .A(_029_),
+    .B(_007_),
+    .Y(_001_[6])
+  );
+  NOR _157_ (
+    .A(_029_),
+    .B(_010_),
+    .Y(_001_[7])
   );
   NAND _158_ (
     .A(_054_),
@@ -530,71 +532,72 @@ module fsm_synth(clk, reset, init, umbral_LH, empty_fifo_0, empty_fifo_1, empty_
     .B(_026_),
     .Y(_000_[2])
   );
-  (* src = "fsm_synth.v:28" *)
+  (* src = "fsm_synth.v:30" *)
   DFF _160_ (
     .C(clk),
     .D(_000_[0]),
     .Q(state[0])
   );
-  (* src = "fsm_synth.v:28" *)
+  (* src = "fsm_synth.v:30" *)
   DFF _161_ (
     .C(clk),
     .D(_000_[1]),
     .Q(state[1])
   );
-  (* src = "fsm_synth.v:28" *)
+  (* src = "fsm_synth.v:30" *)
   DFF _162_ (
     .C(clk),
     .D(_000_[2]),
     .Q(state[2])
   );
-  (* src = "fsm_synth.v:28" *)
+  (* src = "fsm_synth.v:30" *)
   DFF _163_ (
     .C(clk),
     .D(_001_[0]),
     .Q(umbral_LH_out[0])
   );
-  (* src = "fsm_synth.v:28" *)
+  (* src = "fsm_synth.v:30" *)
   DFF _164_ (
     .C(clk),
     .D(_001_[1]),
     .Q(umbral_LH_out[1])
   );
-  (* src = "fsm_synth.v:28" *)
+  (* src = "fsm_synth.v:30" *)
   DFF _165_ (
     .C(clk),
     .D(_001_[2]),
     .Q(umbral_LH_out[2])
   );
-  (* src = "fsm_synth.v:28" *)
+  (* src = "fsm_synth.v:30" *)
   DFF _166_ (
     .C(clk),
     .D(_001_[3]),
     .Q(umbral_LH_out[3])
   );
-  (* src = "fsm_synth.v:28" *)
+  (* src = "fsm_synth.v:30" *)
   DFF _167_ (
     .C(clk),
     .D(_001_[4]),
     .Q(umbral_LH_out[4])
   );
-  (* src = "fsm_synth.v:28" *)
+  (* src = "fsm_synth.v:30" *)
   DFF _168_ (
     .C(clk),
     .D(_001_[5]),
     .Q(umbral_LH_out[5])
   );
-  (* src = "fsm_synth.v:28" *)
+  (* src = "fsm_synth.v:30" *)
   DFF _169_ (
     .C(clk),
     .D(_001_[6]),
     .Q(umbral_LH_out[6])
   );
-  (* src = "fsm_synth.v:28" *)
+  (* src = "fsm_synth.v:30" *)
   DFF _170_ (
     .C(clk),
     .D(_001_[7]),
     .Q(umbral_LH_out[7])
   );
   assign FIFO_empties = { empty_fifo_7, empty_fifo_6, empty_fifo_5, empty_fifo_4, empty_fifo_3, empty_fifo_2, empty_fifo_1, empty_fifo_0 };
+  assign idle_out = 1'h0;
 endmodule
