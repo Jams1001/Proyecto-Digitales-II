@@ -21,12 +21,12 @@ initial begin
     $dumpvars;
     repeat(2) @(posedge clk);
     reset = 0;
-    fifo_out <= 12'b001010010110;
+    fifo_out <= 12'b000010010110;
     repeat(4) @(posedge clk);       // 4 palabras a Fifo P0
-    fifo_out <= 12'b101011110000;
+    fifo_out <= 12'b100011110000;
     repeat (4) @(posedge clk);      // 2 palabras a Fifo P1
     empty <= 4'b0000;               // Fifo P1 se pone empty y se pasa a siguiente 
-    fifo_out <= 12'b11101010000;
+    fifo_out <= 12'b11011010000;
     @(posedge clk);
     fifo_out <= 12'b110000011110;
     @(posedge clk);
