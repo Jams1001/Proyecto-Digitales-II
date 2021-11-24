@@ -1,18 +1,23 @@
-r: testbench.v tester.v contadores.v
-	iverilog -o salida testbench.v
-	vvp salida
-	gtkwave contadores.vcd
-	rm -rf salida
-t:
-	echo '`timescale 1ns/1ns\n\n`include "module.v" \n`include "tester.v" \n\nmodule testbench; \n\n\twire CLK; \n\nmodule moduleINST(/*AUTOINST*/   \n);\n\ntester testerINST(/*AUTOINST*/   \n);\n\nendmodule' > testbench.v		
+PCIE: testbench.v
+	iverilog -o salida.o testbench.v
+	vvp salida.o
+	gtkwave resultados.vcd
+
+synth: pcie.ys
+	yosys -s pcie.ys
+	sed -i 's/PCIE/PCIE_estr/' PCIE_estr.v
+	sed -i 's/data_out4/data_out4_estr/g' PCIE_estr.v
+	sed -i 's/data_out5/data_out5_estr/g' PCIE_estr.v
+	sed -i 's/data_out6/data_out6_estr/g' PCIE_estr.v
+	sed -i 's/data_out7/data_out7_estr/g' PCIE_estr.v
+	sed -i 's/arbitro1/arbitro1_estr/g' PCIE_estr.v
+	sed -i 's/arbitro2/arbitro2_estr/g' PCIE_estr.v
+	sed -i 's/contadores/contadores_estr/g' PCIE_estr.v
+	sed -i 's/fifo/fifo_estr/g' PCIE_estr.v
+	sed -i 's/fsm/fsm_estr/g' PCIE_estr.v
 
 a:	
-	emacs --batch  PCIE.v -f verilog-batch-auto
-	
-s: 
-	echo '# read design\nread_verilog module.v\n#hierarchy -check -top counter\n# the high-level stuff\nproc; opt; fsm; opt; memory; opt\n# mapping to internal cell library\ntechmap; opt\n# mapping flip-flops to cmos_cells.lib\ndfflibmap -liberty cmos_cells.lib\n# mapping logic to cmos_cells.lib\nabc -liberty cmos_cells.lib\n# cleanup\nclean\n# show\nshow -lib cmos_cells.v\n# write synsthesized design\nwrite_verilog moduleS.v\n' > synthesis_module.ys
-	
+	emacs --batch  testbench.v -f verilog-batch-auto
 
-s1:	synthesis_contadores.ys
-	yosys -s synthesis_contadores.ys
-	sed -i 's/module contadores/module contadoresS/' contadoresS.v
+clean:
+	rm -f *.o

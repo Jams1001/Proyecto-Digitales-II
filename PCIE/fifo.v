@@ -23,7 +23,7 @@ assign almost_empty = (contador == 1);
 assign almost_full = (contador == TAMANO_DIRECCION-1);
 
 
-memory #(.MEM_WIDTH(10),.MEM_LENGHT(8))
+memory #(.MEM_WIDTH(12),.MEM_LENGHT(8))
         memory_fifo (/*AUTOINST*/
 	        //Outputs
             .Fifo_Data_out	(data_out[TAMANO_DATOS-1:0]),
@@ -39,7 +39,7 @@ memory #(.MEM_WIDTH(10),.MEM_LENGHT(8))
 
 always @(posedge clk) 
 begin
-    if (reset == 0) 
+    if (reset == 1) 
     begin
        wr_ptr <= 0;
        rd_ptr <= 0;

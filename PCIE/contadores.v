@@ -54,7 +54,7 @@ module contadores(
         end
     end
     always @(posedge CLK)begin
-        if(reset) begin
+        if(!reset) begin
             if(pop4) begin
                 cntFF4 <= cntFF4 + 1;
             end

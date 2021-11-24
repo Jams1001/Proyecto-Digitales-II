@@ -29,7 +29,7 @@ always @(posedge clk)begin
             case (i) 
                 // Case prioridad pop P0
                 0:begin  // Pop 4 veces o la cantidad de palabras si son menos de 4
-                    if (peso > 1 && !empty[i]) begin
+                    if (peso > 1 && !empty[i]) begin // ... && (!empty[i] || !almost_emtpy[i])
                         pop <= 4'b0001;
                         peso <= peso-1;
                     end else begin

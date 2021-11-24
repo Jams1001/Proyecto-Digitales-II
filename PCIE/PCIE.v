@@ -2,21 +2,29 @@
 `include "fifo.v"
 `include "arbitro1.v"
 `include "arbitro2.v"
+`include "fsm.v"
 
-module PCIE(
+module PCIE
+#(parameter UMBRALES_L_H = 8,
+parameter TAMANO_DATOS = 12)
+(
 	input push_probador,
 	input [3:0] pop_probador,
 	input [11:0] data_in,
-	output data_out0,
-	output data_out1,
-	output data_out2,
-	output data_out3); 
+	input reset,
+	input clk,
+	input req,
+	input [2:0] idx,
+	input [UMBRALES_L_H-1:0] umbral_LH,
+	output [TAMANO_DATOS-1:0] data_out4,
+	output [TAMANO_DATOS-1:0] data_out5,
+	output [TAMANO_DATOS-1:0] data_out6,
+	output [TAMANO_DATOS-1:0] data_out7
+); 
 
-    parameter TAMANO_DIRECCION = 8;
-	parameter TAMANO_DATOS = 12;
+    //parameter TAMANO_DIRECCION = 8;
 
-    wire clk, reset;
-
+	// #### CABLES ####
     // Cables de Fifo in (Primer fifo amarillo)
 	wire empty_in;
     wire full_in; 
@@ -25,10 +33,7 @@ module PCIE(
     wire error_in; 
     wire [2:0] wr_ptr_in; 
     wire [2:0] rd_ptr_in; 
-
-    wire [TAMANO_DATOS-1:0] data_out_in;
-    //wire write_enable_in;	// PUSH QUE VIENE DEL PROBADOR
-    wire read_enable_in;   
+    wire [TAMANO_DATOS-1:0] data_out_in;  
 
 	// Cables de Fifo in2  (Fifo 'celeste')
 	wire empty_in2;
@@ -38,13 +43,14 @@ module PCIE(
     wire error_in2; 
     wire [2:0] wr_ptr_in2; 
     wire [2:0] rd_ptr_in2; 
-    wire [TAMANO_DATOS-1:0] data_in2;
+    reg [TAMANO_DATOS-1:0] data_in2;
     wire [TAMANO_DATOS-1:0] data_out_in2;
     wire write_enable_in2;
     wire read_enable_in2;
     
     //  Árbitro 1 y Árbitro 2
     wire [3:0] almost_full_arbitro2;
+	wire pop_arbitro2;
     wire [3:0] push_arbitro2;
 	wire [3:0] pop_arbitro1;
 	wire [3:0] push_arbitro1; 
@@ -120,12 +126,12 @@ module PCIE(
 	wire [4:0] data;
 	wire valid;
 
-	//FSM
+	// FSM
 	wire req;
 	wire IDLE;
 	wire [2:0] idx;
 
-        
+// #### INSTANCIAS ####
 fifo fifoin(/*AUTOINST*/
 	    // Outputs
 	    .full			(full_in),
@@ -140,10 +146,9 @@ fifo fifoin(/*AUTOINST*/
 	    .clk			(clk),
 	    .reset			(reset),
 	    .write_enable		(push_probador),
-	    .read_enable		(read_enable_in),
+	    .read_enable		(pop_arbitro2),
 	    .data_in			(data_in[11:0]));
 
-	
 fifo fifo0(/*AUTOINST*/
 	   // Outputs
 	   .full			(full_0),
@@ -210,8 +215,7 @@ fifo fifo3(/*AUTOINST*/
 	   .reset			(reset),
 	   .write_enable		(push_arbitro2[3]),
 	   .read_enable			(pop_arbitro1[3]),
-	   .data_in			(data_out_in);
-
+	   .data_in			(data_out_in));
 
 arbitro2 arbitro_2(/*AUTOINST*/
 		   // Inputs
@@ -219,11 +223,10 @@ arbitro2 arbitro_2(/*AUTOINST*/
 		   .empty		(empty_in),
 		   .reset		(reset),
            .class       (data_in[11:10]),
-           .almost_full (almost_full_arbitro2[0]),
+           .almost_full (almost_full_arbitro2),
            // Outputs
-           .pop         (read_enable_in),
+           .pop         (pop_arbitro2),
            .push        (push_arbitro2));
-
 
 fifo fifoin2(/*AUTOINST*/					
 				// Outputs
@@ -240,24 +243,23 @@ fifo fifoin2(/*AUTOINST*/
 	     .reset			(reset),
 	     .write_enable		(write_enable_in2),
 	     .read_enable		(read_enable_in2),
-	     .data_in			(data_in2);
-
+	     .data_in			(data_in2));
 
 always @(*) begin			// Para seleccionar cual salida va a Fifo_in2
 	case (pop_arbitro1)
 		4'b0001: begin
-			assign data_in2 = data_out_0;
+			data_in2 = data_out_0;
 		end
 		4'b0010: begin
-			assign data_in2 = data_out_1;
+			data_in2 = data_out_1;
 		end
 		4'b0100: begin
-			assign data_in2 = data_out_2;
+			data_in2 = data_out_2;
 		end
 		4'b1000: begin
-			assign data_in2 = data_out_3;
+			data_in2 = data_out_3;
 		end
-		default: 
+		default: data_in2 = 0;
 	endcase
 end
 
@@ -273,11 +275,7 @@ arbitro1 arbitro_1(/*AUTOINST*/
 		   .dest		(data_out_in2[9:8]),
 		   .almost_full		(almost_full_arbitro1),
 		   .empty		(almost_empty_arbitro1));		 
-
-
-
-//Push -> write enable
-//Pop -> read enable
+		   
 
 fifo fifo4(/*AUTOINST*/
 	   // Outputs
@@ -288,7 +286,7 @@ fifo fifo4(/*AUTOINST*/
 	   .error			(error_4),
 	   .wr_ptr			(wr_ptr_4[2:0]),
 	   .rd_ptr			(rd_ptr_4[2:0]),
-	   .data_out			(data_out0),
+	   .data_out			(data_out4),
 	   // Inputs
 	   .clk				(clk),
 	   .reset			(reset),
@@ -305,7 +303,7 @@ fifo fifo5(/*AUTOINST*/
 	   .error			(error_5),
 	   .wr_ptr			(wr_ptr_5[2:0]),
 	   .rd_ptr			(rd_ptr_5[2:0]),
-	   .data_out			(data_out1),
+	   .data_out			(data_out5),
 	   // Inputs
 	   .clk				(clk),
 	   .reset			(reset),
@@ -322,7 +320,7 @@ fifo fifo6(/*AUTOINST*/
 	   .error			(error_6),
 	   .wr_ptr			(wr_ptr_6[2:0]),
 	   .rd_ptr			(rd_ptr_6[2:0]),
-	   .data_out			(data_out2),
+	   .data_out			(data_out6),
 	   // Inputs
 	   .clk				(clk),
 	   .reset			(reset),
@@ -339,7 +337,7 @@ fifo fifo7(/*AUTOINST*/
 	   .error			(error_7),
 	   .wr_ptr			(wr_ptr_7[2:0]),
 	   .rd_ptr			(rd_ptr_7[2:0]),
-	   .data_out			(data_out3),
+	   .data_out			(data_out7),
 	   // Inputs
 	   .clk				(clk),
 	   .reset			(reset),
@@ -353,7 +351,7 @@ contadores contadores1(/*AUTOINST*/
 		     .valid		(valid),
 		     // Inputs
 		     .CLK		(clk),
-		     .pop4		(read_enable_in), 	//ESTE POP 4 ES ELPOP AMARILLO HORIZONTAL
+		     .pop4		(pop_arbitro2), 	//ESTE POP 4 ES ELPOP AMARILLO HORIZONTAL
 		     .pop0		(pop_probador[0]),
 		     .pop1		(pop_probador[1]),
 		     .pop2		(pop_probador[2]),
@@ -362,7 +360,32 @@ contadores contadores1(/*AUTOINST*/
 		     .IDLE		(IDLE),
 		     .idx		(idx[2:0]),
 		     .reset		(reset));
-			 
+
+fsm maquina(/*AUTOINST*/
+	    // Outputs
+	    //.state			(state[2:0]),
+	    //.nxt_state			(nxt_state[2:0]),
+	    //.umbral_LH_out		(umbral_LH_out[UMBRALES_L_H-1:0]),
+	    //.next_umbral_LH_out		(next_umbral_LH_out[UMBRALES_L_H-1:0]),
+	    .idle_out			(IDLE),
+	    // Inputs
+	    .clk			(clk),
+	    .reset			(reset),
+	    .init			(init),
+	    .umbral_LH			(umbral_LH[UMBRALES_L_H-1:0]),
+		// Árbitro 1 usa los almost_empty de fifos 0-3 como condición de parar los pops
+	    .empty_fifo_0		(almost_empty_arbitro1[0]),	
+	    .empty_fifo_1		(almost_empty_arbitro1[1]),
+	    .empty_fifo_2		(almost_empty_arbitro1[2]),
+	   .empty_fifo_3		(almost_empty_arbitro1[3]),
+	    .empty_fifo_4		(empty_4),
+	    .empty_fifo_5		(empty_5),
+	    .empty_fifo_6		(empty_6),
+	    .empty_fifo_7		(empty_7));
+
+
+
+
 /*			 
 always @(pop_probador1 || pop_probador2 || pop_probador2 || pop_probador3 ) begin     
 	pop4=1;

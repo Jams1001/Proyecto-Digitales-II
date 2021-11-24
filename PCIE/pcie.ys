@@ -1,0 +1,26 @@
+# Lectura de archivo 
+read_verilog PCIE.v
+
+# Módulo más grande
+hierarchy -check -top PCIE
+
+# Optimizar, procesar, etc... (high level stuff)
+proc; opt; fsm; opt; memory; opt
+
+# Mapeo a tecnología interna de Yosys
+techmap; opt
+
+# Mapeo de flip-flops a librería cmos_cells.lib
+dfflibmap -liberty cmos_cells.lib
+
+# Mapeo de lógica a cmos_cells.lib
+abc -liberty cmos_cells.lib
+
+# Limpiar cosas residuales
+clean
+
+# Diagrama de módulo conductual sintetizado
+show -lib cmos_cells.v PCIE
+
+# Escribirlo a archivo de verilog
+write_verilog PCIE_estr.v
