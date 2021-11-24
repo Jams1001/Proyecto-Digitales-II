@@ -3,12 +3,16 @@ module probador_fsm
 (
     input [2:0] state,
     input [2:0] nxt_state,
-    input [UMBRALES_L_H-1:0] umbral_LH_out,
-    input [UMBRALES_L_H-1:0] next_umbral_LH_out,
+    input [UMBRALES_L_H-1:0] umbral_L_out,
+    input [UMBRALES_L_H-1:0] next_umbral_L_out,
+    input [UMBRALES_L_H-1:0] umbral_H_out,
+    input [UMBRALES_L_H-1:0] next_umbral_H_out,
     input [2:0] state_synth,
     input [2:0] nxt_state_synth,
-    input [UMBRALES_L_H-1:0] umbral_LH_out_synth,
-    input [UMBRALES_L_H-1:0] next_umbral_LH_out_synth,
+    input [UMBRALES_L_H-1:0] umbral_L_out_synth,
+    input [UMBRALES_L_H-1:0] next_umbral_L_out_synth,
+    input [UMBRALES_L_H-1:0] umbral_H_out_synth,
+    input [UMBRALES_L_H-1:0] next_umbral_H_out_synth,
   //  input next_idle,
     input idle_out,
    // input next_idle_synth,
@@ -16,7 +20,8 @@ module probador_fsm
     output reg reset,
     output reg clk,
     output reg init,
-    output reg [UMBRALES_L_H-1:0] umbral_LH,
+    output reg [UMBRALES_L_H-1:0] umbral_L,
+    output reg [UMBRALES_L_H-1:0] umbral_H,
     output reg empty_fifo_0,
     output reg empty_fifo_1,
     output reg empty_fifo_2,
@@ -32,7 +37,8 @@ module probador_fsm
     $dumpvars();
     reset <= 0;
     init<=0;
-    umbral_LH<=8'b00000000;
+    umbral_L<=8'b00000000;
+    umbral_H<=8'b00000000;
     empty_fifo_0 <= 1;
     empty_fifo_1 <= 1;
     empty_fifo_2 <= 1;
@@ -46,10 +52,12 @@ module probador_fsm
     @(posedge clk);
     reset <= 1;
     @(posedge clk);
-    umbral_LH<=8'b00001110;
+    umbral_L<=8'b00001110;
+    umbral_H<=~umbral_L;
     @(posedge clk);
     init<=1;
-    umbral_LH<=8'b00000001;
+    umbral_L<=8'b00000001;
+    umbral_H<=~umbral_L;
     @(posedge clk);
     init<=1;
     @(posedge clk);
@@ -65,12 +73,14 @@ module probador_fsm
     empty_fifo_7 <= 0;
     @(posedge clk);
     @(posedge clk);
-    umbral_LH<=8'b00001111;
+    umbral_L<=8'b00001111;
+    umbral_H<=~umbral_L;
     @(posedge clk);
     @(posedge clk);
     @(posedge clk);
     @(posedge clk);
-    umbral_LH<=8'b00001010;
+    umbral_L<=8'b00001010;
+    umbral_H<=~umbral_L;
     @(posedge clk);
     @(posedge clk);
     reset <= 0;
