@@ -204,13 +204,13 @@ fifo fifo2(/*AUTOINST*/
 
 fifo fifo3(/*AUTOINST*/
 	   // Outputs
-	   .full			(full_1),
+	   .full			(full_3),
 	   .empty			(empty_arbitro1[3]),
 	   .almost_full			(almost_full_arbitro2[3]),
 	   .almost_empty		(almost_empty_arbitro1[3]),
-	   .error			(error_1),
-	   .wr_ptr			(wr_ptr_1[2:0]),
-	   .rd_ptr			(rd_ptr_1[2:0]),
+	   .error			(error_3),
+	   .wr_ptr			(wr_ptr_3[2:0]),
+	   .rd_ptr			(rd_ptr_3[2:0]),
 	   .data_out			(data_out_3[TAMANO_DATOS-1:0]),
 	   // Inputs
 	   .clk				(clk),
