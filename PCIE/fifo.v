@@ -19,8 +19,8 @@ reg [TAMANO_DIRECCION:0] contador;
 assign full = (contador == TAMANO_DIRECCION);
 assign empty = (contador == 0);  
 assign error = (contador > TAMANO_DIRECCION);
-assign almost_empty = (contador == 1);
-assign almost_full = (contador == TAMANO_DIRECCION-1);
+assign almost_empty = (contador == 1);       
+assign almost_full = (contador >= TAMANO_DIRECCION-1);
 
 
 memory #(.MEM_WIDTH(12),.MEM_LENGHT(8))
@@ -60,7 +60,7 @@ begin
             rd_ptr <= rd_ptr+1;
         end
         //counter
-        case ({write_enable, read_enable})
+        case ({write_enable, read_enable})  // 01 
             0: contador <= contador;
             1: contador <= contador-1;
             2: contador <= contador+1;
@@ -70,3 +70,16 @@ begin
     end
 end
 endmodule 
+
+/*
+case ({write_enable, read_enable})  // 01 
+            0: contador <= contador;
+            1: begin
+                if contador != 0
+                contador <= contador-1;
+                end
+            2: contador <= contador+1;
+            3: contador <= contador;
+            default: contador <= contador;
+        endcase
+*/

@@ -55,7 +55,7 @@ module contadores(
     end
     always @(posedge CLK)begin
         if(!reset) begin
-            if(pop4) begin
+            if(pop4) begin               // contador de fifoin
                 cntFF4 <= cntFF4 + 1;
             end
             if(pop0) begin

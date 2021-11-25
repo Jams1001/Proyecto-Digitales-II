@@ -20,8 +20,8 @@ assign full = (contador == TAMANO_DIRECCION);
 assign empty = (contador == 0);  
 assign error = (contador > TAMANO_DIRECCION);
 assign almost_empty = (contador == 1);
-assign almost_full = (contador == TAMANO_DIRECCION-1);
-
+//assign almost_full = (contador == TAMANO_DIRECCION-1);
+assign almost_full = (contador >= TAMANO_DIRECCION-1);
 
 memory #(.MEM_WIDTH(10),.MEM_LENGHT(8))
         memory_fifo (/*AUTOINST*/

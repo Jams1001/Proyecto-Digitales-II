@@ -15,7 +15,8 @@ parameter TAMANO_DATOS = 12)
 	input clk,
 	input req,
 	input [2:0] idx,
-	input [UMBRALES_L_H-1:0] umbral_LH,
+	input [UMBRALES_L_H-1:0] umbral_L,
+	input [UMBRALES_L_H-1:0] umbral_H,
 	output [TAMANO_DATOS-1:0] data_out4,
 	output [TAMANO_DATOS-1:0] data_out5,
 	output [TAMANO_DATOS-1:0] data_out6,
@@ -56,10 +57,11 @@ parameter TAMANO_DATOS = 12)
 	wire [3:0] push_arbitro1; 
 	wire [3:0] almost_empty_arbitro1;  // Conectado a almost_empty de los fifos
 	wire [3:0] almost_full_arbitro1;
+	wire [3:0] empty_arbitro1;
 	
     // Fifo 0
     wire full_0; 
-    wire empty_0; 
+    //wire empty_0; 
     wire error_0; 
     wire [2:0] wr_ptr_0; 
     wire [2:0] rd_ptr_0; 
@@ -67,7 +69,7 @@ parameter TAMANO_DATOS = 12)
 	
     // Fifo 1
     wire full_1; 
-    wire empty_1; 
+    //wire empty_1; 
     wire error_1; 
     wire [2:0] wr_ptr_1; 
     wire [2:0] rd_ptr_1; 
@@ -75,7 +77,7 @@ parameter TAMANO_DATOS = 12)
 
     // Fifo 2
     wire full_2; 
-    wire empty_2; 
+    //wire empty_2; 
     wire error_2; 
     wire [2:0] wr_ptr_2; 
     wire [2:0] rd_ptr_2; 
@@ -83,7 +85,7 @@ parameter TAMANO_DATOS = 12)
     
     // Fifo 3
     wire full_3; 
-    wire empty_3; 
+    //wire empty_3; 
     wire error_3; 
     wire [2:0] wr_ptr_3; 
     wire [2:0] rd_ptr_3; 
@@ -152,7 +154,7 @@ fifo fifoin(/*AUTOINST*/
 fifo fifo0(/*AUTOINST*/
 	   // Outputs
 	   .full			(full_0),
-	   .empty			(empty_0),
+	   .empty			(empty_arbitro1[0]),
 	   .almost_full			(almost_full_arbitro2[0]),
 	   .almost_empty		(almost_empty_arbitro1[0]),
 	   .error			(error_0),
@@ -169,7 +171,7 @@ fifo fifo0(/*AUTOINST*/
 fifo fifo1(/*AUTOINST*/
 	   // Outputs
 	   .full			(full_1),
-	   .empty			(empty_1),
+	   .empty			(empty_arbitro1[1]),
 	   .almost_full			(almost_full_arbitro2[1]),
 	   .almost_empty		(almost_empty_arbitro1[1]),
 	   .error			(error_1),
@@ -186,7 +188,7 @@ fifo fifo1(/*AUTOINST*/
 fifo fifo2(/*AUTOINST*/
 	   // Outputs
 	   .full			(full_2),
-	   .empty			(empty_2),
+	   .empty			(empty_arbitro1[2]),
 	   .almost_full			(almost_full_arbitro2[2]),
 	   .almost_empty		(almost_empty_arbitro1[2]),
 	   .error			(error_2),
@@ -203,7 +205,7 @@ fifo fifo2(/*AUTOINST*/
 fifo fifo3(/*AUTOINST*/
 	   // Outputs
 	   .full			(full_1),
-	   .empty			(empty_3),
+	   .empty			(empty_arbitro1[3]),
 	   .almost_full			(almost_full_arbitro2[3]),
 	   .almost_empty		(almost_empty_arbitro1[3]),
 	   .error			(error_1),
@@ -230,22 +232,22 @@ arbitro2 arbitro_2(/*AUTOINST*/
 
 fifo fifoin2(/*AUTOINST*/					
 				// Outputs
-				.full			(full_in2),
-				.empty			(empty_in2),
-				.almost_full		(almost_full_in2),
-				.almost_empty		(almost_empty_in2),
-				.error			(error_in2),
-				.wr_ptr			(wr_ptr_in2[2:0]),
-				.rd_ptr			(rd_ptr_in2[2:0]),
-				.data_out			(data_out_in2),
+		.full			(full_in2),
+		.empty			(empty_in2),
+		.almost_full		(almost_full_in2),
+		.almost_empty		(almost_empty_in2),
+		.error			(error_in2),
+		.wr_ptr			(wr_ptr_in2[2:0]),
+		.rd_ptr			(rd_ptr_in2[2:0]),
+		.data_out			(data_out_in2),
 	     // Inputs
 	     .clk			(clk),
 	     .reset			(reset),
-	     .write_enable		(write_enable_in2),
-	     .read_enable		(read_enable_in2),
+	     .write_enable		(!reset),  // siempre activados cuando reset bajo
+	     .read_enable		(!reset),
 	     .data_in			(data_in2));
 
-always @(*) begin			// Para seleccionar cual salida va a Fifo_in2
+always @(*) begin			// Mux para seleccionar cual salida va a Fifo_in2
 	case (pop_arbitro1)
 		4'b0001: begin
 			data_in2 = data_out_0;
@@ -263,8 +265,6 @@ always @(*) begin			// Para seleccionar cual salida va a Fifo_in2
 	endcase
 end
 
-
-
 arbitro1 arbitro_1(/*AUTOINST*/
 		   // Outputs
 		   .push		(push_arbitro1),
@@ -274,7 +274,7 @@ arbitro1 arbitro_1(/*AUTOINST*/
 		   .reset		(reset),
 		   .dest		(data_out_in2[9:8]),
 		   .almost_full		(almost_full_arbitro1),
-		   .empty		(almost_empty_arbitro1));		 
+		   .empty		(empty_arbitro1));		 
 		   
 
 fifo fifo4(/*AUTOINST*/
@@ -372,12 +372,13 @@ fsm maquina(/*AUTOINST*/
 	    .clk			(clk),
 	    .reset			(reset),
 	    .init			(init),
-	    .umbral_LH			(umbral_LH[UMBRALES_L_H-1:0]),
+	    .umbral_L		(umbral_L[UMBRALES_L_H-1:0]),
+		.umbral_H	    (umbral_H[UMBRALES_L_H-1:0]),
 		// Árbitro 1 usa los almost_empty de fifos 0-3 como condición de parar los pops
-	    .empty_fifo_0		(almost_empty_arbitro1[0]),	
-	    .empty_fifo_1		(almost_empty_arbitro1[1]),
-	    .empty_fifo_2		(almost_empty_arbitro1[2]),
-	   .empty_fifo_3		(almost_empty_arbitro1[3]),
+	    .empty_fifo_0		(empty_arbitro1[0]),	
+	    .empty_fifo_1		(empty_arbitro1[1]),
+	    .empty_fifo_2		(empty_arbitro1[2]),
+	   .empty_fifo_3		(empty_arbitro1[3]),
 	    .empty_fifo_4		(empty_4),
 	    .empty_fifo_5		(empty_5),
 	    .empty_fifo_6		(empty_6),
@@ -385,14 +386,4 @@ fsm maquina(/*AUTOINST*/
 
 
 
-
-/*			 
-always @(pop_probador1 || pop_probador2 || pop_probador2 || pop_probador3 ) begin     
-	pop4=1;
-end
-pop_probador = solo un bit alto a la vez (e.g. XX1X)
-*/
-
-
-  
 endmodule

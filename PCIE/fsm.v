@@ -4,7 +4,8 @@ module fsm
     input clk,
     input reset,
     input init,
-    input [UMBRALES_L_H-1:0] umbral_LH,
+    input [UMBRALES_L_H-1:0] umbral_L,
+    input [UMBRALES_L_H-1:0] umbral_H,
     input empty_fifo_0,
     input empty_fifo_1,
     input empty_fifo_2,
@@ -15,8 +16,10 @@ module fsm
     input empty_fifo_7,
     output reg [2:0] state,
     output reg [2:0] nxt_state,
-    output reg [UMBRALES_L_H-1:0] umbral_LH_out,
-    output reg [UMBRALES_L_H-1:0] next_umbral_LH_out,
+    output reg [UMBRALES_L_H-1:0] umbral_L_out,
+    output reg [UMBRALES_L_H-1:0] next_umbral_L_out,
+    output reg [UMBRALES_L_H-1:0] umbral_H_out,
+    output reg [UMBRALES_L_H-1:0] next_umbral_H_out,
     //output reg next_idle,
     output reg idle_out
 );
@@ -29,23 +32,26 @@ module fsm
     
     always @(posedge clk) 
     begin
-        if (reset) 
+        if (reset==0) 
         begin
             state <= RESET;
-            umbral_LH_out<=8'b00000000;
+            umbral_L_out<=8'b00000000;
+            umbral_H_out<=8'b00000000;
             idle_out <= 0;
         end
         else 
         begin
             state <= nxt_state;
-            umbral_LH_out <= next_umbral_LH_out;
+            umbral_L_out <= next_umbral_L_out;
+            umbral_H_out <= next_umbral_H_out;
             //idle_out <= next_idle;
         end
     end
     always @(*) begin
         nxt_state = state;
       //  next_idle = idle_out;
-        next_umbral_LH_out = umbral_LH_out;
+        next_umbral_L_out = umbral_L_out;
+        next_umbral_H_out = umbral_H_out;
         FIFO_empties[0] = empty_fifo_0; 
         FIFO_empties[1] = empty_fifo_1; 
         FIFO_empties[2] = empty_fifo_2; 
@@ -68,7 +74,8 @@ module fsm
                     else if (reset==0) nxt_state = RESET;  
                     else if (reset==1 && init==0)
                     begin
-                        next_umbral_LH_out = umbral_LH;
+                        next_umbral_L_out = umbral_L;
+                        next_umbral_H_out = umbral_H;
                         nxt_state = INIT; 
                     end 
 

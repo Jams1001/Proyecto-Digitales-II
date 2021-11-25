@@ -9,7 +9,8 @@ parameter TAMANO_DATOS = 12)
 	output reg clk,
     output reg req,
     output reg [2:0] idx,
-	output reg [UMBRALES_L_H-1:0] umbral_LH,
+	output reg [UMBRALES_L_H-1:0] umbral_L,
+    output reg [UMBRALES_L_H-1:0] umbral_H,
 	input [TAMANO_DATOS-1:0] data_out4,
 	input [TAMANO_DATOS-1:0] data_out5,
 	input [TAMANO_DATOS-1:0] data_out6,
@@ -26,7 +27,8 @@ initial begin
     clk = 0;
     req = 0;
     idx =0;
-    umbral_LH <= 8'b00000000;
+    umbral_L <= 8'b00000000;
+    umbral_L <= 8'b00000000;
 end
 
 
@@ -37,34 +39,36 @@ initial begin
     push_probador <= 1;
     reset <= 0;
     @(posedge clk);
-    data_in <= 12'b100110100100;
-    umbral_LH <= 8'b00001111;
+    data_in <= 12'b000010100100;
+    umbral_L <= 8'b01001111;
     req <= 1;
     repeat(2) @(posedge clk);
-    data_in <= 12'b111100010101;
+    data_in <= 12'b000000010101;
     repeat(2) @(posedge clk);
-    data_in <= 12'b110010100101;
+    data_in <= 12'b000010100101;
     repeat(2) @(posedge clk);
-    data_in <= 12'b001010001101;
+    data_in <= 12'b100010001101;
     repeat(2) @(posedge clk);
     pop_probador <= 4'b1111;
     @(posedge clk);
-    data_in <= 12'b101010101011;
+    data_in <= 12'b100010101011;
     pop_probador <= 4'b1111;
     repeat(4) @(posedge clk);
-    data_in <= 12'b111100001111;
+    data_in <= 12'b100000001111;
     idx <= 3'b000;
     @(posedge clk);
     idx <= 3'b001;
-    data_in <= 12'b100111000111;
+    data_in <= 12'b100011000111;
     @(posedge clk);
     idx <= 3'b010;
-    data_in <= 12'b101111111111;
+    data_in <= 12'b100011111111;
     @(posedge clk);
     idx <= 3'b011;
-    data_in <= 12'b101000111100;
+    data_in <= 12'b100000111100;
     @(posedge clk)
     idx <= 3'b100;
+
+    repeat(8) @(posedge clk);
     $finish; 
 end
 

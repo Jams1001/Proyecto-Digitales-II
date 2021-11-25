@@ -15,7 +15,8 @@ wire clk, reset, push_probador, req;
 wire [3:0] pop_probador;
 wire [2:0] idx;
 wire [11:0] data_in;
-wire [UMBRALES_L_H-1:0] umbral_LH;
+wire [UMBRALES_L_H-1:0] umbral_L;
+wire [UMBRALES_L_H-1:0] umbral_H;
 
 
 PCIE transaction(/*AUTOINST*/
@@ -32,7 +33,8 @@ PCIE transaction(/*AUTOINST*/
 		 .clk			(clk),
 		 .req			(req),
 		 .idx			(idx[2:0]),
-		 .umbral_LH		(umbral_LH[UMBRALES_L_H-1:0]));
+		 .umbral_L		(umbral_L[UMBRALES_L_H-1:0]),
+		 .umbral_H	(umbral_H[UMBRALES_L_H-1:0]));
 
 PCIE_estr transaction_estr(/*AUTOINST*/
 		 // Outputs
@@ -48,7 +50,8 @@ PCIE_estr transaction_estr(/*AUTOINST*/
 		 .clk			(clk),
 		 .req			(req),
 		 .idx			(idx[2:0]),
-		 .umbral_LH		(umbral_LH[UMBRALES_L_H-1:0]));
+		 .umbral_L		(umbral_L[UMBRALES_L_H-1:0]),
+		 .umbral_H	    (umbral_H[UMBRALES_L_H-1:0]));
 
 probador probador_INST(/*AUTOINST*/
 		       // Outputs
@@ -60,7 +63,8 @@ probador probador_INST(/*AUTOINST*/
 		       .req		(req),
 		       .idx		(idx[2:0]),
 		       // Inputs
-		       .umbral_LH	(umbral_LH[UMBRALES_L_H-1:0]),
+		       .umbral_L	(umbral_L[UMBRALES_L_H-1:0]),
+			   .umbral_H	(umbral_H[UMBRALES_L_H-1:0]),
 		       .data_out4	(data_out4[TAMANO_DATOS-1:0]),
 		       .data_out5	(data_out5[TAMANO_DATOS-1:0]),
 		       .data_out6	(data_out6[TAMANO_DATOS-1:0]),

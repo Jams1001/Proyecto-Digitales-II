@@ -1,7 +1,4 @@
-PCIE: testbench.v
-	iverilog -o salida.o testbench.v
-	vvp salida.o
-	gtkwave resultados.vcd
+all: synth PCIE
 
 synth: pcie.ys
 	yosys -s pcie.ys
@@ -16,8 +13,20 @@ synth: pcie.ys
 	sed -i 's/fifo/fifo_estr/g' PCIE_estr.v
 	sed -i 's/fsm/fsm_estr/g' PCIE_estr.v
 
+PCIE: testbench.v
+	iverilog -o salida.o testbench.v
+	vvp salida.o
+	gtkwave resultados.vcd
+
 a:	
 	emacs --batch  testbench.v -f verilog-batch-auto
 
 clean:
 	rm -f *.o
+	rm -f *.vcd
+
+
+
+
+
+
