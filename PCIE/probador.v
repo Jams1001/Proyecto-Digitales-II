@@ -27,8 +27,8 @@ initial begin
     clk = 0;
     req = 0;
     idx =0;
-    umbral_L <= 8'b00000000;
-    umbral_L <= 8'b00000000;
+    umbral_H <= 6;
+    umbral_L <= 1;
 end
 
 
@@ -40,7 +40,6 @@ initial begin
     reset <= 0;
     @(posedge clk);
     data_in <= 12'b010010100100;
-    umbral_L <= 8'b01001111;
     req <= 1;
     repeat(2) @(posedge clk);
     data_in <= 12'b010000010101;
@@ -51,20 +50,20 @@ initial begin
     repeat(2) @(posedge clk);
     pop_probador <= 4'b1111;
     @(posedge clk);
-    data_in <= 12'b110010101011;
+    data_in <= 12'b010010101011;
     pop_probador <= 4'b1111;
     repeat(4) @(posedge clk);
-    data_in <= 12'b110000001111;
+    data_in <= 12'b010000001111;
     idx <= 3'b000;
     @(posedge clk);
     idx <= 3'b001;
-    data_in <= 12'b110011000111;
+    data_in <= 12'b010011000111;
     @(posedge clk);
     idx <= 3'b010;
-    data_in <= 12'b110011111111;
+    data_in <= 12'b010011111111;
     @(posedge clk);
     idx <= 3'b011;
-    data_in <= 12'b110000111100;
+    data_in <= 12'b010000111100;
     @(posedge clk)
     idx <= 3'b100;
 

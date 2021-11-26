@@ -3,7 +3,7 @@ module probador
 (
 	output reg clk, write_enable, read_enable, reset,
 	output reg [tamano_datos-1:0] data_in,
-	output reg [7:0] umbral_bajo ,umbral_alto,
+	output reg [7:0] umbral_bajo, umbral_alto,
 	input full, empty, error, almost_empty, almost_full,
 	input [tamano_datos-1:0] data_out,
 	input [tamano_datos-1:0] data_out_synth,
@@ -14,8 +14,8 @@ module probador
 	$dumpvars;
 
 	{write_enable, read_enable, reset} <= 0;
-	data_in <= 0;
-	{umbral_bajo ,umbral_alto}<= 0;
+	data_in <= 0; umbral_bajo <= 0;
+	umbral_alto <= 0;
 
 	@(posedge clk);
 	@(posedge clk);
@@ -25,8 +25,7 @@ module probador
 	reset <= ~reset;
     write_enable <= 1;
 	data_in <= 10'b0010010001;
-	umbral_bajo <= 8'b00011111;
-	umbral_alto<= 8'b11111111;
+	
 	@(posedge clk);
 	data_in <= 10'b0001001010;
 
@@ -34,6 +33,8 @@ module probador
 	data_in <= 10'b0010010011;
 
 	@(posedge clk);
+	umbral_alto <= 6;
+	umbral_bajo <= 1;
 	data_in <= 10'b0001000110;
 
 	@(posedge clk);

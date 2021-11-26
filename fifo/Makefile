@@ -9,9 +9,7 @@ t3:
 	sed -i "s/Fifo_Data_out/Fifo_Data_out_synth/g" fifo_synth.v
 t4:
 	iverilog -o Bin BancoPruebas_fifo.v cmos_cells.v
-t5:
 	vvp Bin
-t6:
 	gtkwave fifo.vcd
 clean:
 	rm -r *.vcd *.o *.out Bin 

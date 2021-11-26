@@ -58,6 +58,10 @@ parameter TAMANO_DATOS = 12)
 	wire [3:0] almost_empty_arbitro1;  // Conectado a almost_empty de los fifos
 	wire [3:0] almost_full_arbitro1;
 	wire [3:0] empty_arbitro1;
+
+	// Umbrales
+	wire [7:0] umbral_alto;
+	wire [7:0] umbral_bajo;
 	
     // Fifo 0
     wire full_0; 
@@ -75,6 +79,7 @@ parameter TAMANO_DATOS = 12)
     wire [2:0] rd_ptr_1; 
     wire [TAMANO_DATOS-1:0] data_out_1;
 
+
     // Fifo 2
     wire full_2; 
     //wire empty_2; 
@@ -90,6 +95,7 @@ parameter TAMANO_DATOS = 12)
     wire [2:0] wr_ptr_3; 
     wire [2:0] rd_ptr_3; 
     wire [TAMANO_DATOS-1:0] data_out_3;
+	
 
 
 	// Fifo 4
@@ -143,6 +149,8 @@ fifo fifoin(/*AUTOINST*/
 	    .error			(error_in),
 	    .wr_ptr			(wr_ptr_in[2:0]),
 	    .rd_ptr			(rd_ptr_in[2:0]),
+		.umbral_bajo	(umbral_bajo),
+	    .umbral_alto	(umbral_alto),
 	    .data_out			(data_out_in[TAMANO_DATOS-1:0]),
 	    // Inputs
 	    .clk			(clk),
@@ -160,6 +168,8 @@ fifo fifo0(/*AUTOINST*/
 	   .error			(error_0),
 	   .wr_ptr			(wr_ptr_0[2:0]),
 	   .rd_ptr			(rd_ptr_0[2:0]),
+	   .umbral_bajo		(umbral_bajo),
+	   .umbral_alto		(umbral_alto),
 	   .data_out			(data_out_0[TAMANO_DATOS-1:0]),
 	   // Inputs
 	   .clk				(clk),
@@ -177,6 +187,8 @@ fifo fifo1(/*AUTOINST*/
 	   .error			(error_1),
 	   .wr_ptr			(wr_ptr_1[2:0]),
 	   .rd_ptr			(rd_ptr_1[2:0]),
+	   .umbral_bajo		(umbral_bajo),
+	   .umbral_alto		(umbral_alto),
 	   .data_out			(data_out_1[TAMANO_DATOS-1:0]),
 	   // Inputs
 	   .clk				(clk),
@@ -194,6 +206,8 @@ fifo fifo2(/*AUTOINST*/
 	   .error			(error_2),
 	   .wr_ptr			(wr_ptr_2[2:0]),
 	   .rd_ptr			(rd_ptr_2[2:0]),
+	   .umbral_bajo		(umbral_bajo),
+	   .umbral_alto		(umbral_alto),
 	   .data_out			(data_out_2[TAMANO_DATOS-1:0]),
 	   // Inputs
 	   .clk				(clk),
@@ -211,6 +225,8 @@ fifo fifo3(/*AUTOINST*/
 	   .error			(error_3),
 	   .wr_ptr			(wr_ptr_3[2:0]),
 	   .rd_ptr			(rd_ptr_3[2:0]),
+	   .umbral_bajo		(umbral_bajo),
+	   .umbral_alto		(umbral_alto),
 	   .data_out			(data_out_3[TAMANO_DATOS-1:0]),
 	   // Inputs
 	   .clk				(clk),
@@ -239,6 +255,8 @@ fifo fifoin2(/*AUTOINST*/
 		.error			(error_in2),
 		.wr_ptr			(wr_ptr_in2[2:0]),
 		.rd_ptr			(rd_ptr_in2[2:0]),
+		.umbral_bajo		(umbral_bajo),
+	   .umbral_alto		(umbral_alto),
 		.data_out			(data_out_in2),
 	     // Inputs
 	     .clk			(clk),
@@ -286,6 +304,8 @@ fifo fifo4(/*AUTOINST*/
 	   .error			(error_4),
 	   .wr_ptr			(wr_ptr_4[2:0]),
 	   .rd_ptr			(rd_ptr_4[2:0]),
+	   	.umbral_bajo		(umbral_bajo),
+	   .umbral_alto		(umbral_alto),
 	   .data_out			(data_out4),
 	   // Inputs
 	   .clk				(clk),
@@ -303,6 +323,8 @@ fifo fifo5(/*AUTOINST*/
 	   .error			(error_5),
 	   .wr_ptr			(wr_ptr_5[2:0]),
 	   .rd_ptr			(rd_ptr_5[2:0]),
+		.umbral_bajo		(umbral_bajo),
+	   .umbral_alto		(umbral_alto),
 	   .data_out			(data_out5),
 	   // Inputs
 	   .clk				(clk),
@@ -320,6 +342,8 @@ fifo fifo6(/*AUTOINST*/
 	   .error			(error_6),
 	   .wr_ptr			(wr_ptr_6[2:0]),
 	   .rd_ptr			(rd_ptr_6[2:0]),
+	   	.umbral_bajo		(umbral_bajo),
+	   .umbral_alto		(umbral_alto),
 	   .data_out			(data_out6),
 	   // Inputs
 	   .clk				(clk),
@@ -337,6 +361,8 @@ fifo fifo7(/*AUTOINST*/
 	   .error			(error_7),
 	   .wr_ptr			(wr_ptr_7[2:0]),
 	   .rd_ptr			(rd_ptr_7[2:0]),
+	   	.umbral_bajo		(umbral_bajo),
+	   .umbral_alto		(umbral_alto),
 	   .data_out			(data_out7),
 	   // Inputs
 	   .clk				(clk),
@@ -365,7 +391,8 @@ fsm maquina(/*AUTOINST*/
 	    // Outputs
 	    //.state			(state[2:0]),
 	    //.nxt_state			(nxt_state[2:0]),
-	    //.umbral_LH_out		(umbral_LH_out[UMBRALES_L_H-1:0]),
+	    .umbral_L_out		(umbral_bajo),
+		.umbral_H_out       (umbral_alto),
 	    //.next_umbral_LH_out		(next_umbral_LH_out[UMBRALES_L_H-1:0]),
 	    .idle_out			(IDLE),
 	    // Inputs
