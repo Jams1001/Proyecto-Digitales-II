@@ -84,7 +84,7 @@ initial begin
     @(posedge clk);
     pop_probador <= 0;
     repeat(5) @(posedge clk);
-// HASTA AQUÍ LLEGA EL PUNTO 2 DE LA PRUEBA 
+// HASTA AQUÍ LLEGA EL PUNTO 3 DE LA PRUEBA 
 // (FIFO 7 QUEDA ALMOST FULL PARA LUEGO LLENAR LOS AMARILLOS)
     #3 $finish; 
 end
