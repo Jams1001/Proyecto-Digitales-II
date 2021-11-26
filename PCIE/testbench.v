@@ -2,6 +2,7 @@
 `include "PCIE.v"
 `include "PCIE_estr.v"
 `include "probador.v"
+`include "probador2.v"
 `include "cmos_cells.v"
 
 module testbench();
@@ -55,7 +56,7 @@ PCIE_estr transaction_estr(/*AUTOINST*/
 		 .umbral_L		(umbral_L[UMBRALES_L_H-1:0]),
 		 .umbral_H	    (umbral_H[UMBRALES_L_H-1:0]));
 
-probador probador_INST(/*AUTOINST*/
+probador2 probador_INST(/*AUTOINST*/
 		       // Outputs
 		       .push_probador	(push_probador),
 		       .pop_probador	(pop_probador[3:0]),
