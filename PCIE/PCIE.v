@@ -286,11 +286,8 @@ always @(*) begin
 		4'b1000: begin
 			data_in2 = data_out_3;
 		end
-		4'b0000: begin
-			data_in2 = data_tmp;
-		end
 		default: begin 
-			data_in2 <= 0;
+			data_in2 <= data_tmp;;
 		end
 	endcase
 end

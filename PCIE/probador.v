@@ -71,9 +71,7 @@ initial begin
     data_in <= 12'b010000111100;
     @(posedge clk)
     idx <= 3'b100;
-
-    repeat(20) @(posedge clk);
-    $finish; 
+    #200 $finish; 
 end
 
 endmodule

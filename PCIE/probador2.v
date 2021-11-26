@@ -73,7 +73,7 @@ initial begin
     pop_probador <= 4'b0001;
     @(posedge clk);  
     pop_probador <= 0;
-    data_in <= 12'b00111101101;  
+    data_in <= 12'b001111011011;  
     @(posedge clk);
     repeat(5) @(posedge clk); 
     pop_probador <= 4'b0010;  // pop a fifo5 almost_full
@@ -83,10 +83,19 @@ initial begin
     pop_probador <= 4'b0100; // pop a fifo6 almost_full 
     @(posedge clk);
     pop_probador <= 0;
-    repeat(5) @(posedge clk);
-// HASTA AQUÍ LLEGA EL PUNTO 3 DE LA PRUEBA 
-// (FIFO 7 QUEDA ALMOST FULL PARA LUEGO LLENAR LOS AMARILLOS)
-    #3 $finish; 
+    data_in <= 12'b011111100001; 
+    repeat(4) @(posedge clk);
+    data_in <= 12'b101111100001; 
+    repeat(4) @(posedge clk);
+    data_in <= 12'b111111100001; 
+    // HASTA AQUÍ LLEGA EL PUNTO 3 DE LA PRUEBA 
+    // (FIFO 7 QUEDA ALMOST FULL PARA LUEGO LLENAR LOS AMARILLOS)
+    data_in <= 12'b011111100001; 
+    repeat(4) @(posedge clk);
+    data_in <= 12'b101111100001; 
+    repeat(4) @(posedge clk);
+    data_in <= 12'b111111100001;
+    #50 $finish; 
 end
 
 endmodule
