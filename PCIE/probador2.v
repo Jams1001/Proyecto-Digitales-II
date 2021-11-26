@@ -29,56 +29,64 @@ initial begin
     clk = 0;
     req = 0;
     idx =0;
-
-
 end
-
 
 initial begin
 	$dumpfile("resultados.vcd");
 	$dumpvars;
     @(posedge clk);
+    // para cuando este datain llegue a fifoin2 (que manda dest), ya f4 almost_full
+    data_in <= 12'b000111111011;  
     reset <= 0;
     init <= 1;
     req <= 1;
-    @(posedge clk);
+    push_probador = 1;
     umbral_H <= 6;
     umbral_L <= 0;
+    //@(posedge clk);
     @(posedge clk);
+    data_in <= 12'b000111111110; 
     umbral_H <= 5;                  //Necesarios 5 push para almost full
     umbral_L <= 1;                  //Necesarios 1 pops para almost empty
     @(posedge clk);
     init <= 0;  
-    data_in <= 12'b000011111111;    //A partir de aquí sí son necesarios 2 posedge clks
     @(posedge clk);
     @(posedge clk); 
-    push_probador = 1;
-    data_in <= 12'b000011111110;
+    data_in <= 12'b000111111110;  
     @(posedge clk);
+    // Para cuando siguiente datain llegue a ser dest, f5 almost_full
+    data_in <= 12'b001011110110;    
     @(posedge clk);  
-    //pop_probador <= 4'b0000;
     @(posedge clk);
+    data_in <= 12'b001011111101;
     @(posedge clk);  
-    data_in <= 12'b000011111101;
     @(posedge clk);
+    data_in <= 12'b001110111011; 
     @(posedge clk);
     @(posedge clk);
     @(posedge clk); 
-    data_in <= 12'b000011111011; 
    // pop_probador <= 4'b0001;
     @(posedge clk);
     @(posedge clk);  
-    data_in <= 12'b000111110111;    // dest a fifo5
-    pop_probador <= 4'b0001;         
+    data_in <= 12'b001111010111;             
     @(posedge clk);
+    pop_probador <= 4'b0001;
     @(posedge clk);  
     pop_probador <= 0;
-    data_in <= 12'b010111101111;  
+    data_in <= 12'b00111101101;  
     @(posedge clk);
-    @(posedge clk); 
-
-
-    #100 $finish; 
+    repeat(5) @(posedge clk); 
+    pop_probador <= 4'b0010;  // pop a fifo5 almost_full
+    @(posedge clk);
+    pop_probador <= 0;
+    repeat(5) @(posedge clk);
+    pop_probador <= 4'b0100; // pop a fifo6 almost_full 
+    @(posedge clk);
+    pop_probador <= 0;
+    repeat(5) @(posedge clk);
+// HASTA AQUÍ LLEGA EL PUNTO 2 DE LA PRUEBA 
+// (FIFO 7 QUEDA ALMOST FULL PARA LUEGO LLENAR LOS AMARILLOS)
+    #3 $finish; 
 end
 
 endmodule

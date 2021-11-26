@@ -17,7 +17,7 @@ synth2: arbitro2.ys
 
 synth1: arbitro1.ys
 	yosys -s arbitro1.ys
-	sed -i 's/arbitro1/arbitro1_estr/' arbitro1_estr.v
+	sed -i 's/arbitro1/arbitro1_estr/g' arbitro1_estr.v
 	sed -i 's/pop/pop_estr/g' arbitro1_estr.v
 	sed -i 's/push/push_estr/' arbitro1_estr.v
 

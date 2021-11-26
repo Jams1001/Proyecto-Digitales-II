@@ -45,10 +45,11 @@ parameter TAMANO_DATOS = 12)
     wire error_in2; 
     wire [2:0] wr_ptr_in2; 
     wire [2:0] rd_ptr_in2; 
-    reg [TAMANO_DATOS-1:0] data_in2;
     wire [TAMANO_DATOS-1:0] data_out_in2;
     wire write_enable_in2;
     wire read_enable_in2;
+	reg [TAMANO_DATOS-1:0] data_in2;
+	reg [TAMANO_DATOS-1:0] data_tmp;
     
     //  Árbitro 1 y Árbitro 2
     wire [3:0] almost_full_arbitro2;
@@ -270,7 +271,8 @@ fifo fifoin2(/*AUTOINST*/
 	     .read_enable		(!reset),
 	     .data_in			(data_in2));
 
-always @(*) begin			// Mux para seleccionar cual salida va a Fifo_in2
+// MUX PARA SELECCIONAR CUAL SALIDA VA A Fifo_in2
+always @(*) begin			
 	case (pop_arbitro1)
 		4'b0001: begin
 			data_in2 = data_out_0;
@@ -284,8 +286,18 @@ always @(*) begin			// Mux para seleccionar cual salida va a Fifo_in2
 		4'b1000: begin
 			data_in2 = data_out_3;
 		end
-		default: data_in2 = 0;
+		4'b0000: begin
+			data_in2 = data_tmp;
+		end
+		default: begin 
+			data_in2 <= 0;
+		end
 	endcase
+end
+always @(posedge clk) begin
+	if (reset) begin
+		data_tmp <= 0;  // data_tmp: registro auxiliar
+	end else data_tmp <= data_in2; 
 end
 
 arbitro1 arbitro_1(/*AUTOINST*/
