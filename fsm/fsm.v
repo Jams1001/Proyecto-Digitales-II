@@ -32,7 +32,7 @@ module fsm
     
     always @(posedge clk) 
     begin
-        if (reset==0) 
+        if (reset==1) 
         begin
             state <= RESET;
             umbral_L_out<=8'b00000000;
@@ -63,16 +63,15 @@ module fsm
         case(state)
             RESET:
                 begin
-                    if (reset==1) nxt_state = INIT;  
+                    if (reset==0) nxt_state = INIT;  
                     else nxt_state = RESET;
                 end 
 
             INIT: 
                 begin
-
-                    if (init==1) nxt_state = IDLE;
-                    else if (reset==0) nxt_state = RESET;  
-                    else if (reset==1 && init==0)
+                    if (reset==1) nxt_state = RESET; 
+                    else if (init==0) nxt_state = IDLE; 
+                    else if (reset==0 && init==1)
                     begin
                         next_umbral_L_out = umbral_L;
                         next_umbral_H_out = umbral_H;
@@ -83,15 +82,17 @@ module fsm
             IDLE: 
                 begin
                     idle_out = 1;
-                    if (FIFO_empties == 'b11111111) nxt_state = IDLE;
-                    else if (reset==0) nxt_state = RESET;
+                    if (reset==1) nxt_state = RESET;
+                    else if (init==1) nxt_state = INIT;
+                    else if (FIFO_empties == 'b11111111) nxt_state = IDLE;
                     else nxt_state = ACTIVE;
                 end
             ACTIVE: 
             begin         
                     nxt_state = ACTIVE;
                     idle_out = 0;
-                    if (reset==0) nxt_state = RESET;
+                    if (reset==1) nxt_state = RESET;
+                    else if (init==1) nxt_state = INIT;
                     else nxt_state = RESET;
                 end
             default: nxt_state = RESET; 

@@ -39,11 +39,11 @@ memory #(.MEM_WIDTH(12),.MEM_LENGHT(8))
 
 always @(posedge clk) 
 begin
-    if (reset == 0) 
+    if (reset == 1) 
     begin
        wr_ptr <= 0;
        rd_ptr <= 0;
-       contador <= 0;
+       contador <= 0; 
     end
     //reset desactivado
     else

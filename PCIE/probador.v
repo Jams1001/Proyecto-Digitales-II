@@ -2,6 +2,7 @@ module probador
 #(parameter UMBRALES_L_H = 8,
 parameter TAMANO_DATOS = 12)
 (
+    output reg init,
 	output reg push_probador,
 	output reg [3:0] pop_probador,
 	output reg [11:0] data_in,
@@ -23,6 +24,7 @@ initial begin
     push_probador = 0; 
     pop_probador = 0;
     data_in = 0;
+    init <= 0;
     reset = 1;
     clk = 0;
     req = 0;
@@ -38,17 +40,20 @@ initial begin
     @(posedge clk);
     push_probador <= 1;
     reset <= 0;
+    init <= 1;
     @(posedge clk);
     data_in <= 12'b010010100100;
     req <= 1;
+    //init <= 0;
     repeat(2) @(posedge clk);
+    init <= 0;
     data_in <= 12'b010000010101;
     repeat(2) @(posedge clk);
     data_in <= 12'b010010100101;
     repeat(2) @(posedge clk);
     data_in <= 12'b110010001101;
     repeat(2) @(posedge clk);
-    pop_probador <= 4'b1111;
+    //pop_probador <= 4'b1111;
     @(posedge clk);
     data_in <= 12'b010010101011;
     pop_probador <= 4'b1111;
@@ -67,7 +72,7 @@ initial begin
     @(posedge clk)
     idx <= 3'b100;
 
-    repeat(8) @(posedge clk);
+    repeat(20) @(posedge clk);
     $finish; 
 end
 

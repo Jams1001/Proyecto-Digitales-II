@@ -35,7 +35,7 @@ module probador_fsm
 
     $dumpfile("fsm.vcd");
     $dumpvars();
-    reset <= 0;
+    reset <= 1;
     init<=0;
     umbral_L<=8'b00000000;
     umbral_H<=8'b00000000;
@@ -50,18 +50,20 @@ module probador_fsm
     @(posedge clk);
     reset <= 0;
     @(posedge clk);
-    reset <= 1;
+    reset <= 0;
+    init <=1;
     @(posedge clk);
     umbral_L<=8'b00001110;
     umbral_H<=~umbral_L;
     @(posedge clk);
-    init<=1;
+    init <=0;
     umbral_L<=8'b00000001;
     umbral_H<=~umbral_L;
     @(posedge clk);
-    init<=1;
+ 
     @(posedge clk);
     @(posedge clk);
+    init <= 1;
     @(posedge clk);
     empty_fifo_0 <= 0;
     empty_fifo_1 <= 1;

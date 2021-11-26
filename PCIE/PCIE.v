@@ -8,6 +8,7 @@ module PCIE
 #(parameter UMBRALES_L_H = 8,
 parameter TAMANO_DATOS = 12)
 (
+	input init,
 	input push_probador,
 	input [3:0] pop_probador,
 	input [11:0] data_in,
@@ -16,7 +17,7 @@ parameter TAMANO_DATOS = 12)
 	input req,
 	input [2:0] idx,
 	input [UMBRALES_L_H-1:0] umbral_L,
-	input [UMBRALES_L_H-1:0] umbral_H,
+	input [UMBRALES_L_H-1:0] umbral_H,                                                               
 	output [TAMANO_DATOS-1:0] data_out4,
 	output [TAMANO_DATOS-1:0] data_out5,
 	output [TAMANO_DATOS-1:0] data_out6,
@@ -138,6 +139,10 @@ parameter TAMANO_DATOS = 12)
 	wire req;
 	wire IDLE;
 	wire [2:0] idx;
+	wire [UMBRALES_L_H-1:0] next_umbral_L_out;
+	wire [UMBRALES_L_H-1:0] next_umbral_H_out;
+	wire [2:0] state;
+	wire [2:0] nxt_state;
 
 // #### INSTANCIAS ####
 fifo fifoin(/*AUTOINST*/
@@ -292,7 +297,8 @@ arbitro1 arbitro_1(/*AUTOINST*/
 		   .reset		(reset),
 		   .dest		(data_out_in2[9:8]),
 		   .almost_full		(almost_full_arbitro1),
-		   .empty		(empty_arbitro1));		 
+		   .empty		(empty_arbitro1),
+		   .almost_empty (almost_empty_arbitro1));		 
 		   
 
 fifo fifo4(/*AUTOINST*/
@@ -389,11 +395,12 @@ contadores contadores1(/*AUTOINST*/
 
 fsm maquina(/*AUTOINST*/
 	    // Outputs
-	    //.state			(state[2:0]),
-	    //.nxt_state			(nxt_state[2:0]),
+	    .state				(state[2:0]),
+	    .nxt_state			(nxt_state[2:0]),
 	    .umbral_L_out		(umbral_bajo),
 		.umbral_H_out       (umbral_alto),
-	    //.next_umbral_LH_out		(next_umbral_LH_out[UMBRALES_L_H-1:0]),
+	    .next_umbral_L_out		(next_umbral_L_out),
+		.next_umbral_H_out	    (next_umbral_H_out),
 	    .idle_out			(IDLE),
 	    // Inputs
 	    .clk			(clk),
@@ -405,11 +412,11 @@ fsm maquina(/*AUTOINST*/
 	    .empty_fifo_0		(empty_arbitro1[0]),	
 	    .empty_fifo_1		(empty_arbitro1[1]),
 	    .empty_fifo_2		(empty_arbitro1[2]),
-	   .empty_fifo_3		(empty_arbitro1[3]),
+	    .empty_fifo_3		(empty_arbitro1[3]),
 	    .empty_fifo_4		(empty_4),
 	    .empty_fifo_5		(empty_5),
 	    .empty_fifo_6		(empty_6),
-	    .empty_fifo_7		(empty_7));
+	    .empty_fifo_7		(empty_7)); 
 
 
 

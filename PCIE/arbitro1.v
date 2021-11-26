@@ -2,6 +2,7 @@ module arbitro1 (
     input clk, reset,
     input [1:0] dest,
     input [3:0] almost_full, empty,  // probablemente se deba usar almost_empty por retardos
+    input [3:0] almost_empty,
     output reg [3:0] push, pop
 );
 
@@ -29,7 +30,7 @@ always @(posedge clk)begin
             case (i) 
                 // Case prioridad pop P0
                 0:begin  // Pop 4 veces o la cantidad de palabras si son menos de 4
-                    if (peso > 1 && !empty[i]) begin
+                    if (peso > 1 && (!empty[i] || !almost_empty[i])) begin
                         pop <= 4'b0001;
                         peso <= peso-1;
                     end else begin
@@ -55,7 +56,7 @@ always @(posedge clk)begin
                 end
                 // Case prioridad pop P1
                 1:begin  // Pop 3 veces o la cantidad de palabras si son menos de 3
-                    if (peso > 1 && !empty[i]) begin
+                    if (peso > 1 && (!empty[i] || !almost_empty[i])) begin
                         pop <= 4'b0010;
                         peso <= peso-1;
                     end else begin
@@ -81,7 +82,7 @@ always @(posedge clk)begin
                 end
                 // Case prioridad pop P2
                 2:begin  // Pop 2 veces o la cantidad de palabras si son menos de 2
-                    if (peso > 1 && !empty[i]) begin  //  1000, 1001, 1011, 
+                    if (peso > 1 && (!empty[i] || !almost_empty[i])) begin  //  1000, 1001, 1011, 
                         pop <= 4'b0100;
                         peso <= peso-1;
                     end else begin
