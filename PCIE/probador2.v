@@ -82,12 +82,7 @@ initial begin
     repeat(5) @(posedge clk);
     pop_probador <= 4'b0100; // pop a fifo6 almost_full 
     @(posedge clk);
-    pop_probador <= 0;
-    data_in <= 12'b011111100001; 
-    repeat(4) @(posedge clk);
-    data_in <= 12'b101111100001; 
-    repeat(4) @(posedge clk);
-    data_in <= 12'b111111100001; 
+    pop_probador <= 0; 
     // HASTA AQUÍ LLEGA EL PUNTO 3 DE LA PRUEBA 
     // (FIFO 7 QUEDA ALMOST FULL PARA LUEGO LLENAR LOS AMARILLOS)
     data_in <= 12'b011111100001; 
@@ -95,6 +90,11 @@ initial begin
     data_in <= 12'b101111100001; 
     repeat(4) @(posedge clk);
     data_in <= 12'b111111100001;
+    push_probador <= 0;           // Parar de meter datos
+    repeat(4) @(posedge clk);
+    pop_probador <= 4'b1111;      // Comienzan a vaciarse fifos
+    repeat(4) @(posedge clk);
+    pop_probador <= 4'b1000;
     #50 $finish; 
 end
 
