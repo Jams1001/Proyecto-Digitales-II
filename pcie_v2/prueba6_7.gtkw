@@ -1,0 +1,66 @@
+[*]
+[*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
+[*] Sat Nov 27 05:53:01 2021
+[*]
+[dumpfile] "/home/matias/Documents/Digitales/Proyecto_II_Digitales_II/PCIE/resultados.vcd"
+[dumpfile_mtime] "Sat Nov 27 05:48:04 2021"
+[dumpfile_size] 1744505
+[savefile] "/home/matias/Documents/Digitales/Proyecto_II_Digitales_II/PCIE/prueba6_7.gtkw"
+[timestart] 0
+[size] 1000 600
+[pos] -1 -1
+*-5.308872 49 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] testbench.
+[treeopen] testbench.transaction.
+[sst_width] 233
+[signals_width] 175
+[sst_expanded] 1
+[sst_vpaned_height] 144
+@200
+-f4
+@22
+testbench.transaction.fifo4.contador[8:0]
+testbench.transaction.fifo4.data_out[11:0]
+@200
+-f5
+@22
+testbench.transaction.fifo5.contador[8:0]
+@200
+-f6
+@22
+testbench.transaction.fifo6.contador[8:0]
+@200
+-f7
+@22
+testbench.transaction.fifo7.contador[8:0]
+@200
+-f0
+@22
+testbench.transaction.fifo0.data_in[11:0]
+testbench.transaction.fifo0.data_out[11:0]
+testbench.transaction.fifo0.contador[8:0]
+@200
+-f1
+@22
+testbench.transaction.fifo1.contador[8:0]
+testbench.transaction.fifo1.data_out[11:0]
+@200
+-f2
+@22
+testbench.transaction.fifo2.contador[8:0]
+testbench.transaction.fifo2.data_out[11:0]
+@200
+-f3
+@22
+testbench.transaction.fifo3.contador[8:0]
+testbench.transaction.fifo3.data_in[11:0]
+@200
+-contador
+@22
+testbench.transaction.contadores1.cntFF0[4:0]
+testbench.transaction.contadores1.cntFF1[4:0]
+testbench.transaction.contadores1.cntFF2[4:0]
+testbench.transaction.contadores1.cntFF3[4:0]
+testbench.transaction.contadores1.cntFF4[7:0]
+[pattern_trace] 1
+[pattern_trace] 0

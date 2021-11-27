@@ -1,7 +1,7 @@
 `timescale 1ns/1ns
 `include "PCIE.v"
 `include "PCIE_estr.v"
-`include "probador.v"
+//`include "probador2.v"
 `include "probador2.v"
 `include "cmos_cells.v"
 
