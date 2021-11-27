@@ -93,7 +93,7 @@ module fsm
                     idle_out = 0;
                     if (reset==1) nxt_state = RESET;
                     else if (init==1) nxt_state = INIT;
-                    else nxt_state = RESET;
+                    else if (FIFO_empties == 'b11111111) nxt_state = IDLE;
                 end
             default: nxt_state = RESET; 
         endcase    

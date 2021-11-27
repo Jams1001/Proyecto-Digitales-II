@@ -28,7 +28,7 @@ parameter TAMANO_DATOS = 12)
 
 	// #### CABLES ####
     // Cables de Fifo in (Primer fifo amarillo)
-	wire empty_in;
+	//wire empty_in;
     wire full_in; 
     wire almost_full_in; 
     wire almost_empty_in; 
@@ -48,8 +48,10 @@ parameter TAMANO_DATOS = 12)
     wire [TAMANO_DATOS-1:0] data_out_in2;
     wire write_enable_in2;
     wire read_enable_in2;
+	// Regs necesarios
 	reg [TAMANO_DATOS-1:0] data_in2;
 	reg [TAMANO_DATOS-1:0] data_tmp;
+	reg pop_datain2;
     
     //  Árbitro 1 y Árbitro 2
     wire [3:0] almost_full_arbitro2;
@@ -102,7 +104,7 @@ parameter TAMANO_DATOS = 12)
 
 	// Fifo 4
     wire full_4; 
-    wire empty_4;
+    //wire empty_4;
 	wire almost_empty_4; 
     wire error_4; 
     wire [2:0] wr_ptr_4; 
@@ -110,7 +112,7 @@ parameter TAMANO_DATOS = 12)
 
 	// Fifo 5
     wire full_5; 
-    wire empty_5;
+    //wire empty_5;
 	wire almost_empty_5; 
     wire error_5; 
     wire [2:0] wr_ptr_5; 
@@ -118,7 +120,7 @@ parameter TAMANO_DATOS = 12)
 
 	// Fifo 6
     wire full_6; 
-    wire empty_6;
+    //wire empty_6;
 	wire almost_empty_6; 
     wire error_6; 
     wire [2:0] wr_ptr_6; 
@@ -126,15 +128,16 @@ parameter TAMANO_DATOS = 12)
 	
 	// Fifo 7
     wire full_7; 
-    wire empty_7;
+    //wire empty_7;
 	wire almost_empty_7; 
     wire error_7; 
     wire [2:0] wr_ptr_7; 
     wire [2:0] rd_ptr_7; 
 
 	// Contador
-	wire [4:0] data;
+	wire [7:0] data;
 	wire valid;
+	wire [4:0] empty_contador;
 
 	// FSM
 	wire req;
@@ -149,7 +152,7 @@ parameter TAMANO_DATOS = 12)
 fifo fifoin(/*AUTOINST*/
 	    // Outputs
 	    .full			(full_in),
-	    .empty			(empty_in),
+	    .empty			(empty_contador[4]),
 	    .almost_full		(almost_full_in),
 	    .almost_empty		(almost_empty_in),
 	    .error			(error_in),
@@ -244,7 +247,7 @@ fifo fifo3(/*AUTOINST*/
 arbitro2 arbitro_2(/*AUTOINST*/
 		   // Inputs
 		   .clk			(clk),
-		   .empty		(empty_in),
+		   .empty		(empty_contador[4]), // empty de fifoin
 		   .reset		(reset),
            .class       (data_in[11:10]),
            .almost_full (almost_full_arbitro2),
@@ -267,8 +270,8 @@ fifo fifoin2(/*AUTOINST*/
 	     // Inputs
 	     .clk			(clk),
 	     .reset			(reset),
-	     .write_enable		(!reset),  // siempre activados cuando reset bajo
-	     .read_enable		(!reset),
+	     .write_enable		(|pop_arbitro1),  // siempre activados cuando reset bajo
+	     .read_enable		(pop_datain2),   // se activa un flanco despues que we
 	     .data_in			(data_in2));
 
 // MUX PARA SELECCIONAR CUAL SALIDA VA A Fifo_in2
@@ -294,7 +297,11 @@ end
 always @(posedge clk) begin
 	if (reset) begin
 		data_tmp <= 0;  // data_tmp: registro auxiliar
-	end else data_tmp <= data_in2; 
+		pop_datain2 <= 0;
+	end else begin 
+		data_tmp <= data_in2;
+		pop_datain2 <= |pop_arbitro1; 
+	end
 end
 
 arbitro1 arbitro_1(/*AUTOINST*/
@@ -313,7 +320,7 @@ arbitro1 arbitro_1(/*AUTOINST*/
 fifo fifo4(/*AUTOINST*/
 	   // Outputs
 	   .full			(full_4),
-	   .empty			(empty_4),
+	   .empty			(empty_contador[0]),
 	   .almost_full			(almost_full_arbitro1[0]),
 	   .almost_empty		(almost_empty_4),
 	   .error			(error_4),
@@ -332,7 +339,7 @@ fifo fifo4(/*AUTOINST*/
 fifo fifo5(/*AUTOINST*/
 	   // Outputs
 	   .full			(full_5),
-	   .empty			(empty_5),
+	   .empty			(empty_contador[1]),
 	   .almost_full			(almost_full_arbitro1[1]),
 	   .almost_empty		(almost_empty_5),
 	   .error			(error_5),
@@ -351,7 +358,7 @@ fifo fifo5(/*AUTOINST*/
 fifo fifo6(/*AUTOINST*/
 	   // Outputs
 	   .full			(full_6),
-	   .empty			(empty_6),
+	   .empty			(empty_contador[2]),
 	   .almost_full			(almost_full_arbitro1[2]),
 	   .almost_empty		(almost_empty_6),
 	   .error			(error_6),
@@ -370,7 +377,7 @@ fifo fifo6(/*AUTOINST*/
 fifo fifo7(/*AUTOINST*/
 	   // Outputs
 	   .full			(full_7),
-	   .empty			(empty_7),
+	   .empty			(empty_contador[3]),
 	   .almost_full			(almost_full_arbitro1[3]),
 	   .almost_empty		(almost_empty_7),
 	   .error			(error_7),
@@ -388,7 +395,7 @@ fifo fifo7(/*AUTOINST*/
 
 contadores contadores1(/*AUTOINST*/
 		     // Outputs
-		     .data		(data[4:0]),
+		     .data		(data[7:0]),
 		     .valid		(valid),
 		     // Inputs
 		     .CLK		(clk),
@@ -400,7 +407,8 @@ contadores contadores1(/*AUTOINST*/
 		     .req		(req),
 		     .IDLE		(IDLE),
 		     .idx		(idx[2:0]),
-		     .reset		(reset));
+		     .reset		(reset),
+			 .empty		(empty_contador[4:0]));
 
 fsm maquina(/*AUTOINST*/
 	    // Outputs
@@ -422,10 +430,10 @@ fsm maquina(/*AUTOINST*/
 	    .empty_fifo_1		(empty_arbitro1[1]),
 	    .empty_fifo_2		(empty_arbitro1[2]),
 	    .empty_fifo_3		(empty_arbitro1[3]),
-	    .empty_fifo_4		(empty_4),
-	    .empty_fifo_5		(empty_5),
-	    .empty_fifo_6		(empty_6),
-	    .empty_fifo_7		(empty_7)); 
+	    .empty_fifo_4		(empty_contador[0]),
+	    .empty_fifo_5		(empty_contador[1]),
+	    .empty_fifo_6		(empty_contador[2]),
+	    .empty_fifo_7		(empty_contador[3])); 
 
 
 

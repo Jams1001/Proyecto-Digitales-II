@@ -35,8 +35,8 @@ initial begin
 	$dumpfile("resultados.vcd");
 	$dumpvars;
     @(posedge clk);
-    // para cuando este datain llegue a fifoin2 (que manda dest), ya f4 almost_full
-    data_in <= 12'b000111111011;  
+    // Destino a fifo4
+    data_in <= 12'b000011111011;  
     reset <= 0;
     init <= 1;
     req <= 1;
@@ -45,23 +45,25 @@ initial begin
     umbral_L <= 0;
     //@(posedge clk);
     @(posedge clk);
-    data_in <= 12'b000111111110; 
+    data_in <= 12'b000011111110; 
     umbral_H <= 5;                  //Necesarios 5 push para almost full
     umbral_L <= 1;                  //Necesarios 1 pops para almost empty
     @(posedge clk);
-    init <= 0;  
+    init <= 0;
+    idx = 3'b100;  
     @(posedge clk);
     @(posedge clk); 
-    data_in <= 12'b000111111110;  
+    data_in <= 12'b000011111110;  
     @(posedge clk);
-    // Para cuando siguiente datain llegue a ser dest, f5 almost_full
-    data_in <= 12'b001011110110;    
+    // f4 ya almost_full, dest a f5
+    data_in <= 12'b000111110110;    
     @(posedge clk);  
     @(posedge clk);
-    data_in <= 12'b001011111101;
+    data_in <= 12'b000111111101;
     @(posedge clk);  
     @(posedge clk);
-    data_in <= 12'b001110111011; 
+    @(posedge clk);
+    data_in <= 12'b001010111011; 
     @(posedge clk);
     @(posedge clk);
     @(posedge clk); 
@@ -82,11 +84,12 @@ initial begin
     repeat(5) @(posedge clk);
     pop_probador <= 4'b0100; // pop a fifo6 almost_full 
     @(posedge clk);
-    pop_probador <= 0; 
     // HASTA AQUÍ LLEGA EL PUNTO 3 DE LA PRUEBA 
     // (FIFO 7 QUEDA ALMOST FULL PARA LUEGO LLENAR LOS AMARILLOS)
-    data_in <= 12'b011111100001; 
-    repeat(4) @(posedge clk);
+    data_in <= 12'b011111100001;
+    @(posedge clk);
+    pop_probador <= 0; 
+    repeat(3) @(posedge clk);
     data_in <= 12'b101111100001; 
     repeat(4) @(posedge clk);
     data_in <= 12'b111111100001;
