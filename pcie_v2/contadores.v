@@ -50,7 +50,7 @@ module contadores(
                 data = cntFF4;
             end
             else begin
-                data = 5'bx;
+                data = 5'b0;
             end
         end
     end

@@ -3,6 +3,7 @@ module arbitro1 (
     input [1:0] dest,
     input [3:0] almost_full, empty,  // probablemente se deba usar almost_empty por retardos
     input [3:0] almost_empty,
+    input empty_fifoin2,
     output reg [3:0] push, pop,
     output reg valid
 );
@@ -21,6 +22,18 @@ always @(*) begin
     empty_almost[1] = (empty[1] || almost_empty[1]);
     empty_almost[2] = (empty[2] || almost_empty[2]);
     empty_almost[3] = (empty[3] || almost_empty[3]);
+
+    // case para push
+    if (!empty_fifoin2)
+        begin
+            case (dest)
+            0: push <= 4'b0001;
+            1: push <= 4'b0010; 
+            2: push <= 4'b0100;
+            3: push <= 4'b1000;
+            default: push <= 4'b0000;
+            endcase
+            end else push <= 0;
 end
 
 integer i = 0;
@@ -32,12 +45,11 @@ always @(posedge clk)begin
     end
     
     else begin
-        if (|pop) valid <= 1;
+        if (|pop) valid <= 1;   
         else valid <= 0;
         // No pop ni push si todos los transmisores empty o un receptor almost_full
         if (&empty || |almost_full) begin   
             pop <= 0;
-            push <= 0;
             i <= 0;
         end else begin
             case (i) 
@@ -156,16 +168,19 @@ always @(posedge clk)begin
                 end 
                 default: pop <= 4'b0000; 
             endcase
-            
-            // case para push
-            case (dest)
+        end
+        
+        // case para push
+            /*if (!empty_fifoin2)
+            begin
+                case (dest)
                 0: push <= 4'b0001;
                 1: push <= 4'b0010; 
                 2: push <= 4'b0100;
                 3: push <= 4'b1000;
                 default: push <= 4'b0000;
             endcase
-        end
+            end else push <= 0;*/
     end  
 end
 endmodule

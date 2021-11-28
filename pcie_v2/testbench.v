@@ -1,9 +1,6 @@
 `timescale 1ns/1ns
-//`include "PCIE.v"
 `include "PCIE.v"
 `include "PCIE_estr.v"
-//`include "probador.v"
-//`include "probador2.v"
 `include "probador3.v"
 `include "cmos_cells.v"
 
@@ -75,7 +72,5 @@ probador3 probador_INST(/*AUTOINST*/
 		       .data_out5	(data_out5[TAMANO_DATOS-1:0]),
 		       .data_out6	(data_out6[TAMANO_DATOS-1:0]),
 		       .data_out7	(data_out7[TAMANO_DATOS-1:0]));
-
-
 
 endmodule

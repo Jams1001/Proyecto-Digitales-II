@@ -72,9 +72,8 @@ initial begin
     @(posedge clk)
     data_in <= 12'b101011111000;
 
-   
     
-    @(posedge clk)  // f7
+    @(posedge clk)  // Class a F3 con destino a F7
     data_in <= 12'b111111111111;
     @(posedge clk)
     data_in <= 12'b111111111110;
@@ -95,18 +94,6 @@ initial begin
     repeat(4) @(posedge clk);
     pop_probador <= 0;
 
-
-    /*@(posedge clk);
-    pop_probador = 4'b0001;
-    repeat(3) @(posedge clk);
-    push_probador = 0;
-    @(posedge clk)
-    pop_probador = 4'b0000;
-    repeat(3) @(posedge clk);
-    pop_probador = 4'b0010;
-    repeat(4) @(posedge clk);
-    pop_probador = 4'b0000;*/
-    
     #50 $finish; 
 end
 
