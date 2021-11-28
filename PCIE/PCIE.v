@@ -21,7 +21,9 @@ parameter TAMANO_DATOS = 12)
 	output [TAMANO_DATOS-1:0] data_out4,
 	output [TAMANO_DATOS-1:0] data_out5,
 	output [TAMANO_DATOS-1:0] data_out6,
-	output [TAMANO_DATOS-1:0] data_out7
+	output [TAMANO_DATOS-1:0] data_out7,
+	output [7:0] data,
+	output valid
 ); 
 
     //parameter TAMANO_DIRECCION = 8;
@@ -48,11 +50,19 @@ parameter TAMANO_DATOS = 12)
     wire [TAMANO_DATOS-1:0] data_out_in2;
     wire write_enable_in2;
     wire read_enable_in2;
+
 	// Regs necesarios
 	reg [TAMANO_DATOS-1:0] data_in2;
 	reg [TAMANO_DATOS-1:0] data_tmp;
 	reg pop_datain2;
-    
+	reg [3:0] pop_delay;
+    reg empty_in_delay;  //  delay (dos ciclos) para el empty de fifoin
+	reg empty_in_delay_tmp;
+	reg empty_in2_delay; //  delay para el empty de fifoin2
+	reg pop_arbitro2_delay;
+	reg [1:0] class;
+	reg empty_in2_arb1;
+
     //  Árbitro 1 y Árbitro 2
     wire [3:0] almost_full_arbitro2;
 	wire pop_arbitro2;
@@ -62,6 +72,7 @@ parameter TAMANO_DATOS = 12)
 	wire [3:0] almost_empty_arbitro1;  // Conectado a almost_empty de los fifos
 	wire [3:0] almost_full_arbitro1;
 	wire [3:0] empty_arbitro1;
+	wire valid_arbitro1;
 
 	// Umbrales
 	wire [7:0] umbral_alto;
@@ -135,8 +146,8 @@ parameter TAMANO_DATOS = 12)
     wire [2:0] rd_ptr_7; 
 
 	// Contador
-	wire [7:0] data;
-	wire valid;
+	//wire [7:0] data;
+	//wire valid;
 	wire [4:0] empty_contador;
 
 	// FSM
@@ -244,12 +255,16 @@ fifo fifo3(/*AUTOINST*/
 	   .read_enable			(pop_arbitro1[3]),
 	   .data_in			(data_out_in));
 
+
+//reg salidafifoin
+//salidafifoin = data_out_in si ya hay datos
+//else salidafifoin = 0
 arbitro2 arbitro_2(/*AUTOINST*/
 		   // Inputs
-		   .clk			(clk),
 		   .empty		(empty_contador[4]), // empty de fifoin
+		   .empty_in_delay       (empty_in_delay),
 		   .reset		(reset),
-           .class       (data_in[11:10]),
+           .class       (class),
            .almost_full (almost_full_arbitro2),
            // Outputs
            .pop         (pop_arbitro2),
@@ -269,14 +284,19 @@ fifo fifoin2(/*AUTOINST*/
 		.data_out			(data_out_in2),
 	     // Inputs
 	     .clk			(clk),
-	     .reset			(reset),
-	     .write_enable		(|pop_arbitro1),  // siempre activados cuando reset bajo
-	     .read_enable		(pop_datain2),   // se activa un flanco despues que we
+	     .reset			(reset), 
+	     .write_enable		(valid_arbitro1),  // cuando arb1 ya paso datos
+	     .read_enable		(pop_datain2),   // se activa un flanco despues que valid
 	     .data_in			(data_in2));
 
 // MUX PARA SELECCIONAR CUAL SALIDA VA A Fifo_in2
-always @(*) begin			
-	case (pop_arbitro1)
+always @(*) begin	
+	if (pop_arbitro2_delay) class <= data_out_in[9:8];
+	else class <= 0;		
+	if (reset) empty_in2_arb1 <= 1;  // que no empiece con XXX
+	else empty_in2_arb1 <= empty_in2_delay;
+
+	case (pop_delay)
 		4'b0001: begin
 			data_in2 = data_out_0;
 		end
@@ -290,7 +310,7 @@ always @(*) begin
 			data_in2 = data_out_3;
 		end
 		default: begin 
-			data_in2 <= data_tmp;;
+			data_in2 <= data_tmp;
 		end
 	endcase
 end
@@ -298,9 +318,19 @@ always @(posedge clk) begin
 	if (reset) begin
 		data_tmp <= 0;  // data_tmp: registro auxiliar
 		pop_datain2 <= 0;
+		pop_delay <= 0;
+		empty_in_delay <= 1;
+		empty_in2_delay <= 1;
+		pop_arbitro2_delay <= 0;
+                                               
 	end else begin 
 		data_tmp <= data_in2;
-		pop_datain2 <= |pop_arbitro1; 
+		// Para considerar retardos de flujo de datos
+		pop_datain2 <= valid_arbitro1; // Delay para el re respecto a we de Fin2
+		pop_delay <= pop_arbitro1;    // Delay de salidas de F0-3 a Fin2
+		empty_in_delay <= empty_contador[4];   // Delay a empty para que se pase la última palabra
+		empty_in2_delay <= empty_in2;
+		pop_arbitro2_delay <= pop_arbitro2;
 	end
 end
 
@@ -308,13 +338,15 @@ arbitro1 arbitro_1(/*AUTOINST*/
 		   // Outputs
 		   .push		(push_arbitro1),
 		   .pop			(pop_arbitro1),
+		   .valid			(valid_arbitro1),
 		   // Inputs
 		   .clk			(clk),
 		   .reset		(reset),
 		   .dest		(data_out_in2[9:8]),
 		   .almost_full		(almost_full_arbitro1),
 		   .empty		(empty_arbitro1),
-		   .almost_empty (almost_empty_arbitro1));		 
+		   .almost_empty (almost_empty_arbitro1),
+		   .empty_fifoin2 (empty_in2_arb1));		 
 		   
 
 fifo fifo4(/*AUTOINST*/

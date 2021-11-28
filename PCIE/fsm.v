@@ -37,19 +37,17 @@ module fsm
             state <= RESET;
             umbral_L_out<=8'b00000000;
             umbral_H_out<=8'b00000000;
-            idle_out <= 0;
         end
         else 
         begin
             state <= nxt_state;
             umbral_L_out <= next_umbral_L_out;
             umbral_H_out <= next_umbral_H_out;
-            //idle_out <= next_idle;
         end
     end
     always @(*) begin
+        idle_out = 0;
         nxt_state = state;
-      //  next_idle = idle_out;
         next_umbral_L_out = umbral_L_out;
         next_umbral_H_out = umbral_H_out;
         FIFO_empties[0] = empty_fifo_0; 

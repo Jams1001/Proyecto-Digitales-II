@@ -1,0 +1,63 @@
+[*]
+[*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
+[*] Sun Nov 28 11:00:42 2021
+[*]
+[dumpfile] "/home/matias/Documents/Digitales/Proyecto_II_Digitales_II/PCIE/resultados.vcd"
+[dumpfile_mtime] "Sun Nov 28 10:47:59 2021"
+[dumpfile_size] 1804529
+[savefile] "/home/matias/Documents/Digitales/Proyecto_II_Digitales_II/PCIE/prueba6_7.gtkw"
+[timestart] 0
+[size] 1294 704
+[pos] -39 -39
+*-4.769973 111 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] testbench.
+[sst_width] 233
+[signals_width] 190
+[sst_expanded] 1
+[sst_vpaned_height] 180
+@200
+-f4
+@28
+testbench.data_out4_estr[11:0]
+testbench.transaction_estr.fifo_estr4.memory_fifo_estr.\mem[0][11:0]
+testbench.transaction_estr.fifo_estr4.memory_fifo_estr.\mem[1][11:0]
+testbench.transaction_estr.fifo_estr4.memory_fifo_estr.\mem[2][11:0]
+testbench.transaction_estr.fifo_estr4.memory_fifo_estr.\mem[3][11:0]
+@200
+-f5
+@28
+testbench.data_out5_estr[11:0]
+testbench.transaction_estr.fifo_estr5.memory_fifo_estr.\mem[0][11:0]
+testbench.transaction_estr.fifo_estr5.memory_fifo_estr.\mem[1][11:0]
+testbench.transaction_estr.fifo_estr5.memory_fifo_estr.\mem[2][11:0]
+testbench.transaction_estr.fifo_estr5.memory_fifo_estr.\mem[3][11:0]
+@200
+-f6
+@28
+testbench.data_out6_estr[11:0]
+testbench.transaction_estr.fifo_estr6.memory_fifo_estr.\mem[0][11:0]
+testbench.transaction_estr.fifo_estr6.memory_fifo_estr.\mem[1][11:0]
+@800028
+testbench.transaction_estr.fifo_estr6.memory_fifo_estr.\mem[2][11:0]
+@1001208
+-group_end
+@28
+testbench.transaction_estr.fifo_estr6.memory_fifo_estr.\mem[3][11:0]
+@200
+-f7
+@28
+testbench.data_out7_estr[11:0]
+testbench.transaction_estr.fifo_estr7.memory_fifo_estr.\mem[0][11:0]
+testbench.transaction_estr.fifo_estr7.memory_fifo_estr.\mem[1][11:0]
+testbench.transaction_estr.fifo_estr7.memory_fifo_estr.\mem[2][11:0]
+testbench.transaction_estr.fifo_estr7.memory_fifo_estr.\mem[3][11:0]
+testbench.transaction_estr.contadores_estr1.IDLE
+@22
+testbench.transaction_estr.contadores_estr1._000_[4:0]
+testbench.transaction_estr.contadores_estr1._001_[4:0]
+testbench.transaction_estr.contadores_estr1._002_[4:0]
+testbench.transaction_estr.contadores_estr1._003_[4:0]
+@25
+testbench.transaction_estr.contadores_estr1.data[7:0]
+[pattern_trace] 1
+[pattern_trace] 0
