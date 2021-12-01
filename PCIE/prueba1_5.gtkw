@@ -1,0 +1,94 @@
+[*]
+[*] GTKWave Analyzer v3.3.103 (w)1999-2019 BSI
+[*] Wed Dec  1 08:08:30 2021
+[*]
+[dumpfile] "/home/matias/Documents/Digitales/Proyecto_II_Digitales_II/PCIE/pruebas1_5.vcd"
+[dumpfile_mtime] "Wed Dec  1 07:53:05 2021"
+[dumpfile_size] 2029438
+[savefile] "/home/matias/Documents/Digitales/Proyecto_II_Digitales_II/PCIE/prueba1_5.gtkw"
+[timestart] 0
+[size] 1294 704
+[pos] -89 -89
+*-5.257238 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1 -1
+[treeopen] testbench.
+[treeopen] testbench.transaction.
+[sst_width] 233
+[signals_width] 190
+[sst_expanded] 1
+[sst_vpaned_height] 180
+@28
+testbench.clk
+@22
+testbench.data_in[11:0]
+testbench.umbral_H[7:0]
+testbench.umbral_L[7:0]
+@200
+-Fifo 4 (salida)
+@22
+testbench.transaction.fifo4.data_out[11:0]
+testbench.data_out4_estr[11:0]
+@28
+testbench.transaction.fifo4.almost_full
+@22
+testbench.transaction.fifo4.contador[8:0]
+@200
+-Fifo 5 (salida)
+@22
+testbench.transaction.fifo5.data_out[11:0]
+testbench.data_out5_estr[11:0]
+@28
+testbench.transaction.fifo5.almost_full
+@22
+testbench.transaction.fifo5.contador[8:0]
+@200
+-Fifo 6 (salida)
+@22
+testbench.transaction.fifo6.data_out[11:0]
+testbench.data_out6_estr[11:0]
+@28
+testbench.transaction.fifo6.almost_full
+@22
+testbench.transaction.fifo6.contador[8:0]
+@200
+-Fifo 7 (salida)
+@22
+testbench.transaction.fifo7.data_out[11:0]
+@23
+testbench.data_out7_estr[11:0]
+@28
+testbench.transaction.fifo7.almost_full
+@22
+testbench.transaction.fifo7.contador[8:0]
+@200
+-Fifo 0 (entrada)
+@22
+testbench.transaction.fifo0.data_out[11:0]
+testbench.transaction.fifo0.contador[8:0]
+@200
+-Fifo 1 (entrada)
+@22
+testbench.transaction.fifo1.data_out[11:0]
+testbench.transaction.fifo1.contador[8:0]
+@200
+-Fifo 2 (entrada)
+@22
+testbench.transaction.fifo2.data_out[11:0]
+testbench.transaction.fifo2.contador[8:0]
+@200
+-Fifo 3 (entrada)
+@22
+testbench.transaction.fifo3.data_out[11:0]
+testbench.transaction.fifo3.contador[8:0]
+@200
+-Resultado contador
+@28
+testbench.transaction.contadores1.IDLE
+@22
+testbench.transaction.contadores1.cntFF0[4:0]
+testbench.transaction.contadores1.cntFF1[4:0]
+testbench.transaction.contadores1.cntFF2[4:0]
+@24
+testbench.transaction.contadores1.cntFF3[4:0]
+testbench.transaction.contadores1.data[7:0]
+[pattern_trace] 1
+[pattern_trace] 0

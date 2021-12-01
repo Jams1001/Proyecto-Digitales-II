@@ -16,7 +16,12 @@ synth: pcie.ys
 PCIE: testbench.v
 	iverilog -o salida.o testbench.v
 	vvp salida.o
-	gtkwave resultados.vcd
+	gtkwave pruebas6_7.vcd
+
+PCIE_1_5: testbench.v
+	iverilog -o salida.o testbench.v
+	vvp salida.o
+	gtkwave pruebas1_5.vcd
 
 a:	
 	emacs --batch  testbench.v -f verilog-batch-auto

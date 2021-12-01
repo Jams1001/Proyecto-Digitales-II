@@ -256,11 +256,9 @@ fifo fifo3(/*AUTOINST*/
 	   .data_in			(data_out_in));
 
 
-//reg salidafifoin
-//salidafifoin = data_out_in si ya hay datos
-//else salidafifoin = 0
 arbitro2 arbitro_2(/*AUTOINST*/
 		   // Inputs
+		   .clk			(clk),
 		   .empty		(empty_contador[4]), // empty de fifoin
 		   .empty_in_delay       (empty_in_delay),
 		   .reset		(reset),
@@ -289,13 +287,13 @@ fifo fifoin2(/*AUTOINST*/
 	     .read_enable		(pop_datain2),   // se activa un flanco despues que valid
 	     .data_in			(data_in2));
 
-// MUX PARA SELECCIONAR CUAL SALIDA VA A Fifo_in2
 always @(*) begin	
-	if (pop_arbitro2_delay) class <= data_out_in[9:8];
+	if (pop_arbitro2_delay) class <= data_out_in[11:10];
 	else class <= 0;		
 	if (reset) empty_in2_arb1 <= 1;  // que no empiece con XXX
 	else empty_in2_arb1 <= empty_in2_delay;
 
+	// MUX PARA SELECCIONAR CUAL SALIDA VA A Fifo_in2
 	case (pop_delay)
 		4'b0001: begin
 			data_in2 = data_out_0;

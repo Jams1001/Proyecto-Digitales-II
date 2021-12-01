@@ -1,7 +1,8 @@
 `timescale 1ns/1ns
 `include "PCIE.v"
 `include "PCIE_estr.v"
-`include "probador.v"
+`include "probador6_7.v"
+//`include "probador1_5.v"
 `include "cmos_cells.v"
 
 module testbench();
@@ -55,7 +56,7 @@ PCIE_estr transaction_estr(/*AUTOINST*/
 		 .umbral_L		(umbral_L[UMBRALES_L_H-1:0]),
 		 .umbral_H	    (umbral_H[UMBRALES_L_H-1:0]));
 
-probador probador_INST(/*AUTOINST*/
+probador6_7 probador_INST(/*AUTOINST*/
 		       // Outputs
 		       .push_probador	(push_probador),
 		       .pop_probador	(pop_probador[3:0]),
@@ -72,5 +73,23 @@ probador probador_INST(/*AUTOINST*/
 		       .data_out5	(data_out5[TAMANO_DATOS-1:0]),
 		       .data_out6	(data_out6[TAMANO_DATOS-1:0]),
 		       .data_out7	(data_out7[TAMANO_DATOS-1:0]));
+
+//probador1_5 probador_INST(/*AUTOINST*/
+		       // Outputs
+/*		       .push_probador	(push_probador),
+		       .pop_probador	(pop_probador[3:0]),
+		       .data_in		(data_in[11:0]),
+		       .reset		(reset),
+		       .clk		(clk),
+		       .req		(req),
+		       .idx		(idx[2:0]),
+			   .init    (init),
+		       // Inputs
+		       .umbral_L	(umbral_L[UMBRALES_L_H-1:0]),
+			   .umbral_H	(umbral_H[UMBRALES_L_H-1:0]),
+		       .data_out4	(data_out4[TAMANO_DATOS-1:0]),
+		       .data_out5	(data_out5[TAMANO_DATOS-1:0]),
+		       .data_out6	(data_out6[TAMANO_DATOS-1:0]),
+		       .data_out7	(data_out7[TAMANO_DATOS-1:0]));*/
 
 endmodule

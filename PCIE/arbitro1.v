@@ -41,7 +41,7 @@ integer i = 0;
 always @(posedge clk)begin
     if (reset) begin
         pop <= 0; //push <= 0;
-        i <= 0; peso <= WEIGHT_P0;
+        i <= 0; peso <= 0;
         valid <= 0;
     end
     
@@ -51,7 +51,7 @@ always @(posedge clk)begin
         // No pop ni push si todos los transmisores empty o un receptor almost_full
         if (&empty || |almost_full) begin   
             pop <= 0;
-            i <= 0;
+            i <= 0; peso <= 0;
         end else begin
             case (i) 
                 // Case prioridad pop P0
@@ -60,7 +60,6 @@ always @(posedge clk)begin
                         pop <= 4'b0001;
                         peso <= peso-1;
                     end else begin
-
                         // Pasar a siguiente fifo 
                         if (empty[i+1]) begin 
                             case (empty)
@@ -69,16 +68,21 @@ always @(posedge clk)begin
                                     peso <= WEIGHT_P3;
                                     pop <= 4'b1000;
                                 end
-                                4'b1110: peso <= WEIGHT_P0;
+                                4'b1110: begin //agregar a todos
+                                    if (almost_empty) begin
+                                        if (pop[0]) pop <= 0;  // resto de fifos vacíos y este por vaciarse
+                                        else peso <= WEIGHT_P0;  // comienzan los pops
+                                    end else peso <= WEIGHT_P0-1;  // no está por vaciarse
+                                end
                                 default: begin
                                     i <= 2;
-                                    peso <= WEIGHT_P2;
+                                    peso <= WEIGHT_P2-1;
                                     pop <= 4'b0100;
                                 end
                             endcase  
                         end else begin
                             i++;
-                            peso <= WEIGHT_P1;
+                            peso <= WEIGHT_P1-1;
                             pop <= 4'b0010;
                         end 
                     end
@@ -94,10 +98,13 @@ always @(posedge clk)begin
                             case (empty)
                                 4'b1100: begin
                                     i <= 0;
-                                    peso <= WEIGHT_P0;
+                                    peso <= WEIGHT_P0-1;
                                     pop <= 4'b0001;
                                 end
-                                4'b1101: peso <= WEIGHT_P1;
+                                4'b1101: begin
+                                    if (!almost_empty) peso <= WEIGHT_P1-1;  // el resto de fifos vacíos
+                                else pop <= 0;  // resto de fifos vacíos y este por vaciarse
+                                end //peso <= WEIGHT_P1-1;
                                 default: begin      // siguiente fifo está vacío
                                     i <= 3;
                                     peso <= WEIGHT_P3;
@@ -106,7 +113,7 @@ always @(posedge clk)begin
                             endcase  
                         end else begin
                             i++;
-                            peso <= WEIGHT_P2;
+                            peso <= WEIGHT_P2-1;
                             pop <= 4'b0100;
                         end 
                     end                 
@@ -123,13 +130,17 @@ always @(posedge clk)begin
                             case (empty)
                                 4'b1001: begin
                                     i <= 1;
-                                    peso <= WEIGHT_P1;
+                                    peso <= WEIGHT_P1-1;
                                     pop <= 4'b0010;
                                 end
-                                4'b1011: peso <= WEIGHT_P2;
+                                4'b1011: begin
+                                    if (!almost_empty) peso <= WEIGHT_P2-1;  // el resto de fifos vacíos
+                                else pop <= 0;  // resto de fifos vacíos y este por vaciarse
+                                end
+                                 //peso <= WEIGHT_P2-1;
                                 default: begin
                                     i <= 0;
-                                    peso <= WEIGHT_P0;
+                                    peso <= WEIGHT_P0-1;
                                     pop <= 4'b0001;
                                 end
                             endcase  
@@ -147,7 +158,7 @@ always @(posedge clk)begin
                         case (empty)
                             4'b0011: begin         // próximos dos fifos vacíos
                                 i <= 2;
-                                peso <= WEIGHT_P2;
+                                peso <= WEIGHT_P2-1;
                                 pop <= 4'b0100;
                             end
                             4'b0111: begin
@@ -157,13 +168,13 @@ always @(posedge clk)begin
                             4'b1111: pop <= 0;
                             default: begin          
                                 i <= 1;
-                                peso <= WEIGHT_P1;
+                                peso <= WEIGHT_P1-1;
                                 pop <= 4'b0010;
                             end
                         endcase  
                     end else begin
                         i <= 0;                    // siguiente fifo no está vacío
-                        peso <= WEIGHT_P0;
+                        peso <= WEIGHT_P0-1;
                         pop <= 4'b0001;
                     end      
                 end 
